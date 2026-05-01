@@ -1,0 +1,446 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <title>Kombinle Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px 28px;
+            background: #f6f7f9;
+            color: #222;
+        }
+
+        .page {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            margin: 0 0 16px 0;
+            font-size: 28px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 14px;
+            align-items: end;
+            flex-wrap: wrap;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 14px;
+            margin-bottom: 14px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        select, button {
+            padding: 7px 10px;
+            font-size: 14px;
+        }
+
+        button {
+            cursor: pointer;
+            height: 35px;
+            font-weight: 600;
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: 16px;
+            align-items: start;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 14px 16px;
+            margin-bottom: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .main-card h2 {
+            margin-top: 0;
+            font-size: 22px;
+        }
+
+        .card h3 {
+            margin-top: 0;
+            font-size: 18px;
+        }
+
+        .card h4 {
+            margin-top: 0;
+            font-size: 15px;
+        }
+
+        .summary {
+            font-size: 18px;
+            font-weight: 700;
+            margin: 10px 0;
+        }
+
+        .mini-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .mini-card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 12px;
+            min-height: 120px;
+        }
+
+            .mini-card h3 {
+                margin-top: 0;
+                font-size: 15px;
+            }
+
+        ul {
+            margin: 6px 0 0 18px;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 4px;
+        }
+
+        .alternatives {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        .alt-card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 13px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .alt-title {
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .alt-short {
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .warning {
+            background: #fff7e6;
+            border: 1px solid #ffd27f;
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 12px;
+        }
+
+        details {
+            margin-top: 14px;
+        }
+
+        pre {
+            background: #111;
+            color: #eee;
+            padding: 12px;
+            overflow-x: auto;
+            border-radius: 8px;
+            font-size: 12px;
+        }
+
+        @media (max-width: 900px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+
+            .mini-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page">
+        <h1>Kombinle Demo</h1>
+
+        <div class="controls">
+            <div class="field">
+                <label>Occasion / Amaç</label>
+                <select id="occasion">
+                    <option value="casual_weekend">Casual Weekend / Günlük Hafta Sonu</option>
+                    <option value="smart_casual_dinner">Smart Casual Dinner / Şık Günlük Akşam</option>
+                    <option value="business_meeting_formal">Business Meeting / İş Toplantısı</option>
+                    <option value="wedding_formal_flexible">Wedding Flexible / Düğün</option>
+                    <option value="interview_formal">Interview Formal / İş Görüşmesi</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label>Wardrobe / Dolap</label>
+                <select id="wardrobe">
+                    <option value="female_basic_v1">Kadın Basic</option>
+                    <option value="female_balanced_v1">Kadın Balanced</option>
+                    <option value="male_basic_v1">Erkek Basic</option>
+                    <option value="male_balanced_v1">Erkek Balanced</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label>Weather / Hava</label>
+                <select id="weather">
+                    <option value="Clear">Clear / Açık</option>
+                    <option value="Rain">Rain / Yağmur</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label>Setting / Ortam</label>
+                <select id="setting">
+                    <option value="Indoor">Indoor / İç Mekan</option>
+                    <option value="Outdoor">Outdoor / Dış Mekan</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label>Time / Zaman</label>
+                <select id="time">
+                    <option value="Day">Day / Gündüz</option>
+                    <option value="Night">Night / Gece</option>
+                </select>
+            </div>
+
+            <button onclick="getDecision()">Kombin Öner</button>
+        </div>
+
+        <div id="result"></div>
+
+        <details>
+            <summary>Debug JSON</summary>
+            <pre id="debugJson"></pre>
+        </details>
+    </div>
+
+    <script>
+        
+
+        function displayGarmentName(value) {
+            return garmentNameMap[value] || value;
+        }
+        async function getDecision() {
+
+            const req = {
+                occasionId: document.getElementById("occasion").value,
+                wardrobeProfileId: document.getElementById("wardrobe").value,
+                items: [],
+                context: {
+                    weather: document.getElementById("weather").value,
+                    setting: document.getElementById("setting").value,
+                    timeOfDay: document.getElementById("time").value
+                }
+            };
+
+            const res = await fetch("/api/v1/decision", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(req)
+            });
+
+            const data = await res.json();
+
+            renderResult(data);
+            document.getElementById("debugJson").textContent =
+                JSON.stringify(data, null, 2);
+        }
+
+        const categoryTrMap = {
+            Blouse: "Bluz",
+            Shirt: "Gömlek",
+            TShirt: "Tişört",
+            Sweater: "Kazak",
+            Hoodie: "Kapüşonlu Üst",
+            Pants: "Pantolon",
+            Jeans: "Jean",
+            Skirt: "Etek",
+            Dress: "Elbise",
+            Shoes: "Ayakkabı",
+            Sneakers: "Spor Ayakkabı",
+            Boots: "Bot",
+            Jacket: "Ceket",
+            Blazer: "Blazer Ceket",
+            Coat: "Kaban",
+            Cardigan: "Hırka"
+        };
+
+        const colorTrMap = {
+            White: "Beyaz",
+            Black: "Siyah",
+            Navy: "Lacivert",
+            Grey: "Gri",
+            Beige: "Bej",
+            Brown: "Kahverengi",
+            Blue: "Mavi",
+            Red: "Kırmızı",
+            Green: "Yeşil"
+        };
+
+        function itemText(item) {
+            const color = colorTrMap[item.colorFamily] || item.colorFamily;
+            const category = categoryTrMap[item.category] || item.category;
+
+            return `${color} ${category}`;
+        }
+
+        function translateOutfitText(text) {
+            if (!text) return "";
+
+            const map = {
+                Grey: "Gri",
+                Gray: "Gri",
+                White: "Beyaz",
+                Black: "Siyah",
+                Navy: "Lacivert",
+                Beige: "Bej",
+                Brown: "Kahverengi",
+                Blue: "Mavi",
+                Red: "Kırmızı",
+                Green: "Yeşil",
+
+                Blouse: "Bluz",
+                Shirt: "Gömlek",
+                TShirt: "Tişört",
+                Sweater: "Kazak",
+                Hoodie: "Kapüşonlu Üst",
+                Pants: "Pantolon",
+                Jeans: "Jean",
+                Skirt: "Etek",
+                Dress: "Elbise",
+                Shoes: "Ayakkabı",
+                Sneakers: "Spor Ayakkabı",
+                Boots: "Bot",
+                Jacket: "Ceket",
+                Blazer: "Blazer Ceket",
+                Coat: "Kaban",
+                Cardigan: "Hırka"
+            };
+
+            return text
+                .split(" ")
+                .map(part => map[part] || part)
+                .join(" ");
+        }
+
+        function translateContextHealth(value) {
+            const map = {
+                Good: "İyi",
+                Okay: "Uygun",
+                Poor: "Dikkat Gerekli"
+            };
+
+            return map[value] || value;
+        }
+
+        function renderItems(items) {
+            if (!items || items.length === 0) return "<p>Yok</p>";
+
+            return `
+                            <ul>
+                                ${items.map(i => `<li>${itemText(i)}</li>`).join("")}
+                            </ul>
+                        `;
+        }
+
+        function renderReasons(reasons) {
+            if (!reasons || reasons.length === 0) return "";
+
+            return `
+                            <ul>
+                                ${reasons.map(r => `<li><strong>${r.titleTr}</strong><br><span>${r.detailTr}</span></li>`).join("")}
+                            </ul>
+                        `;
+        }
+
+        function renderResult(data) {
+            const decision = data.decision;
+            const outfit = decision.outfit;
+
+            const alternativesHtml = data.alternatives && data.alternatives.length > 0
+                ? data.alternatives.map((alt, index) => `
+                    <div class="alt-card">
+                        <div class="alt-title">Alternatif ${index + 1}</div>
+                        <div class="alt-short">${translateOutfitText(alt.shortTr)}</div>
+                        ${renderReasons(alt.reasons)}
+                    </div>
+                `).join("")
+                : "<div class='card'>Alternatif öneri yok.</div>";
+
+            const feedbackHtml = data.wardrobeFeedback
+                ? `
+                    <div class="warning">
+                        <strong>Dolap / Koşul Notu</strong>
+                        <p><strong>${data.wardrobeFeedback.lineTr}</strong></p>
+                        <p>${data.wardrobeFeedback.detailTr || ""}</p>
+                    </div>
+                `
+                : "";
+
+            document.getElementById("result").innerHTML = `
+                <div class="layout">
+                    <div>
+                    <h3>Önerilen Kombin</h3>
+                        <div class="card main-card">
+                            <h2>${decision.headlineTr}</h2>
+                            <p>${decision.subtextTr || ""}</p>
+                            <div class="summary">${translateOutfitText(outfit.shortTr)}</div>
+                            <p><strong>Durum:</strong> ${translateContextHealth(decision.bestContextHealth)}</p>
+                        </div>
+
+                        <div class="mini-grid">
+                            <div class="mini-card">
+                                <h3>Temel Kombin</h3>
+                                ${renderItems(outfit.coreItems)}
+                            </div>
+
+                            <div class="mini-card">
+                                <h3>Katmanlar</h3>
+                                ${renderItems(outfit.layers)}
+                            </div>
+
+                            <div class="mini-card">
+                                <h3>Neden?</h3>
+                                <ul>
+                                    ${(decision.whyThisWorksTr || []).map(x => `<li>${x}</li>`).join("")}
+                                </ul>
+                            </div>
+                        </div>
+                        <br />
+                        ${feedbackHtml}
+                    </div>
+
+                    <div>
+                        <h3>Alternatifler</h3>
+                        <div class="alternatives">
+                            ${alternativesHtml}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

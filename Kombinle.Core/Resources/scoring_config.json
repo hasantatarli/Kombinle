@@ -1,0 +1,20 @@
+{
+  "colorMatch_AnchorPair": 10,
+  "colorMatch_OtherPair": 5,
+  "colorClash_AnchorPair": -30,
+  "colorClash_OtherPair": -15,
+
+  "formalityMatch": 10,
+  "formalityMismatch": -10,
+
+  "favoriteColorBonus": 5,
+
+  "warningThreshold": 50,
+
+  "neutralBonusPerItem": 1,
+  "neutralBonusCap": 2,
+  "optionalOuterwearBonus": 1,
+
+  "alternativeMaxScoreGap": 20,
+  "alternativeMaxScoreGap_DiverseAnchor": 35
+}

@@ -1,0 +1,132 @@
+{
+  "ALT_CONTEXT_SAFER": {
+    "titleTr": "Koşullar açısından daha güvenli alternatif",
+    "titleEn": "A safer option for the current conditions",
+    "detailTr": "Bu alternatif mevcut koşullarda daha düşük risk taşır.",
+    "detailEn": "This option carries less risk under the current conditions.",
+    "priority": 10,
+    "group": "Context"
+  },
+  "ALT_NO_ANCHOR_FORMAL": {
+    "titleTr": "Daha sade formal alternatif",
+    "titleEn": "A simpler formal alternative",
+    "detailTr": "Bu seçenek ceketsiz olduğu için daha sade görünür; ana kombin kadar güçlü olmayabilir.",
+    "detailEn": "This option is simpler without a jacket and may feel less strong than the main outfit.",
+    "priority": 20,
+    "group": "Structure"
+  },
+  "ALT_STRUCTURE_TOP_BOTTOM": {
+    "titleTr": "İki parçalı formal alternatif",
+    "titleEn": "Two-piece formal alternative",
+    "detailTr": "Bu alternatif elbise yerine üst ve alt parçadan oluşan daha yapılandırılmış bir formal görünüm sunar.",
+    "detailEn": "This alternative offers a more structured formal look with separate top and bottom pieces instead of a dress.",
+    "priority": 18,
+    "group": "Structure"
+  },
+  "ALT_SOFT_OUTERWEAR_OPTIONAL": {
+    "titleTr": "Daha sade kullanım",
+    "titleEn": "Simpler option",
+    "detailTr": "Bu kombin dış katman olmadan da kullanılabilir; istersen dış katman ekleyerek daha güçlü hale getirebilirsin.",
+    "detailEn": "This outfit can be worn without outerwear; adding an outer layer can make it stronger.",
+    "priority": 30,
+    "group": "Structure"
+  },
+  "ALT_SHIRT_SWAP_WHITE": {
+    "titleTr": "Beyaz gömlekle daha nötr görünüm",
+    "titleEn": "A more neutral look with a white shirt",
+    "detailTr": "Beyaz gömlek kombin tonunu sadeleştirir ve daha nötr bir görünüm verir.",
+    "detailEn": "A white shirt makes the outfit feel cleaner and more neutral.",
+    "priority": 40,
+    "group": "TopVariation"
+  },
+  "ALT_SHIRT_SWAP_BLUE": {
+    "titleTr": "Mavi gömlekle daha canlı görünüm",
+    "titleEn": "A more vivid look with a blue shirt",
+    "detailTr": "Mavi gömlek kombine biraz daha canlı ve belirgin bir hava katar.",
+    "detailEn": "A blue shirt adds a slightly more vivid and defined feel to the outfit.",
+    "priority": 40,
+    "group": "TopVariation"
+
+  },
+  "ALT_SHOES_SWAP_BLACK": {
+    "titleTr": "Siyah ayakkabıyla daha güvenli seçenek",
+    "titleEn": "A safer option with black shoes",
+    "detailTr": "Siyah ayakkabı kombin için daha klasik ve güvenli bir tercih sunar.",
+    "detailEn": "Black shoes make the outfit feel more classic and reliable.",
+    "priority": 50,
+    "group": "ShoesVariation"
+  },
+  "ALT_SHOES_SWAP_BROWN": {
+    "titleTr": "Kahverengi ayakkabıyla daha rahat varyasyon",
+    "titleEn": "A more relaxed variation with brown shoes",
+    "detailTr": "Kahverengi ayakkabı kombini biraz daha rahat ve gündelik hissettirir.",
+    "detailEn": "Brown shoes make the outfit feel slightly more relaxed and casual.",
+    "priority": 50,
+    "group": "ShoesVariation"
+  },
+  "ALT_COLOR_STYLE_SHIFT_NEUTRAL": {
+    "titleTr": "Daha nötr ve klasik renk dengesi",
+    "titleEn": "More neutral and classic color balance",
+    "detailTr": "Bu alternatifte değişen parça kombini daha nötr ve kolay taşınabilir bir görünüme yaklaştırır.",
+    "detailEn": "The swapped item makes this alternative feel more neutral and easier to wear.",
+    "priority": 120,
+    "group": "ColorStyle"
+  },
+  "ALT_ITEM_SWAP_VARIATION": {
+    "titleTr": "Parça değişimiyle alternatif görünüm",
+    "titleEn": "Alternative look with an item swap",
+    "detailTr": "Bu alternatif ana kombinle aynı amaca hizmet eder, ancak bir veya daha fazla parçayı değiştirerek farklı bir görünüm sunar.",
+    "detailEn": "This alternative serves the same purpose as the main outfit but creates a different look by swapping one or more items.",
+    "priority": 900,
+    "group": "Generic"
+  },
+  "ALT_BOTTOM_STRUCTURE_SHIFT": {
+    "titleTr": "Alt parça değişimiyle farklı stil",
+    "titleEn": "Different style with bottom change",
+    "detailTr": "Bu alternatif alt parçanın değişmesiyle kombine farklı bir stil kazandırır.",
+    "detailEn": "This alternative creates a different style by changing the bottom piece.",
+    "priority": 25,
+    "group": "Structure"
+  },
+  "ALT_GENERAL_VARIATION": {
+    "titleTr": "Farklı bir kombin varyasyonu",
+    "titleEn": "A different outfit variation",
+    "detailTr": "Bu seçenek ana kombinle benzer amaca hizmet eden farklı bir varyasyondur.",
+    "detailEn": "This option is a different variation serving a similar purpose.",
+    "priority": 999,
+    "group": "Generic"
+  },
+  "ALT_LAYER_REMOVED": {
+    "titleTr": "Ceketsiz daha rahat kullanım",
+    "titleEn": "More relaxed without the layer",
+    "detailTr": "Bu alternatif ceketi çıkararak aynı kombini daha sade ve rahat kullanmanı sağlar.",
+    "detailEn": "This alternative keeps the outfit similar but makes it simpler and more relaxed without the jacket.",
+    "priority": 22,
+    "group": "Structure"
+  },
+  "ALT_SHIRT_WHITE_NEUTRAL": {
+    "titleTr": "Daha klasik ve nötr görünüm",
+    "titleEn": "More classic and neutral look",
+    "detailTr": "Beyaz gömlek daha klasik ve risksiz bir tercihtir; özellikle resmi ortamlarda güvenli bir seçimdir.",
+    "detailEn": "A white shirt is a classic and safe choice, especially in formal settings.",
+    "priority": 40,
+    "group": "shirt"
+  },
+  "ALT_SHIRT_BLUE_MODERN": {
+    "titleTr": "Daha modern ve canlı görünüm",
+    "titleEn": "More modern and lively look",
+    "detailTr": "Mavi gömlek kombine biraz daha canlılık katar ve daha modern bir görünüm sağlar.",
+    "detailEn": "A blue shirt adds a bit more liveliness and gives a more modern look.",
+    "priority": 40,
+    "group": "shirt"
+
+  },
+  "ALT_COLOR_ADVANTAGE": {
+    "titleTr": "Renk uyumu daha güçlü alternatif",
+    "titleEn": "Alternative with stronger color harmony",
+    "detailTr": "Bu alternatifte parçalar arasındaki renk uyumu ana kombine göre daha güçlü görünüyor.",
+    "detailEn": "This alternative has stronger color harmony between the outfit pieces than the main outfit.",
+    "priority": 35,
+    "group": "Color"
+  }
+}

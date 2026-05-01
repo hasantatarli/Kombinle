@@ -1,0 +1,98 @@
+{
+  "strongPairs": [
+    {
+      "a": "Black",
+      "b": "White"
+    },
+    {
+      "a": "Black",
+      "b": "Grey"
+    },
+    {
+      "a": "Black",
+      "b": "Beige"
+    },
+    {
+      "a": "Navy",
+      "b": "White"
+    },
+    {
+      "a": "Navy",
+      "b": "Grey"
+    },
+    {
+      "a": "Navy",
+      "b": "Beige"
+    },
+    {
+      "a": "White",
+      "b": "Grey"
+    },
+    {
+      "a": "White",
+      "b": "Beige"
+    },
+    {
+      "a": "Grey",
+      "b": "Beige"
+    },
+    {
+      "a": "Black",
+      "b": "Black"
+    },
+    {
+      "a": "White",
+      "b": "White"
+    },
+    {
+      "a": "Navy",
+      "b": "Navy"
+    },
+    {
+      "a": "Grey",
+      "b": "Grey"
+    },
+    {
+      "a": "Beige",
+      "b": "Beige"
+    },
+    {
+      "a": "Blue",
+      "b": "White"
+    },
+    {
+      "a": "Blue",
+      "b": "Grey"
+    },
+    {
+      "a": "Blue",
+      "b": "Beige"
+    },
+    {
+      "a": "Blue",
+      "b": "Navy"
+    },
+    {
+      "a": "Brown",
+      "b": "Beige"
+    },
+    {
+      "a": "Brown",
+      "b": "White"
+    },
+    {
+      "a": "Brown",
+      "b": "Navy"
+    }
+
+  ],
+  "weakPairs": [],
+  "clashPairs": [
+    {
+      "a": "Black",
+      "b": "Brown"
+    }
+  ],
+  "neutralColors": [ "White", "Black", "Navy", "Grey", "Beige" ],
+  "brightColors": [ "White", "Grey", "Beige" ]
+}

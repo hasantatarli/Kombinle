@@ -1,0 +1,35 @@
+{
+  "RAIN_SUEDE_SHOES": {
+    "titleTr": "Yağmurda süet ayakkabı riskli",
+    "titleEn": "Suede shoes are risky in rain",
+    "detailTr": "Süet malzeme suyu çeker ve hızlı yıpranabilir. Yağmurda daha dayanıklı bir ayakkabı daha güvenli olur.",
+    "detailEn": "Suede absorbs water and can wear quickly. In rain, a more durable shoe is safer."
+  },
+  "RAIN_LOW_WATER_SHOES": {
+    "titleTr": "Düşük su dayanımı",
+    "titleEn": "Low water resistance",
+    "detailTr": "Yağmurda su dayanımı düşük ayakkabılar rahatsız edebilir.",
+    "detailEn": "In rain, low water-resistance shoes can be uncomfortable."
+  },
+  "OUTDOOR_NO_OUTERWEAR": {
+    "titleTr": "Dışarı için dış katman eksik",
+    "titleEn": "Missing outerwear for outdoors",
+    "detailTr": "Dışarı çıkışta dış katman (ceket/coat) konfor ve koruma sağlar.",
+    "detailEn": "For outdoors, an outer layer (jacket/coat) improves comfort and protection."
+  },
+  "SOFT_ANCHOR_MISSING": {
+    "kind": "WardrobeFeedback",
+    "titleTr": "Ceket kombini güçlendirir",
+    "titleEn": "A jacket strengthens the outfit",
+    "detailTr": "Bu plan için ceket şart değil ama eklersen daha derli toplu ve resmi görünür.",
+    "detailEn": "A jacket isn’t required, but it makes the outfit look more structured and formal."
+  },
+  "NO_VIABLE_COMBINATION": {
+    "kind": "WardrobeFeedback",
+    "titleTr": "Bu parçalarla uyumlu bir kombin çıkaramadım",
+    "titleEn": "I couldn’t build a compatible outfit from these pieces",
+    "detailTr": "Parçalar mevcut olsa da renk ve kombin uyumu açısından güvenle önerebileceğim bir seçenek oluşmadı.",
+    "detailEn": "Even though the pieces are available, I couldn’t form an option I can confidently recommend based on color and outfit compatibility."
+  }
+
+}

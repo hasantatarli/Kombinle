@@ -1,0 +1,42 @@
+{
+  "occasionId": "casual_weekend",
+  "context": {
+    "weather": "Clear",
+    "setting": "Outdoor",
+    "timeOfDay": "Day"
+  },
+  "items": [
+    {
+      "tempId": "p1",
+      "category": "Shirt",
+      "colorFamily": "Blue",
+      "formality": "Casual"
+    },
+    {
+      "tempId": "p2",
+      "category": "Shirt",
+      "colorFamily": "White",
+      "formality": "Formal"
+    },
+    {
+      "tempId": "p3",
+      "category": "Pants",
+      "colorFamily": "Grey",
+      "formality": "Formal"
+    },
+    {
+      "tempId": "p4",
+      "category": "Shoes",
+      "colorFamily": "Black",
+      "formality": "Formal",
+      "shoe": { "material": "Leather" }
+    },
+    {
+      "tempId": "p5",
+      "category": "Shoes",
+      "colorFamily": "Brown",
+      "formality": "Casual",
+      "shoe": { "material": "Leather" }
+    }
+  ]
+}

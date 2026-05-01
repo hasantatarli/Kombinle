@@ -1,0 +1,35 @@
+{
+  "occasionId": "business_meeting_formal",
+  "context": {
+    "weather": "Rain",
+    "setting": "Outdoor",
+    "timeOfDay": "Day"
+  },
+  "items": [
+    {
+      "tempId": "p1",
+      "category": "Jacket",
+      "colorFamily": "Navy",
+      "formality": "Formal"
+    },
+    {
+      "tempId": "p2",
+      "category": "Shirt",
+      "colorFamily": "White",
+      "formality": "Formal"
+    },
+    {
+      "tempId": "p3",
+      "category": "Pants",
+      "colorFamily": "Grey",
+      "formality": "Formal"
+    },
+    {
+      "tempId": "p4",
+      "category": "Shoes",
+      "colorFamily": "Black",
+      "formality": "Formal",
+      "shoe": { "material": "Suede" }
+    }
+  ]
+}

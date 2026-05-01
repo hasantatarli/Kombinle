@@ -1,0 +1,87 @@
+﻿# Kombinle Engine Principles
+
+## 1. Deterministic First
+
+Engine deterministic çalışır. Aynı input → aynı output.
+
+## 2. Explainability
+
+Her karar açıklanabilir olmalı:
+
+- Score breakdown
+- Alternative reasons
+- Context warnings
+
+## 3. No Fake Alternatives
+
+Gerçek alternatifler:
+
+- Stil değiştirir
+- Renk dengesi değiştirir
+- Yapı değiştirir
+
+Fake alternatifler:
+
+- Sadece layer kaldırma
+- Aynı kombin varyasyonu
+
+## 4. Context Matters
+
+Karar sadece event'e göre verilmez:
+
+Occasion + Context + Wardrobe
+
+## 5. Guardrail over Creativity
+
+Amaç:
+
+- “en yaratıcı kombin” değil
+- “giyilebilir güvenli kombin”
+
+## 6. Progressive Intelligence
+
+Engine şu sırayla gelişir:
+
+1. Structure (done)
+2. Scoring (done)
+3. Context awareness (in progress)
+4. Wardrobe intelligence (next)
+5. Recommendation engine (future)
+
+
+---
+
+## Demo Phase Principles
+
+### 1. Validate Before Expanding
+
+Do not add advanced features before the core product experience is validated.
+
+### 2. UI Translates, Engine Decides
+
+The engine uses structured enums and deterministic logic.
+
+The UI is responsible for:
+- Turkish display names
+- Layout
+- Readability
+
+The UI must not contain decision logic.
+
+### 3. Static Data Before Persistence
+
+Use static wardrobe profiles before designing database persistence.
+
+### 4. Manual Context Before Weather API
+
+Use manual weather/context selection before integrating external weather APIs.
+
+### 5. No Feature Explosion
+
+Ideas such as:
+- image recognition
+- 3D avatar
+- purchase recommendations
+- premium tiers
+
+are valid future ideas, but not part of current demo validation.

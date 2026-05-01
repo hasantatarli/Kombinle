@@ -1,0 +1,41 @@
+{
+  "occasionId": "interview_formal",
+  "context": {
+    "weather": "Clear",
+    "setting": "Indoor",
+    "timeOfDay": "Day"
+  },
+  "items": [
+    {
+      "tempId": "p1",
+      "category": "Jacket",
+      "colorFamily": "Navy",
+      "formality": "Formal"
+    },
+    {
+      "tempId": "p2",
+      "category": "Shirt",
+      "colorFamily": "Blue",
+      "formality": "Formal"
+    },
+    {
+      "tempId": "p3",
+      "category": "Shirt",
+      "colorFamily": "White",
+      "formality": "Formal"
+    },
+    {
+      "tempId": "p4",
+      "category": "Pants",
+      "colorFamily": "Grey",
+      "formality": "Formal"
+    },
+    {
+      "tempId": "p5",
+      "category": "Shoes",
+      "colorFamily": "Black",
+      "formality": "Formal",
+      "shoe": { "material": "Leather" }
+    }
+  ]
+}

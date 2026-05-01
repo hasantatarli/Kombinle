@@ -1,0 +1,275 @@
+{
+  "business_meeting_formal": {
+    "name": "Business Meeting (Formal)",
+    "planCategoryId": "work_office",
+    "requiredFormality": "Formal",
+    "preferredAnchorColors": [ "Navy", "Black", "Grey" ],
+    "defaultContext": {
+      "weather": "Rain",
+      "setting": "Outdoor",
+      "timeOfDay": "Night"
+    },
+    "slotSet": {
+      "requirements": [
+        {
+          "slot": "Anchor",
+          "level": "Soft",
+          "allowedCategories": [ "Jacket" ]
+        },
+        {
+          "slot": "Top",
+          "level": "Hard",
+          "allowedCategories": [ "Shirt", "Blouse" ]
+        },
+        {
+          "slot": "Bottom",
+          "level": "Hard",
+          "allowedCategories": [ "Pants", "Skirt" ]
+        },
+        {
+          "slot": "Shoes",
+          "level": "Hard",
+          "allowedCategories": [ "Shoes" ]
+        },
+        {
+          "slot": "Outerwear",
+          "level": "Optional",
+          "allowedCategories": [ "Coat", "Jacket" ]
+        }
+      ]
+    }
+  },
+
+  "office_business_casual": {
+    "name": "Office (Business Casual)",
+    "planCategoryId": "work_office",
+    "requiredFormality": "Casual",
+    "preferredAnchorColors": [ "Navy", "Grey", "Beige" ],
+    "defaultContext": {
+      "weather": "Clear",
+      "setting": "Indoor",
+      "timeOfDay": "Day"
+    },
+    "combinationModes": [ "TopBottom" ],
+    "slotSet": {
+      "requirements": [
+        {
+          "slot": "Anchor",
+          "level": "Optional",
+          "allowedCategories": [ "Jacket", "Blazer" ]
+        },
+        {
+          "slot": "Top",
+          "level": "Hard",
+          "allowedCategories": [ "Shirt", "Blouse" ]
+        },
+        {
+          "slot": "Bottom",
+          "level": "Hard",
+          "allowedCategories": [ "Pants", "Skirt" ]
+        },
+        {
+          "slot": "Shoes",
+          "level": "Hard",
+          "allowedCategories": [ "Shoes" ]
+        },
+        {
+          "slot": "Outerwear",
+          "level": "Optional",
+          "allowedCategories": [ "Coat", "Jacket" ]
+        }
+      ]
+    }
+  },
+
+  "casual_weekend": {
+    "name": "Casual Weekend",
+    "planCategoryId": "daily",
+    "requiredFormality": "Casual",
+    "preferredAnchorColors": [ "Navy", "Grey", "Brown" ],
+    "defaultContext": {
+      "weather": "Clear",
+      "setting": "Outdoor",
+      "timeOfDay": "Day"
+    },
+    "slotSet": {
+      "requirements": [
+        {
+          "slot": "Anchor",
+          "level": "Soft",
+          "allowedCategories": [ "Jacket", "Cardigan", "Hoodie" ]
+        },
+        {
+          "slot": "Top",
+          "level": "Hard",
+          "allowedCategories": [ "Shirt", "Blouse", "Tshirt", "Sweater", "Hoodie", "Cardigan" ]
+        },
+        {
+          "slot": "Bottom",
+          "level": "Hard",
+          "allowedCategories": [ "Pants", "Skirt", "Jeans" ]
+        },
+        {
+          "slot": "Shoes",
+          "level": "Hard",
+          "allowedCategories": [ "Shoes", "Sneakers" ]
+        },
+        {
+          "slot": "Outerwear",
+          "level": "Optional",
+          "allowedCategories": [ "Coat", "Jacket" ]
+        }
+      ]
+    }
+  },
+
+  "interview_formal": {
+    "name": "Interview (Formal)",
+    "planCategoryId": "work_office",
+    "requiredFormality": "Formal",
+    "preferredAnchorColors": [ "Navy", "Black", "Grey" ],
+    "defaultContext": {
+      "weather": "Clear",
+      "setting": "Indoor",
+      "timeOfDay": "Day"
+    },
+    "slotSet": {
+      "requirements": [
+        {
+          "slot": "Anchor",
+          "level": "Soft",
+          "allowedCategories": [ "Jacket" ]
+        },
+        {
+          "slot": "Top",
+          "level": "Hard",
+          "allowedCategories": [ "Shirt", "Blouse" ]
+        },
+        {
+          "slot": "Bottom",
+          "level": "Hard",
+          "allowedCategories": [ "Pants", "Skirt" ]
+        },
+        {
+          "slot": "Shoes",
+          "level": "Hard",
+          "allowedCategories": [ "Shoes" ]
+        },
+        {
+          "slot": "Outerwear",
+          "level": "Optional",
+          "allowedCategories": [ "Coat", "Jacket" ]
+        }
+      ]
+    }
+  },
+
+  "smart_casual_dinner": {
+    "name": "Smart Casual Dinner",
+    "planCategoryId": "dinner_social",
+    "requiredFormality": "Casual",
+    "preferredAnchorColors": [ "Black", "Navy", "Beige" ],
+    "defaultContext": {
+      "weather": "Clear",
+      "setting": "Indoor",
+      "timeOfDay": "Night"
+    },
+    "slotSet": {
+      "requirements": [
+        {
+          "slot": "Anchor",
+          "level": "Soft",
+          "allowedCategories": [ "Jacket", "Blazer" ]
+        },
+        {
+          "slot": "Top",
+          "level": "Hard",
+          "allowedCategories": [ "Shirt", "Blouse" ]
+        },
+        {
+          "slot": "Bottom",
+          "level": "Hard",
+          "allowedCategories": [ "Pants", "Skirt" ]
+        },
+        {
+          "slot": "Shoes",
+          "level": "Hard",
+          "allowedCategories": [ "Shoes" ]
+        },
+        {
+          "slot": "Outerwear",
+          "level": "Optional",
+          "allowedCategories": [ "Coat", "Jacket" ]
+        }
+      ]
+    }
+  },
+
+  "wedding_formal_dress": {
+    "name": "Wedding (Dress Only)",
+    "planCategoryId": "event_special",
+    "requiredFormality": "Formal",
+    "preferredAnchorColors": [ "Black", "Navy", "Red" ],
+    "defaultContext": {
+      "weather": "Clear",
+      "setting": "Outdoor",
+      "timeOfDay": "Day"
+    },
+    "slotSet": {
+      "requirements": [
+        {
+          "slot": "Anchor",
+          "level": "Hard",
+          "allowedCategories": [ "Dress" ]
+        },
+        {
+          "slot": "Shoes",
+          "level": "Hard",
+          "allowedCategories": [ "Shoes" ]
+        },
+        {
+          "slot": "Outerwear",
+          "level": "Optional",
+          "allowedCategories": [ "Jacket", "Coat" ]
+        }
+      ]
+    }
+  },
+
+  "wedding_formal_flexible": {
+    "name": "Wedding (Flexible)",
+    "planCategoryId": "event_special",
+    "requiredFormality": "Formal",
+    "preferredAnchorColors": [ "Black", "Navy", "Grey" ],
+    "combinationModes": [ "Dress", "TopBottom" ],
+    "defaultContext": {
+      "weather": "Clear",
+      "setting": "Outdoor",
+      "timeOfDay": "Day"
+    },
+    "slotSet": {
+      "requirements": [
+        {
+          "slot": "Anchor",
+          "level": "Soft",
+          "allowedCategories": [ "Jacket", "Dress" ]
+        },
+        {
+          "slot": "Top",
+          "level": "Hard",
+          "allowedCategories": [ "Shirt", "Blouse" ]
+        },
+        {
+          "slot": "Bottom",
+          "level": "Hard",
+          "allowedCategories": [ "Pants", "Skirt" ]
+        },
+        {
+          "slot": "Shoes",
+          "level": "Hard",
+          "allowedCategories": [ "Shoes" ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,387 @@
+{
+  "female_balanced_v1": {
+    "name": "Female Balanced Wardrobe v1",
+    "items": [
+      {
+        "category": "Blouse",
+        "colorFamily": "White",
+        "formality": "Formal"
+      },
+      {
+        "category": "Blouse",
+        "colorFamily": "Blue",
+        "formality": "Casual"
+      },
+      {
+        "category": "Blouse",
+        "colorFamily": "Black",
+        "formality": "Smart"
+      },
+
+      {
+        "category": "Tshirt",
+        "colorFamily": "White",
+        "formality": "Casual"
+      },
+      {
+        "category": "Tshirt",
+        "colorFamily": "Black",
+        "formality": "Casual"
+      },
+
+      {
+        "category": "Sweater",
+        "colorFamily": "Grey",
+        "formality": "Smart"
+      },
+      {
+        "category": "Cardigan",
+        "colorFamily": "Beige",
+        "formality": "Smart"
+      },
+
+      {
+        "category": "Pants",
+        "colorFamily": "Grey",
+        "formality": "Formal"
+      },
+      {
+        "category": "Pants",
+        "colorFamily": "Beige",
+        "formality": "Casual"
+      },
+      {
+        "category": "Pants",
+        "colorFamily": "Black",
+        "formality": "Smart"
+      },
+
+      {
+        "category": "Jeans",
+        "colorFamily": "Blue",
+        "formality": "Casual"
+      },
+
+      {
+        "category": "Skirt",
+        "colorFamily": "Black",
+        "formality": "Formal"
+      },
+      {
+        "category": "Skirt",
+        "colorFamily": "Beige",
+        "formality": "Casual"
+      },
+
+      {
+        "category": "Dress",
+        "colorFamily": "Black",
+        "formality": "Formal"
+      },
+      {
+        "category": "Dress",
+        "colorFamily": "Blue",
+        "formality": "Smart"
+      },
+
+      {
+        "category": "Shoes",
+        "colorFamily": "Black",
+        "formality": "Formal"
+      },
+      {
+        "category": "Shoes",
+        "colorFamily": "Brown",
+        "formality": "Casual"
+      },
+
+      {
+        "category": "Sneakers",
+        "colorFamily": "White",
+        "formality": "Casual"
+      },
+      {
+        "category": "Sneakers",
+        "colorFamily": "Black",
+        "formality": "Casual"
+      },
+
+      {
+        "category": "Jacket",
+        "colorFamily": "Navy",
+        "formality": "Formal"
+      },
+      {
+        "category": "Blazer",
+        "colorFamily": "Black",
+        "formality": "Smart"
+      },
+
+      {
+        "category": "Coat",
+        "colorFamily": "Grey",
+        "formality": "Formal"
+      },
+
+      {
+        "category": "Bag",
+        "colorFamily": "Black",
+        "formality": "Formal"
+      }
+    ]
+  },
+
+  "male_balanced_v1": {
+    "name": "Male Balanced Wardrobe v1",
+    "items": [
+      {
+        "category": "Shirt",
+        "colorFamily": "White",
+        "formality": "Formal"
+      },
+      {
+        "category": "Shirt",
+        "colorFamily": "Blue",
+        "formality": "Smart"
+      },
+      {
+        "category": "Shirt",
+        "colorFamily": "Black",
+        "formality": "Casual"
+      },
+
+      {
+        "category": "Tshirt",
+        "colorFamily": "White",
+        "formality": "Casual"
+      },
+      {
+        "category": "Tshirt",
+        "colorFamily": "Black",
+        "formality": "Casual"
+      },
+
+      {
+        "category": "Sweater",
+        "colorFamily": "Grey",
+        "formality": "Smart"
+      },
+      {
+        "category": "Hoodie",
+        "colorFamily": "Black",
+        "formality": "Casual"
+      },
+
+      {
+        "category": "Pants",
+        "colorFamily": "Grey",
+        "formality": "Formal"
+      },
+      {
+        "category": "Pants",
+        "colorFamily": "Beige",
+        "formality": "Casual"
+      },
+      {
+        "category": "Pants",
+        "colorFamily": "Black",
+        "formality": "Smart"
+      },
+
+      {
+        "category": "Jeans",
+        "colorFamily": "Blue",
+        "formality": "Casual"
+      },
+
+      {
+        "category": "Shoes",
+        "colorFamily": "Black",
+        "formality": "Formal"
+      },
+      {
+        "category": "Shoes",
+        "colorFamily": "Brown",
+        "formality": "Casual"
+      },
+
+      {
+        "category": "Sneakers",
+        "colorFamily": "White",
+        "formality": "Casual"
+      },
+      {
+        "category": "Sneakers",
+        "colorFamily": "Black",
+        "formality": "Casual"
+      },
+
+      {
+        "category": "Jacket",
+        "colorFamily": "Navy",
+        "formality": "Formal"
+      },
+      {
+        "category": "Blazer",
+        "colorFamily": "Grey",
+        "formality": "Smart"
+      },
+
+      {
+        "category": "Coat",
+        "colorFamily": "Black",
+        "formality": "Formal"
+      },
+
+      {
+        "category": "Tie",
+        "colorFamily": "Black",
+        "formality": "Formal"
+      }
+    ]
+  },
+  "female_basic_v1": {
+    "name": "Female Basic Wardrobe v1",
+    "items": [
+      {
+        "category": "Blouse",
+        "colorFamily": "White",
+        "formality": "Formal"
+      },
+      {
+        "category": "Blouse",
+        "colorFamily": "Blue",
+        "formality": "Casual"
+      },
+
+      {
+        "category": "Tshirt",
+        "colorFamily": "White",
+        "formality": "Casual"
+      },
+
+      {
+        "category": "Pants",
+        "colorFamily": "Beige",
+        "formality": "Casual"
+      },
+      {
+        "category": "Pants",
+        "colorFamily": "Grey",
+        "formality": "Formal"
+      },
+
+      {
+        "category": "Jeans",
+        "colorFamily": "Blue",
+        "formality": "Casual"
+      },
+
+      {
+        "category": "Dress",
+        "colorFamily": "Black",
+        "formality": "Formal"
+      },
+
+      {
+        "category": "Shoes",
+        "colorFamily": "Black",
+        "formality": "Formal"
+      },
+      {
+        "category": "Shoes",
+        "colorFamily": "Brown",
+        "formality": "Casual"
+      },
+
+      {
+        "category": "Sneakers",
+        "colorFamily": "White",
+        "formality": "Casual"
+      },
+
+      {
+        "category": "Cardigan",
+        "colorFamily": "Beige",
+        "formality": "Casual"
+      },
+      {
+        "category": "Coat",
+        "colorFamily": "Grey",
+        "formality": "Formal"
+      }
+    ]
+  },
+  "male_basic_v1": {
+    "name": "Male Basic Wardrobe v1",
+    "items": [
+      {
+        "category": "Shirt",
+        "colorFamily": "White",
+        "formality": "Formal"
+      },
+      {
+        "category": "Shirt",
+        "colorFamily": "Blue",
+        "formality": "Smart"
+      },
+
+      {
+        "category": "Tshirt",
+        "colorFamily": "White",
+        "formality": "Casual"
+      },
+
+      {
+        "category": "Pants",
+        "colorFamily": "Grey",
+        "formality": "Formal"
+      },
+      {
+        "category": "Pants",
+        "colorFamily": "Beige",
+        "formality": "Casual"
+      },
+
+      {
+        "category": "Jeans",
+        "colorFamily": "Blue",
+        "formality": "Casual"
+      },
+
+      {
+        "category": "Shoes",
+        "colorFamily": "Black",
+        "formality": "Formal"
+      },
+      {
+        "category": "Shoes",
+        "colorFamily": "Brown",
+        "formality": "Casual"
+      },
+
+      {
+        "category": "Sneakers",
+        "colorFamily": "White",
+        "formality": "Casual"
+      },
+
+      {
+        "category": "Cardigan",
+        "colorFamily": "Grey",
+        "formality": "Casual"
+      },
+      {
+        "category": "Jacket",
+        "colorFamily": "Navy",
+        "formality": "Formal"
+      },
+      {
+        "category": "Coat",
+        "colorFamily": "Black",
+        "formality": "Formal"
+      }
+    ]
+  }
+
+}

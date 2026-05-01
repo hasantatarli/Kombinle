@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\demo.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Kombinle.Api.Contracts\Kombinle.Api.Contracts.csproj" />
+    <ProjectReference Include="..\Kombinle.Core\Kombinle.Core.csproj" />
+  </ItemGroup>
+
+</Project>

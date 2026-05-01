@@ -1,0 +1,63 @@
+{
+  "DECISION_SAFE": {
+    "headlineTr": "Bu kombin uygun görünüyor.",
+    "headlineEn": "This outfit looks suitable.",
+    "subtextTr": "Koşullar ve formallik açısından iyi bir eşleşme görünüyor.",
+    "subtextEn": "This looks like a good match for the conditions and formality.",
+    "priority": 10
+  },
+  "DECISION_SAFE_CASUAL": {
+    "headlineTr": "Rahat ve günlük kullanım için uygun bir kombin.",
+    "headlineEn": "A comfortable outfit suitable for casual use.",
+    "subtextTr": "Parçalar rahat kullanım ve günlük ortam için dengeli görünüyor.",
+    "subtextEn": "The pieces look balanced for comfort and everyday use.",
+    "priority": 11
+  },
+  "DECISION_SAFE_SMART": {
+    "headlineTr": "Dengeli ve ortama uygun bir kombin.",
+    "headlineEn": "A balanced outfit suitable for the setting.",
+    "subtextTr": "Rahatlık ve derli toplu görünüm arasında iyi bir denge kuruyor.",
+    "subtextEn": "It balances comfort with a polished appearance.",
+    "priority": 12
+  },
+  "DECISION_SAFE_FORMAL": {
+    "headlineTr": "Daha resmi ve derli toplu bir görünüm sunar.",
+    "headlineEn": "This gives a more formal and polished look.",
+    "subtextTr": "Formallik seviyesi bu ortam için uygun görünüyor.",
+    "subtextEn": "The formality level looks suitable for this occasion.",
+    "priority": 13
+  },
+  "DECISION_WARNING_WITH_ALTERNATIVES": {
+    "headlineTr": "Koşullar nedeniyle risk var.",
+    "headlineEn": "There is some risk under the current conditions.",
+    "subtextTr": "Bu kombin kullanılabilir, ama alternatiflere de göz atmak iyi olur.",
+    "subtextEn": "This outfit may still work, but it is worth checking the alternatives.",
+    "priority": 20
+  },
+  "DECISION_WARNING_NO_ALTERNATIVES": {
+    "headlineTr": "Koşullar nedeniyle risk var.",
+    "headlineEn": "There is some risk under the current conditions.",
+    "subtextTr": "Şu an en uygun seçenek bu görünüyor, ancak koşullara tam ideal değil.",
+    "subtextEn": "This appears to be the best available option for now, though it is not ideal for the conditions.",
+    "priority": 30
+  },
+  "DECISION_NO_BEST": {
+    "headlineTr": "Şu an net bir öneri üretemedim.",
+    "headlineEn": "I could not produce a clear recommendation right now.",
+    "subtextTr": "Renk ve stil uyumu açısından güvenle önerebileceğim bir kombin çıkmadı.",
+    "subtextEn": "I couldn’t find an outfit I can confidently recommend in terms of color and style compatibility.",
+    "priority": 100
+  },
+  "DECISION_SOFT_WARNING_NO_ALTERNATIVES": {
+    "headlineTr": "Bu kombin kullanılabilir görünüyor.",
+    "headlineEn": "This outfit looks usable.",
+    "subtextTr": "Küçük bir dokunuşla daha derli toplu bir sonuç alınabilir.",
+    "subtextEn": "A small touch could make this outfit look more put together."
+  },
+  "DECISION_SOFT_WARNING_WITH_ALTERNATIVES": {
+    "headlineTr": "Bu kombin kullanılabilir görünüyor.",
+    "headlineEn": "This outfit looks usable.",
+    "subtextTr": "İstersen daha güçlü görünen bir alternatifi de değerlendirebilirsin.",
+    "subtextEn": "You can also consider a stronger-looking alternative if you want."
+  }
+}

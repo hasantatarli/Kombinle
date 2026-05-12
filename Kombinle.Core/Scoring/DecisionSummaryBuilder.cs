@@ -27,7 +27,7 @@ namespace Kombinle.Core.Scoring
             int alternativeMaxScoreGap_DiverseAnchor = 35
         )
         {
-            
+
 
             var summary = new DecisionSummary
             {
@@ -78,9 +78,11 @@ namespace Kombinle.Core.Scoring
 
             // --- Wardrobe Feedback: Soft Anchor (Jacket) ---
             var anchorReq = occasion.SlotSet.Get(Slot.Anchor);
+            var suppressSoftAnchorFeedback = effectiveContext?.Season == Season.Summer && effectiveContext?.Setting == Setting.Indoor;
 
-            if (anchorReq?.Level == RequirementLevel.Soft &&
-                best.Candidate.Anchor == null)
+
+
+            if (anchorReq?.Level == RequirementLevel.Soft && best.Candidate.Anchor == null && !suppressSoftAnchorFeedback)
             {
                 summary.WardrobeFeedback.Add(new WardrobeFeedback(
                         type: WardrobeGapType.MissingSoftAnchor,

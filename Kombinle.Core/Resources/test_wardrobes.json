@@ -179,6 +179,21 @@
       },
       {
         "category": "Pants",
+        "colorFamily": "Black",
+        "formality": "Formal"
+      },
+      {
+        "category": "Pants",
+        "colorFamily": "Navy",
+        "formality": "Formal"
+      },
+      {
+        "category": "Pants",
+        "colorFamily": "Brown",
+        "formality": "Formal"
+      },
+      {
+        "category": "Pants",
         "colorFamily": "Beige",
         "formality": "Casual"
       },
@@ -219,6 +234,16 @@
       {
         "category": "Jacket",
         "colorFamily": "Navy",
+        "formality": "Smart"
+      },
+      {
+        "category": "Jacket",
+        "colorFamily": "Black",
+        "formality": "Casual"
+      },
+      {
+        "category": "Jacket",
+        "colorFamily": "Grey",
         "formality": "Formal"
       },
       {

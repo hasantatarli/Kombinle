@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentAssertions.Execution;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,10 +10,15 @@ namespace Kombinle.Core.Domain.Context
     public record ContextInput(
         Weather? Weather = null,
         Setting? Setting = null,
-        TimeOfDay? Time = null
+        TimeOfDay? Time = null,
+        Season? Season = null
+
     );
 
     public enum Weather { Clear, Rain, Snow, Hot, Cold }
     public enum Setting { Indoor, Outdoor }
     public enum TimeOfDay { Day, Night }
+    public enum Season { Winter, Spring, Summer, Autumn }
+
+
 }

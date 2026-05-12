@@ -208,7 +208,16 @@
                     <option value="Rain">Rain / Yağmur</option>
                 </select>
             </div>
-
+            <div class="field">
+                <label>Season / Sezon</label>
+                <select id="season">
+                    <option value="">Auto</option>
+                    <option value="Winter">Winter</option>
+                    <option value="Spring">Spring</option>
+                    <option value="Summer">Summer</option>
+                    <option value="Autumn">Autumn</option>
+                </select>
+            </div>
             <div class="field">
                 <label>Setting / Ortam</label>
                 <select id="setting">
@@ -250,6 +259,7 @@
                 items: [],
                 context: {
                     weather: document.getElementById("weather").value,
+                    season: document.getElementById("season").value,
                     setting: document.getElementById("setting").value,
                     timeOfDay: document.getElementById("time").value
                 }
@@ -359,20 +369,20 @@
             if (!items || items.length === 0) return "<p>Yok</p>";
 
             return `
-                                    <ul>
-                                        ${items.map(i => `<li>${itemText(i)}</li>`).join("")}
-                                    </ul>
-                                `;
+                                        <ul>
+                                            ${items.map(i => `<li>${itemText(i)}</li>`).join("")}
+                                        </ul>
+                                    `;
         }
 
         function renderReasons(reasons) {
             if (!reasons || reasons.length === 0) return "";
 
             return `
-                                    <ul>
-                                        ${reasons.map(r => `<li><strong>${r.titleTr}</strong><br><span>${r.detailTr}</span></li>`).join("")}
-                                    </ul>
-                                `;
+                                        <ul>
+                                            ${reasons.map(r => `<li><strong>${r.titleTr}</strong><br><span>${r.detailTr}</span></li>`).join("")}
+                                        </ul>
+                                    `;
         }
 
         function renderResult(data) {
@@ -381,67 +391,67 @@
 
             const alternativesHtml = data.alternatives && data.alternatives.length > 0
                 ? data.alternatives.map((alt, index) => `
-                            <div class="alt-card">
-                                <div class="alt-title">${translateOutfitText(alt.shortTr)}</div>
-                                ${renderReasons(alt.reasons)}
-                            </div>
-                        `).join("")
+                                <div class="alt-card">
+                                    <div class="alt-title">${translateOutfitText(alt.shortTr)}</div>
+                                    ${renderReasons(alt.reasons)}
+                                </div>
+                            `).join("")
                 : "<div class='card'>Alternatif öneri yok.</div>";
 
             const feedbackHtml = data.wardrobeFeedback
                 ? `
-                            <div class="warning">
-                                <strong>Dolap / Koşul Notu</strong>
-                                <p><strong>${data.wardrobeFeedback.lineTr}</strong></p>
-                                <p>${data.wardrobeFeedback.detailTr || ""}</p>
-                            </div>
-                        `
+                                <div class="warning">
+                                    <strong>Dolap / Koşul Notu</strong>
+                                    <p><strong>${data.wardrobeFeedback.lineTr}</strong></p>
+                                    <p>${data.wardrobeFeedback.detailTr || ""}</p>
+                                </div>
+                            `
                 : "";
 
             document.getElementById("result").innerHTML = `
-                        <div class="layout">
-                            <div>
-                            <h3>Önerilen Kombin</h3>
-                                <div class="card main-card">
-                                    <h2>${decision.headlineTr}</h2>
-                                    <p>${decision.subtextTr || ""}</p>
-                                    <div class="summary">${translateOutfitText(outfit.shortTr)}</div>
-                                    <p><strong>Durum:</strong> ${translateContextHealth(decision.bestContextHealth)}</p>
+                            <div class="layout">
+                                <div>
+                                <h3>Önerilen Kombin</h3>
+                                    <div class="card main-card">
+                                        <h2>${decision.headlineTr}</h2>
+                                        <p>${decision.subtextTr || ""}</p>
+                                        <div class="summary">${translateOutfitText(outfit.shortTr)}</div>
+                                        <p><strong>Durum:</strong> ${translateContextHealth(decision.bestContextHealth)}</p>
+                                    </div>
+
+                                    <div class="mini-grid">
+                                        <div class="mini-card">
+                                            <h3>Temel Kombin</h3>
+                                            ${renderItems(outfit.coreItems)}
+                                        </div>
+
+                                        <div class="mini-card">
+                                            <h3>Katmanlar</h3>
+                                            ${renderItems(outfit.layers)}
+                                        </div>
+
+                                        <div class="mini-card">
+                                            <h3>Neden?</h3>
+                                            <ul>
+                                                ${(decision.whyThisWorksTr || []).map(x => `<li>${x}</li>`).join("")}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    ${feedbackHtml}
                                 </div>
 
-                                <div class="mini-grid">
-                                    <div class="mini-card">
-                                        <h3>Temel Kombin</h3>
-                                        ${renderItems(outfit.coreItems)}
-                                    </div>
-
-                                    <div class="mini-card">
-                                        <h3>Katmanlar</h3>
-                                        ${renderItems(outfit.layers)}
-                                    </div>
-
-                                    <div class="mini-card">
-                                        <h3>Neden?</h3>
-                                        <ul>
-                                            ${(decision.whyThisWorksTr || []).map(x => `<li>${x}</li>`).join("")}
-                                        </ul>
-                                    </div>
-                                </div>
-                                <br />
-                                ${feedbackHtml}
-                            </div>
-
-                            <div>
-                                <h3>Alternatifler</h3>
+                                <div>
+                                    <h3>Alternatifler</h3>
 <p style="font-size:13px; color:#555; margin-top:-6px;">
-        Farklı bir görünüm veya daha güvenli seçenek istersen bunlara bakabilirsin.
+            Farklı bir görünüm veya daha güvenli seçenek istersen bunlara bakabilirsin.
 </p>
-                                <div class="alternatives">
-                                    ${alternativesHtml}
+                                    <div class="alternatives">
+                                        ${alternativesHtml}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    `;
+                        `;
         }
     </script>
 </body>

@@ -1,0 +1,18 @@
+{
+  "Winter": {
+    "discouragedCategories": [
+      "TShirt"
+    ],
+    "preferredCategories": [
+      "Coat",
+      "Sweater"
+    ]
+  },
+
+  "Summer": {
+    "discouragedCategories": [
+      "Coat",
+      "Boots"
+    ]
+  }
+}

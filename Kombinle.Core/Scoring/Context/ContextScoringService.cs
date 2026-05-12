@@ -33,10 +33,46 @@ namespace Kombinle.Core.Scoring.Context
             ApplyOutdoor(candidate, context, res);
             ApplyNight(candidate, context, res);
 
+            ApplyLayerSuitability(candidate, context, res);
+
+
             if (res.DeltaScore < PenaltyCapMin)
                 res.DeltaScore = PenaltyCapMin;
 
             return res;
+        }
+
+        private static void ApplyLayerSuitability(CombinationCandidate candidate, ContextInput context, ContextResult res)
+        {
+            var categories = candidate.SlotToItem.Values
+                .Select(x => x.Category)
+                .ToList();
+
+            bool hasHeavyLayer = categories.Any(IsHeavyLayer);
+            bool hasStructuredLayer = categories.Any(IsStructuredLayer);
+            bool hasLightLayer = categories.Any(IsLightLayer);
+
+            // Summer indoor → avoid layers
+            if (context.Season == Season.Summer &&
+                context.Setting == Setting.Indoor)
+            {
+                if (hasHeavyLayer)
+                    res.DeltaScore -= 14;
+
+                if (hasStructuredLayer)
+                    res.DeltaScore -= 8;
+
+                if (hasLightLayer)
+                    res.DeltaScore -= 3;
+            }
+
+            // Winter outdoor → prefer layers
+            if (context.Season == Season.Winter &&
+                context.Setting == Setting.Outdoor)
+            {
+                if (!hasHeavyLayer && !hasStructuredLayer)
+                    res.DeltaScore -= 10;
+            }
         }
 
         private static void ApplyRain(CombinationCandidate candidate, ContextInput context, ContextResult res)
@@ -103,12 +139,18 @@ namespace Kombinle.Core.Scoring.Context
             }
         }
 
+
+
         private static void ApplyOutdoor(CombinationCandidate candidate, ContextInput context, ContextResult res)
         {
             if (context.Setting != Setting.Outdoor) return;
 
             // Outdoor'da "no outerwear" / bazı riskler sadece gerçekten ihtiyaç varsa devreye girsin
-            var needsOuterwear = (context.Weather == Weather.Rain) || (context.Time == TimeOfDay.Night);
+            var needsOuterwear =
+                context.Weather == Weather.Rain ||
+                context.Season == Season.Winter ||
+                context.Weather == Weather.Cold ||
+                (context.Time == TimeOfDay.Night && context.Season != Season.Summer);
 
             if (!needsOuterwear) return;
 
@@ -153,16 +195,37 @@ namespace Kombinle.Core.Scoring.Context
             }
         }
 
-
         private static ShoeTraits? FindShoes(CombinationCandidate candidate)
             => candidate.SlotToItem.TryGetValue(Slot.Shoes, out var s) ? s.Shoe : null;
 
         private static bool HasOuterwear(CombinationCandidate candidate)
-            => candidate.SlotToItem.ContainsKey(Slot.Outerwear);
+        {
+            return candidate.SlotToItem.Values.Any(x =>
+                IsLightLayer(x.Category) ||
+                IsStructuredLayer(x.Category) ||
+                IsHeavyLayer(x.Category));
+        }
 
         private static TagValue<WeatherProtection>? FindOuterwearProtection(CombinationCandidate candidate)
            => candidate.SlotToItem.TryGetValue(Slot.Outerwear, out var o)
                 ? o.Outerwear?.Protection
                 : null;
+
+        private static bool IsLightLayer(Category category)
+        {
+            return category == Category.Cardigan ||
+                   category == Category.Hoodie;
+        }
+
+        private static bool IsStructuredLayer(Category category)
+        {
+            return category == Category.Jacket ||
+                   category == Category.Blazer;
+        }
+
+        private static bool IsHeavyLayer(Category category)
+        {
+            return category == Category.Coat;
+        }
     }
 }

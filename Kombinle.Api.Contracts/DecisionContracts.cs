@@ -13,8 +13,12 @@ namespace Kombinle.Api.Contracts
         UserPrefsDto? User,
         string? WardrobeProfileId
     );
-
-    public record ContextDto(string Weather, string Setting, string TimeOfDay);
+    public record ContextDto(
+        string Weather,
+        string Setting,
+        string TimeOfDay,
+        string? Season
+    );
 
     public record GarmentInputDto(
         string TempId,

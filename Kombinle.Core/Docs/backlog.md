@@ -114,3 +114,19 @@ Example:
 }
 
 Net kararım: Şu an demo’ya gömme. Backlog’a yaz. Ürünleştirme aşamasında backend/config’e taşı.
+
+
+---
+Backlog: Assisted wardrobe creation
+Sources
+Camera
+Gallery
+Instagram (future)
+Flow
+Detect garments
+Suggest attributes
+User confirms
+Save to wardrobe
+Rule
+
+AI assists wardrobe input, not outfit decisions.

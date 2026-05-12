@@ -12,7 +12,11 @@ public static class MappingHelpers
         => new ContextInput(
             Weather: ParseEnum<Weather>(dto.Weather, nameof(dto.Weather)),
             Setting: ParseEnum<Setting>(dto.Setting, nameof(dto.Setting)),
-            Time: ParseEnum<TimeOfDay>(dto.TimeOfDay, nameof(dto.TimeOfDay))
+            Time: ParseEnum<TimeOfDay>(dto.TimeOfDay, nameof(dto.TimeOfDay)),
+            Season: string.IsNullOrWhiteSpace(dto.Season)
+                ? null
+                : ParseEnum<Season>(dto.Season, nameof(dto.Season))
+
         );
 
     public static Garment ToGarment(GarmentInputDto dto)

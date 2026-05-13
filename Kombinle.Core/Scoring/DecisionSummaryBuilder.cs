@@ -136,6 +136,23 @@ namespace Kombinle.Core.Scoring
             //summary.AlternativeContextWhy.Add(alt.ContextReasons.Take(2).ToList());
             //summary.EffectiveContext = effectiveContext;
 
+            //Console.WriteLine("=== TOP 10 SCORED RESULTS ===");
+
+            //foreach (var sc in ranked.Take(10))
+            //{
+            //    Console.WriteLine($"SIGNATURE: {sc.Candidate.Signature}");
+            //    Console.WriteLine($"Score={sc.Score} TieBreak={sc.TieBreakScore} ContextDelta={sc.ContextDelta}");
+            //    Console.WriteLine($"Warnings={string.Join(",", sc.ContextWarningCodes)}");
+
+            //    foreach (var b in sc.Breakdown)
+            //        Console.WriteLine($"  {b.Value} | {b.Reason}");
+
+            //    foreach (var tb in sc.TieBreakdown)
+            //        Console.WriteLine($"  TB {tb.Value} | {tb.Reason}");
+
+            //    Console.WriteLine();
+            //}
+
             summary.Alternatives = Kombinle.Core.Scoring.Alternatives.AlternativePicker.Pick_ProductQuality(
                     occasion,
                     ranked,
@@ -162,6 +179,22 @@ namespace Kombinle.Core.Scoring
 
             //    foreach (var tb in sc.TieBreakdown)
             //        Console.WriteLine($"  TB {tb.Value} | {tb.Reason}");
+
+            //    Console.WriteLine();
+            //}
+
+            //Console.WriteLine("=== COAT CANDIDATES ===");
+
+            //foreach (var sc in ranked.Where(x =>
+            //    x.Candidate.SlotToItem.Values.Any(i => i.Category == Category.Coat) ||
+            //    x.Candidate.Anchor?.Category == Category.Coat))
+            //{
+            //    Console.WriteLine($"SIGNATURE: {sc.Candidate.Signature}");
+            //    Console.WriteLine($"Score={sc.Score} TieBreak={sc.TieBreakScore} ContextDelta={sc.ContextDelta}");
+            //    Console.WriteLine($"Warnings={string.Join(",", sc.ContextWarningCodes)}");
+
+            //    foreach (var b in sc.Breakdown)
+            //        Console.WriteLine($"  {b.Value} | {b.Reason}");
 
             //    Console.WriteLine();
             //}

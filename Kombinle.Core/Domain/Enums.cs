@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Kombinle.Core.Domain
+﻿namespace Kombinle.Core.Domain
 {
     public enum Category
     {
@@ -75,5 +69,12 @@ namespace Kombinle.Core.Domain
         Acceptable,
         WeakMatch,
         Clash
+    }
+    public enum LayerRole
+    {
+        None,
+        Comfort,
+        Structure,
+        Protection
     }
 }

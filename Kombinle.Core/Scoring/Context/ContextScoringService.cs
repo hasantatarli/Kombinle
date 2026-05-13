@@ -3,11 +3,7 @@ using Kombinle.Core.Domain.Context;
 using Kombinle.Core.Domain.Traits;
 using Kombinle.Core.Generation;
 using Kombinle.Core.Rules;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Kombinle.Core.Scoring.Context
 {
@@ -44,34 +40,53 @@ namespace Kombinle.Core.Scoring.Context
 
         private static void ApplyLayerSuitability(CombinationCandidate candidate, ContextInput context, ContextResult res)
         {
-            var categories = candidate.SlotToItem.Values
-                .Select(x => x.Category)
-                .ToList();
+            var intensity = GetTotalLayerIntensity(candidate);
+            var hasProtectionLayer = HasLayerRole(candidate, LayerRole.Protection);
 
-            bool hasHeavyLayer = categories.Any(IsHeavyLayer);
-            bool hasStructuredLayer = categories.Any(IsStructuredLayer);
-            bool hasLightLayer = categories.Any(IsLightLayer);
+            //Console.WriteLine($"[LAYER] Season={context.Season} Setting={context.Setting} Intensity={intensity}");
 
-            // Summer indoor → avoid layers
-            if (context.Season == Season.Summer &&
-                context.Setting == Setting.Indoor)
+            if (context.Season == Season.Summer && context.Setting == Setting.Indoor)
             {
-                if (hasHeavyLayer)
-                    res.DeltaScore -= 14;
-
-                if (hasStructuredLayer)
-                    res.DeltaScore -= 8;
-
-                if (hasLightLayer)
+                if (intensity >= 4)
+                {
+                    res.DeltaScore -= 12;
+                    // Console.WriteLine("[LAYER] Summer indoor high intensity penalty applied");
+                }
+                else if (intensity >= 3)
+                {
+                    res.DeltaScore -= 6;
+                    //Console.WriteLine("[LAYER] Summer indoor medium intensity penalty applied");
+                }
+                else if (intensity == 2)
+                {
                     res.DeltaScore -= 3;
+                    //Console.WriteLine("[LAYER] Summer indoor structured layer penalty applied");
+                }
+                else if (intensity == 1)
+                {
+                    res.DeltaScore -= 2;
+                    //Console.WriteLine("[LAYER] Summer indoor light layer penalty applied");
+                }
             }
 
-            // Winter outdoor → prefer layers
-            if (context.Season == Season.Winter &&
-                context.Setting == Setting.Outdoor)
+            if (context.Season == Season.Winter && context.Setting == Setting.Outdoor)
             {
-                if (!hasHeavyLayer && !hasStructuredLayer)
-                    res.DeltaScore -= 10;
+                if (intensity <= 1)
+                {
+                    res.DeltaScore -= 12;
+                    //Console.WriteLine("[LAYER] Winter outdoor low intensity penalty applied");
+                }
+                else if (intensity == 2)
+                {
+                    res.DeltaScore -= 4;
+                    //Console.WriteLine("[LAYER] Winter outdoor medium-low intensity penalty applied");
+                }
+
+                if (hasProtectionLayer)
+                {
+                    res.DeltaScore += 3;
+                    //Console.WriteLine("[LAYER] Winter outdoor protection bonus applied");
+                }
             }
         }
 
@@ -86,14 +101,32 @@ namespace Kombinle.Core.Scoring.Context
             var shoesItem = candidate.SlotToItem.TryGetValue(Slot.Shoes, out var si) ? si : null;
 
             var hasOuterwear = HasOuterwear(candidate);
+            var hasProtectionLayer = HasLayerRole(candidate, LayerRole.Protection);
+            var hasComfortLayer = HasLayerRole(candidate, LayerRole.Comfort);
+            var hasStructureLayer = HasLayerRole(candidate, LayerRole.Structure);
             var protection = FindOuterwearProtection(candidate);
+
+
+            // Rain expects protective outerwear.
+            // Comfort layers like hoodie/cardigan do not count as rain protection.
+            if (!hasProtectionLayer)
+            {
+                res.DeltaScore -= 4;
+                res.Reasons.Add("Rain: No protective outer layer");
+            }
+
+            if (hasComfortLayer && !hasProtectionLayer && !hasStructureLayer)
+            {
+                res.DeltaScore -= 2;
+                res.Reasons.Add("Rain: Comfort layer only");
+            }
 
             // Rain protection bonus
             if (protection != null && protection.Value == WeatherProtection.Rain && protection.Confidence >= 0.8)
             {
                 res.DeltaScore += 3;
                 res.Reasons.Add("Rain: Outerwear rain protection (+3)");
-                res.UserNotes.Add(new ContextUserNote("OUTDOOR_NO_OUTERWEAR", "Dışarıda dış katman (ceket/coat) faydalı olabilir."));
+                // res.UserNotes.Add(new ContextUserNote("OUTDOOR_NO_OUTERWEAR", "Dışarıda dış katman (ceket/coat) faydalı olabilir."));
 
             }
 
@@ -200,10 +233,18 @@ namespace Kombinle.Core.Scoring.Context
 
         private static bool HasOuterwear(CombinationCandidate candidate)
         {
-            return candidate.SlotToItem.Values.Any(x =>
+            var hasInSlots = candidate.SlotToItem.Values.Any(x =>
                 IsLightLayer(x.Category) ||
                 IsStructuredLayer(x.Category) ||
                 IsHeavyLayer(x.Category));
+
+            var hasAnchorLayer =
+                candidate.Anchor != null &&
+                (IsLightLayer(candidate.Anchor.Category) ||
+                 IsStructuredLayer(candidate.Anchor.Category) ||
+                 IsHeavyLayer(candidate.Anchor.Category));
+
+            return hasInSlots || hasAnchorLayer;
         }
 
         private static TagValue<WeatherProtection>? FindOuterwearProtection(CombinationCandidate candidate)
@@ -226,6 +267,49 @@ namespace Kombinle.Core.Scoring.Context
         private static bool IsHeavyLayer(Category category)
         {
             return category == Category.Coat;
+        }
+
+        private static LayerRole GetLayerRole(Category category)
+        {
+            if (category == Category.Hoodie ||
+                category == Category.Cardigan)
+                return LayerRole.Comfort;
+
+            if (category == Category.Jacket ||
+                category == Category.Blazer)
+                return LayerRole.Structure;
+
+            if (category == Category.Coat)
+                return LayerRole.Protection;
+
+            return LayerRole.None;
+        }
+
+        private static int GetLayerIntensity(Category category)
+        {
+            return GetLayerRole(category) switch
+            {
+                LayerRole.Comfort => 1,
+                LayerRole.Structure => 2,
+                LayerRole.Protection => 3,
+                _ => 0
+            };
+        }
+
+        private static int GetTotalLayerIntensity(CombinationCandidate candidate)
+        {
+            var total = candidate.SlotToItem.Values
+                .Sum(x => GetLayerIntensity(x.Category));
+
+            if (candidate.Anchor != null)
+                total += GetLayerIntensity(candidate.Anchor.Category);
+
+            return total;
+        }
+        private static bool HasLayerRole(CombinationCandidate candidate, LayerRole role)
+        {
+            return candidate.SlotToItem.Values.Any(x =>
+                GetLayerRole(x.Category) == role);
         }
     }
 }

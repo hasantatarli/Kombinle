@@ -389,7 +389,11 @@ namespace Kombinle.Core.Generation
             if (context == null)
                 return false;
 
-            return context.Weather == Weather.Rain;
+            return context.Weather == Weather.Rain
+                || context.Weather == Weather.Snow
+                || context.Weather == Weather.Cold
+                || (context.Season == Season.Winter && context.Setting == Setting.Outdoor)
+                || (context.Season == Season.Autumn && context.Setting == Setting.Outdoor && context.Time == TimeOfDay.Night);
         }
         private static List<Slot> GetVariantSlots(Occasion occasion)
         {

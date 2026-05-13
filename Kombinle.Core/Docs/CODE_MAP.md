@@ -118,6 +118,10 @@ ACTIVE
 * Optional outerwear primary candidate’a otomatik dahil edilmez; layer/presentation konusu olarak ele alınır.
 * Anchor ile aynı garment supporter pool’da tekrar kullanılmamalıdır.
 
+Recent changes:
+* Optional outerwear generation is now context-aware
+* `ShouldIncludeOuterwear` considers rain, snow/cold, winter outdoor and autumn outdoor night
+
 ---
 
 ### 4. Evaluation, Scoring & Ranking
@@ -149,6 +153,11 @@ ACTIVE
 * Color rules and scoring parameters are loaded from JSON resources.
 * Formality scoring minimum-threshold modelinden target-distance modeline evrildi.
 * Casual occasion’da formal parçalar otomatik olarak daha iyi kabul edilmez.
+
+* Recent changes:
+* `ContextScoringService` now includes season-aware layer suitability
+* Layer roles and layer intensity are evaluated during context scoring
+* `HasOuterwear` should consider garment category/role, not only Slot.Outerwear
 
 ---
 

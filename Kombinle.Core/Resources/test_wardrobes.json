@@ -407,6 +407,101 @@
         "formality": "Formal"
       }
     ]
+  },
+  "male_extended_v1": {
+    "name": "Male Extended Wardrobe v1",
+    "items": [
+      {
+        "category": "Tshirt",
+        "colorFamily": "White",
+        "formality": "Casual"
+      },
+      {
+        "category": "Tshirt",
+        "colorFamily": "Black",
+        "formality": "Casual"
+      },
+      {
+        "category": "Shirt",
+        "colorFamily": "Blue",
+        "formality": "Smart"
+      },
+      {
+        "category": "Shirt",
+        "colorFamily": "White",
+        "formality": "Formal"
+      },
+      {
+        "category": "Hoodie",
+        "colorFamily": "Black",
+        "formality": "Casual"
+      },
+
+      {
+        "category": "Pants",
+        "colorFamily": "Beige",
+        "formality": "Smart"
+      },
+      {
+        "category": "Pants",
+        "colorFamily": "Navy",
+        "formality": "Smart"
+      },
+      {
+        "category": "Jeans",
+        "colorFamily": "Blue",
+        "formality": "Casual"
+      },
+      {
+        "category": "Pants",
+        "colorFamily": "Grey",
+        "formality": "Formal"
+      },
+
+      {
+        "category": "Shoes",
+        "colorFamily": "Brown",
+        "formality": "Smart"
+      },
+      {
+        "category": "Sneakers",
+        "colorFamily": "White",
+        "formality": "Casual"
+      },
+      {
+        "category": "Shoes",
+        "colorFamily": "Black",
+        "formality": "Formal"
+      },
+
+      {
+        "category": "Blazer",
+        "colorFamily": "Grey",
+        "formality": "Smart"
+      },
+      {
+        "category": "Jacket",
+        "colorFamily": "Navy",
+        "formality": "Smart"
+      },
+      {
+        "category": "Hoodie",
+        "colorFamily": "Black",
+        "formality": "Casual"
+      },
+      {
+        "category": "Coat",
+        "colorFamily": "Black",
+        "formality": "Formal"
+      },
+      {
+        "category": "Coat",
+        "colorFamily": "Navy",
+        "formality": "Casual"
+      }
+
+
+    ]
   }
 
 }

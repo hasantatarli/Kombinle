@@ -81,6 +81,17 @@ Gardırop ve occasion’a göre kombin adayları üretmek.
 
 Path isolation hataları bu modülde ortaya çıkar.
 
+
+Generation may include optional outerwear when context requires it.
+
+Examples:
+- Rain
+- Snow / Cold
+- Winter + Outdoor
+- Autumn + Outdoor + Night
+
+Optional outerwear must not be generated for every scenario.
+
 ---
 
 ## 4. Evaluation & Scoring
@@ -117,6 +128,20 @@ Kombinlerin uygunluğunu değerlendirmek ve sıralamak.
 ### Notes
 
 Mode-aware scoring bu modülün kritik evrim noktasıdır.
+
+
+Context suitability now includes layer intensity and layer role evaluation.
+
+Scoring should consider:
+
+- Season
+- Setting
+- Weather
+- TimeOfDay
+- Layer role
+- Layer intensity
+
+Context scoring should influence ranking but should not blindly dominate compatibility/formality scoring.
 
 ---
 

@@ -66,6 +66,72 @@ Open
 
 ---
 
+## Context Must Affect Generation and Scoring
+
+### Context
+
+User feedback showed that weather/season/setting changes were not meaningfully changing recommendations.
+
+Examples:
+- Summer + Indoor still recommended layered outfits
+- Winter + Outdoor did not generate coat candidates
+- Outdoor feedback incorrectly claimed missing outerwear even when Jacket existed as Anchor
+
+### Decision
+
+Context must affect both:
+
+- candidate generation
+- scoring/ranking
+
+Not only warnings or final messages.
+
+### Implementation
+
+- Season added to context
+- Outerwear generation expanded beyond Rain
+- Winter + Outdoor can include protective outerwear
+- Summer + Indoor penalizes layer intensity
+- HasOuterwear now evaluates garment layer behavior, not only Slot.Outerwear
+
+### Reason
+
+A recommendation engine must react to the actual situation, not only occasion.
+
+### Confidence
+
+High
+
+---
+## Layer Semantics Introduced
+
+### Context
+
+Categories like Hoodie, Jacket, Blazer and Coat were all treated too similarly.
+
+This caused weak or confusing recommendations such as:
+- Hoodie being treated as rain-appropriate
+- Jacket not being counted as outerwear if used as Anchor
+- Coat not being generated for Winter + Outdoor
+
+### Decision
+
+Layer categories now have semantic roles:
+
+- Comfort
+- Structure
+- Protection
+
+Layer intensity is used for context suitability.
+
+### Reason
+
+Layer behavior depends on purpose, not only category name.
+
+### Confidence
+
+High
+
 ---
 
 ## Demo-First Product Validation

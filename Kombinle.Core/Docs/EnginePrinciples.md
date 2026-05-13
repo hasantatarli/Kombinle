@@ -31,6 +31,19 @@ Karar sadece event'e göre verilmez:
 
 Occasion + Context + Wardrobe
 
+Context must not be limited to warning messages.
+
+Context can affect:
+
+1. Generation
+2. Scoring
+3. Ranking
+4. Feedback visibility
+
+Example:
+Winter + Outdoor should allow protective outerwear candidates.
+Summer + Indoor should prefer lighter layer intensity.
+
 ## 5. Guardrail over Creativity
 
 Amaç:
@@ -85,3 +98,16 @@ Ideas such as:
 - premium tiers
 
 are valid future ideas, but not part of current demo validation.
+
+## 6. Layer Semantics Over Slot Names
+
+A garment’s role in context should not depend only on its slot.
+
+Example:
+A Jacket used as Anchor can still behave as outerwear.
+
+Layer reasoning should consider garment purpose:
+
+- Comfort
+- Structure
+- Protection

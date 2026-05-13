@@ -86,6 +86,22 @@ Bu sayede:
 - Aynı kombin ceketsiz de kullanılabilir
 - Alternatif listesinde gereksiz tekrarlar engellenir
 
+Layer model evolved from slot-only logic to semantic layer behavior.
+
+Layer roles:
+
+- Comfort: Hoodie, Cardigan
+- Structure: Jacket, Blazer
+- Protection: Coat
+
+Layer intensity affects context suitability.
+
+Examples:
+
+- Summer + Indoor penalizes unnecessary layers
+- Winter + Outdoor rewards protective outerwear
+- Jacket used as Anchor still counts as outerwear for context purposes
+
 ### Alternative Filtering
 
 Aşağıdaki kombinler alternatif olarak **gösterilmez**:
@@ -257,6 +273,24 @@ Examples:
 - Rain → outerwear required or strongly preferred
 - Missing outerwear → wardrobe feedback
 - Context penalties affect ranking and messaging
+
+Context now includes:
+
+- Weather
+- Setting
+- TimeOfDay
+- Season
+
+Season is not a replacement for weather.
+It gives environmental style/comfort context.
+
+Example:
+
+Clear + Summer + Indoor
+→ light outfit preferred
+
+Clear + Winter + Outdoor
+→ protective outerwear can be generated and preferred
 
 ---
 

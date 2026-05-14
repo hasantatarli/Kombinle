@@ -4,6 +4,7 @@ using Kombinle.Core.Generation;
 using Kombinle.Core.Scoring.Context;
 using Kombinle.Core.Scoring.DTO;
 using Kombinle.Core.Scoring.WardrobeFeedbackRules;
+using Kombinle.Core.Scoring.BestPool;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,7 @@ namespace Kombinle.Core.Scoring
             List<CombinationCandidate> generated,
             List<ScoredCombination> ranked,
             ContextInput? effectiveContext,
+            int rotationAttempt = 0,
             int alternativeCount = 2,
             int alternativeMaxScoreGap = 20, // H2.3b guardrail
             int alternativeMaxScoreGap_DiverseAnchor = 35
@@ -73,12 +75,51 @@ namespace Kombinle.Core.Scoring
                 return BuildNoViableSummary(summary, generated, occasion);
             }
 
+            var coreSlots = GetCoreSlots(occasion);
+
+            summary.BestPool = BestPoolBuilder.Build(
+                ranked,
+                best,
+                candidate => HasMeaningfulDifference(
+                    best.Candidate,
+                    candidate.Candidate,
+                    coreSlots));
+
+            if (summary.BestPool.Count > 0)
+            {
+                var selectedIndex = rotationAttempt % summary.BestPool.Count;
+                best = summary.BestPool[selectedIndex];
+            }
+
             summary.Best = best;
             summary.BestRisk = RiskOf(best);
 
+            
+
+
+            //Console.WriteLine("=== BEST POOL ===");
+
+            //foreach (var item in summary.BestPool)
+            //{
+            //    Console.WriteLine(
+            //        $"Score={item.Score} | ContextDelta={item.ContextDelta} | Signature={item.Candidate.Signature}");
+            //}
+
             // --- Wardrobe Feedback: Soft Anchor (Jacket) ---
             var anchorReq = occasion.SlotSet.Get(Slot.Anchor);
-            var suppressSoftAnchorFeedback = effectiveContext?.Season == Season.Summer && effectiveContext?.Setting == Setting.Indoor;
+            var bestHasLayerOrOuterwear =
+                best.Candidate.SlotToItem.Values.Any(i =>
+                    i.Category == Category.Coat ||
+                    i.Category == Category.Jacket ||
+                    i.Category == Category.Blazer ||
+                    i.Category == Category.Cardigan ||
+                    i.Category == Category.Hoodie)
+                ||
+                best.Candidate.Anchor is not null;
+
+            var suppressSoftAnchorFeedback =
+                (effectiveContext?.Season == Season.Summer && effectiveContext?.Setting == Setting.Indoor)
+                || bestHasLayerOrOuterwear;
 
 
 

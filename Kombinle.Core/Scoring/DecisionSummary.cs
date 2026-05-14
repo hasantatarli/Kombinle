@@ -70,6 +70,8 @@ namespace Kombinle.Core.Scoring
 
         public Formality OccasionRequiredFormality { get; set; }
 
+        public List<ScoredCombination> BestPool { get; set; } = new();
+
 
 
     }

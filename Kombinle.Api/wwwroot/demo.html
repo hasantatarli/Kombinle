@@ -252,11 +252,33 @@
         function displayGarmentName(value) {
             return garmentNameMap[value] || value;
         }
+
+        let rotationAttempt = 0;
+        let lastRequestKey = "";
+
         async function getDecision() {
+            const requestKey = [
+                document.getElementById("occasion").value,
+                document.getElementById("wardrobe").value,
+                document.getElementById("weather").value,
+                document.getElementById("season").value,
+                document.getElementById("setting").value,
+                document.getElementById("time").value
+            ].join("|");
+
+            if (requestKey === lastRequestKey) {
+                rotationAttempt++;
+            } else {
+                rotationAttempt = 0;
+                lastRequestKey = requestKey;
+            }
+
+            
 
             const req = {
                 occasionId: document.getElementById("occasion").value,
                 wardrobeProfileId: document.getElementById("wardrobe").value,
+                rotationAttempt: rotationAttempt,
                 items: [],
                 context: {
                     weather: document.getElementById("weather").value,

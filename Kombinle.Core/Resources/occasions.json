@@ -184,17 +184,17 @@
         {
           "slot": "Top",
           "level": "Hard",
-          "allowedCategories": [ "Shirt", "Blouse" ]
+          "allowedCategories": [ "Shirt", "Blouse", "Tshirt" ]
         },
         {
           "slot": "Bottom",
           "level": "Hard",
-          "allowedCategories": [ "Pants", "Skirt" ]
+          "allowedCategories": [ "Pants", "Skirt", "Jeans" ]
         },
         {
           "slot": "Shoes",
           "level": "Hard",
-          "allowedCategories": [ "Shoes" ]
+          "allowedCategories": [ "Shoes", "Sneakers" ]
         },
         {
           "slot": "Outerwear",

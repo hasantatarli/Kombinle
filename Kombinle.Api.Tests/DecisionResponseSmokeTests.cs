@@ -400,6 +400,8 @@ public class DecisionResponseSmokeTests : IClassFixture<WebApplicationFactory<Pr
         //payload.WardrobeFeedback.Should().NotBeNull();
         //payload.WardrobeFeedback!.Code.Should().Be("INCOMPLETE_OUTFIT");
     }
+
+
 }
 
 public sealed class DecisionResponseDto

@@ -42,11 +42,25 @@ namespace Kombinle.Core.Engine
 
             var targetFormality = occasion.RequiredFormality;
 
+            //var formalityDistance = items
+            //    .Select(i => Math.Abs((int)i.Formality - (int)targetFormality))
+            //    .Sum();
+
+            var targetRank = GetFormalityRank(targetFormality);
+
             var formalityDistance = items
-                .Select(i => Math.Abs((int)i.Formality - (int)targetFormality))
+                .Select(i => Math.Abs(GetFormalityRank(i.Formality) - targetRank))
                 .Sum();
 
             var exactMatchCount = items.Count(i => i.Formality == targetFormality);
+
+            //Console.WriteLine($"TargetFormality={targetFormality}");
+
+            //foreach (var item in items)
+            //{
+            //    Console.WriteLine(
+            //        $"Item={item.Category}, Formality={item.Formality}, RankDistance={Math.Abs(GetFormalityRank(item.Formality) - targetRank)}");
+            //}
 
             if (formalityDistance == 0)
             {
@@ -298,6 +312,18 @@ namespace Kombinle.Core.Engine
             return a.Category == b.Category &&
                    a.ColorFamily == b.ColorFamily &&
                    a.Formality == b.Formality;
+        }
+
+
+        private static int GetFormalityRank(Formality formality)
+        {
+            return formality switch
+            {
+                Formality.Casual => 0,
+                Formality.Smart => 1,
+                Formality.Formal => 2,
+                _ => 0
+            };
         }
 
     }

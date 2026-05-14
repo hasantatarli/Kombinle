@@ -22,7 +22,7 @@ Design and implement BestPool / deterministic rotation to reduce repeated-best p
 - HasOuterwear now considers anchor/layer categories, not only Slot.Outerwear
 
 ## In Progress
-- BestPool / deterministic rotation design
+- BestPool / deterministic rotation design  “BestPool stabilized”
 - Build a pool of strong, context-safe combinations instead of relying only on a single top-scored Best
 - Keep current Best behavior unchanged in the first step; first expose/debug BestPool candidates
 - Preserve deterministic behavior; no random selection

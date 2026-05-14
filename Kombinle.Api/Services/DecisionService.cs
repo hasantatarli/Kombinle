@@ -58,6 +58,13 @@ public sealed class DecisionService : IDecisionService
                             effectiveContext,
                             maxResults: 10);
 
+        //Console.WriteLine("=== GENERATED ===");
+
+        //foreach (var c in combos)
+        //{
+        //    Console.WriteLine(c.Signature);
+        //}
+
         // 6) Score & Rank
         //var cfg = new ScoringConfig();
         var scoringConfigPath = Path.Combine(AppContext.BaseDirectory, "Resources", "scoring_config.json");
@@ -101,6 +108,7 @@ public sealed class DecisionService : IDecisionService
             generated: combos,
             ranked: ranked,
             effectiveContext: effectiveContext,
+            req.RotationAttempt,
             alternativeCount: 2,    
             alternativeMaxScoreGap: cfg.AlternativeMaxScoreGap,
             alternativeMaxScoreGap_DiverseAnchor: cfg.AlternativeMaxScoreGap_DiverseAnchor

@@ -29,8 +29,8 @@ namespace Kombinle.Core.Generation
                             (anchor == null || !IsSameGarment(g, anchor)) &&
                             (anchor == null || !ColorRules.IsClashing(anchor.ColorFamily, g.ColorFamily))
                     )
-                    .OrderBy(g => Math.Abs((int)g.Formality - (int)targetFormality))
-                    .ThenBy(g => g.Formality)
+                    .OrderBy(g => Math.Abs(GetFormalityRank(g.Formality) - GetFormalityRank(targetFormality)))
+                    .ThenBy(g => GetFormalityRank(g.Formality))
                     .ToList();
 
                 pool[req.Slot] = list;
@@ -43,6 +43,17 @@ namespace Kombinle.Core.Generation
             return a.Category == b.Category
                    && a.ColorFamily == b.ColorFamily
                    && a.Formality == b.Formality;
+        }
+
+        private static int GetFormalityRank(Formality formality)
+        {
+            return formality switch
+            {
+                Formality.Casual => 0,
+                Formality.Smart => 1,
+                Formality.Formal => 2,
+                _ => 0
+            };
         }
     }
 

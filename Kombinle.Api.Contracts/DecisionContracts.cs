@@ -11,7 +11,8 @@ namespace Kombinle.Api.Contracts
         ContextDto? Context,
         List<GarmentInputDto>? Items,
         UserPrefsDto? User,
-        string? WardrobeProfileId
+        string? WardrobeProfileId,
+        int RotationAttempt = 0
     );
     public record ContextDto(
         string Weather,

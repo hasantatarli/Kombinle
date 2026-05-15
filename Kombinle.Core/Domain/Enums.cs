@@ -2,8 +2,8 @@
 {
     public enum Category
     {
+        LightOuterwear,
         Jacket,
-        Blazer,
         Dress,
         Shirt,
         Blouse,

@@ -2,7 +2,7 @@
 
 Problem
 
-Garment isimleri backend’de raw enum/value olarak kullanılıyor (Blazer, Shirt vs.)
+Garment isimleri backend’de raw enum/value olarak kullanılıyor (Jacket, Shirt vs.)
 shortTr alanı tam lokalize değil (mix language)
 UI’da string replace ile geçici çözüm uygulanıyor
 

@@ -30,6 +30,23 @@
     "titleEn": "I couldn’t build a compatible outfit from these pieces",
     "detailTr": "Parçalar mevcut olsa da renk ve kombin uyumu açısından güvenle önerebileceğim bir seçenek oluşmadı.",
     "detailEn": "Even though the pieces are available, I couldn’t form an option I can confidently recommend based on color and outfit compatibility."
+  },
+  "SUMMER_INDOOR_LIGHT_OUTFIT": {
+    "titleTr": "Hafif kombin daha uygun",
+    "titleEn": "A lighter outfit works better",
+    "detailTr": "İç mekân ve yaz koşullarında fazla katman yerine daha hafif bir kombin daha rahat olur.",
+    "detailEn": "For indoor summer conditions, a lighter outfit is more comfortable than extra layers."
+  },
+  "WINTER_OUTDOOR_PROTECTIVE_LAYER": {
+    "titleTr": "Dış katman koşullara uygun",
+    "titleEn": "The outer layer fits the conditions",
+    "detailTr": "Soğuk/dış ortam için dış katman kombini daha koruyucu ve kullanışlı hale getirir.",
+    "detailEn": "For cold or outdoor conditions, the outer layer makes the outfit more protective and practical."
+  },
+  "UNNECESSARY_LAYER_INDOOR": {
+    "titleTr": "İç mekân için fazla katmanlı olabilir",
+    "titleEn": "May be too layered for indoors",
+    "detailTr": "Bu koşullarda ekstra katman kombini gereğinden ağır hissettirebilir.",
+    "detailEn": "Under these conditions, the extra layer may make the outfit feel heavier than needed."
   }
-
 }

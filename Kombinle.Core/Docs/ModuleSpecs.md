@@ -165,12 +165,26 @@ En iyi kombini seçmek ve anlamlı alternatifleri üretmek.
 * Alternatifler anlamlı ve farklı olmalıdır
 * Soft vs hard warning ayrımı korunmalıdır
 * Layer çıkarılmış alternatifler generic item swap olarak açıklanmamalıdır
-* Jacket/blazer çıkarılmış alternatiflerde `ALT_LAYER_REMOVED` gibi özel reason kullanılabilir
+* Jacket/Jacket çıkarılmış alternatiflerde `ALT_LAYER_REMOVED` gibi özel reason kullanılabilir
 * Alternative reason, teknik farkı değil kullanıcı açısından anlamlı farkı anlatmalıdır
 
 ### Notes
 
 Bu modül sistemi gerçek “decision engine” haline getirir.
+
+---
+
+BestPool is part of the Decision layer.
+
+It represents an internal pool of Best-quality candidates used for deterministic rotation. It is separate from Alternatives.
+
+BestPool candidates must be:
+- context-safe
+- close to the current Best quality band
+- meaningfully different
+- not hard-failed
+
+Alternatives remain secondary recommendations and are not promoted to Best in v1.
 
 ---
 

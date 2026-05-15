@@ -46,6 +46,10 @@ Demo UI
 * Aktif ürün giriş noktası API tarafındadır.
 * `Kombinle.Core/Program.cs`, API katmanı yazılmadan önce kullanılan console test harness / legacy runner olarak değerlendirilmelidir.
 
+
+* Kombinle.Core.Tests contains older core-level tests and may include outdated assumptions.
+* *Current active regression validation is primarily under Kombinle.Api.Tests.
+
 ---
 
 ## Core Modules

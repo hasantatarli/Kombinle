@@ -34,7 +34,7 @@
         {
           "slot": "Outerwear",
           "level": "Optional",
-          "allowedCategories": [ "Coat", "Jacket" ]
+          "allowedCategories": [ "Coat", "LightOuterwear" ]
         }
       ]
     }
@@ -43,7 +43,7 @@
   "office_business_casual": {
     "name": "Office (Business Casual)",
     "planCategoryId": "work_office",
-    "requiredFormality": "Casual",
+    "requiredFormality": "Smart",
     "preferredAnchorColors": [ "Navy", "Grey", "Beige" ],
     "defaultContext": {
       "weather": "Clear",
@@ -56,27 +56,27 @@
         {
           "slot": "Anchor",
           "level": "Optional",
-          "allowedCategories": [ "Jacket", "Blazer" ]
+          "allowedCategories": [ "Jacket" ]
         },
         {
           "slot": "Top",
           "level": "Hard",
-          "allowedCategories": [ "Shirt", "Blouse" ]
+          "allowedCategories": [ "Shirt", "Blouse", "Tshirt", "Sweater", "Cardigan" ]
         },
         {
           "slot": "Bottom",
           "level": "Hard",
-          "allowedCategories": [ "Pants", "Skirt" ]
+          "allowedCategories": [ "Pants", "Skirt", "Jeans" ]
         },
         {
           "slot": "Shoes",
           "level": "Hard",
-          "allowedCategories": [ "Shoes" ]
+          "allowedCategories": [ "Shoes", "Sneakers" ]
         },
         {
           "slot": "Outerwear",
           "level": "Optional",
-          "allowedCategories": [ "Coat", "Jacket" ]
+          "allowedCategories": [ "Coat", "LightOuterwear" ]
         }
       ]
     }
@@ -97,7 +97,7 @@
         {
           "slot": "Anchor",
           "level": "Soft",
-          "allowedCategories": [ "Jacket", "Cardigan", "Hoodie" ]
+          "allowedCategories": [ "LightOuterwear", "Cardigan", "Hoodie" ]
         },
         {
           "slot": "Top",
@@ -117,7 +117,7 @@
         {
           "slot": "Outerwear",
           "level": "Optional",
-          "allowedCategories": [ "Coat", "Jacket" ]
+          "allowedCategories": [ "Coat", "LightOuterwear" ]
         }
       ]
     }
@@ -158,7 +158,7 @@
         {
           "slot": "Outerwear",
           "level": "Optional",
-          "allowedCategories": [ "Coat", "Jacket" ]
+          "allowedCategories": [ "Coat", "LightOuterwear" ]
         }
       ]
     }
@@ -167,7 +167,7 @@
   "smart_casual_dinner": {
     "name": "Smart Casual Dinner",
     "planCategoryId": "dinner_social",
-    "requiredFormality": "Casual",
+    "requiredFormality": "Smart",
     "preferredAnchorColors": [ "Black", "Navy", "Beige" ],
     "defaultContext": {
       "weather": "Clear",
@@ -179,7 +179,7 @@
         {
           "slot": "Anchor",
           "level": "Soft",
-          "allowedCategories": [ "Jacket", "Blazer" ]
+          "allowedCategories": [ "Jacket" ]
         },
         {
           "slot": "Top",
@@ -199,7 +199,7 @@
         {
           "slot": "Outerwear",
           "level": "Optional",
-          "allowedCategories": [ "Coat", "Jacket" ]
+          "allowedCategories": [ "Coat", "LightOuterwear" ]
         }
       ]
     }
@@ -230,7 +230,7 @@
         {
           "slot": "Outerwear",
           "level": "Optional",
-          "allowedCategories": [ "Jacket", "Coat" ]
+          "allowedCategories": [ "LightOuterwear", "Coat" ]
         }
       ]
     }
@@ -268,6 +268,11 @@
           "slot": "Shoes",
           "level": "Hard",
           "allowedCategories": [ "Shoes" ]
+        },
+        {
+          "slot": "Outerwear",
+          "level": "Optional",
+          "allowedCategories": [ "Coat", "LightOuterwear" ]
         }
       ]
     }

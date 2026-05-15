@@ -59,7 +59,8 @@ namespace Kombinle.Api.Contracts
         string? SubtextTr,
         OutfitDto Outfit,
         string BestContextHealth,
-        List<string> WhyThisWorksTr
+        List<string> WhyThisWorksTr,
+        List<ContextNoteDto> ContextNotes
     );
 
     public record OutfitDto(
@@ -98,6 +99,11 @@ namespace Kombinle.Api.Contracts
         double ContextAvgDelta,
         double ContextPenaltyRate,
         double ContextWarningRate
+    );
+
+    public record ContextNoteDto(
+         string Code,
+         string TextTr
     );
 
     public record ApiError(string Error, string Message);

@@ -22,7 +22,7 @@ namespace Kombinle.Core.Config
         },
         new AnchorCompositionRule
         {
-            Anchor = Category.Blazer,
+            Anchor = Category.Jacket,
             RequiredCategories = new List<Category>
             {
                 Category.Pants

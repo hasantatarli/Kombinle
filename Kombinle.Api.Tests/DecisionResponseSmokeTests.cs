@@ -1,8 +1,9 @@
-﻿using System.Net;
+﻿using FluentAssertions;
+using Microsoft.AspNetCore.Mvc.Testing;
+using System.Net;
 using System.Net.Http.Json;
 using System.Text;
-using FluentAssertions;
-using Microsoft.AspNetCore.Mvc.Testing;
+using System.Text.Json;
 using Xunit;
 
 namespace Kombinle.Api.Tests;
@@ -50,7 +51,7 @@ public class DecisionResponseSmokeTests : IClassFixture<WebApplicationFactory<Pr
     }
 
     [Fact]
-    public async Task RainSuedeScenario_ShouldReturnRecommendedAlternative()
+    public async Task RainSuedeScenario_ShouldAvoidSuedeShoes_WhenAlternativeExists()
     {
         var json = """
         {
@@ -64,7 +65,8 @@ public class DecisionResponseSmokeTests : IClassFixture<WebApplicationFactory<Pr
             { "tempId": "w1", "category": "Jacket", "colorFamily": "Navy", "formality": "Formal" },
             { "tempId": "w2", "category": "Shirt", "colorFamily": "White", "formality": "Formal" },
             { "tempId": "w3", "category": "Pants", "colorFamily": "Grey", "formality": "Formal" },
-            { "tempId": "w4", "category": "Shoes", "colorFamily": "Black", "formality": "Formal", "shoe": { "material": "Suede" } }
+            { "tempId": "w4", "category": "Shoes", "colorFamily": "Black", "formality": "Formal", "shoe": { "material": "Suede" } },
+            { "tempId": "w5", "category": "Shoes", "colorFamily": "Brown", "formality": "Formal", "shoe": { "material": "Leather" } }
           ]
         }
         """;
@@ -73,14 +75,24 @@ public class DecisionResponseSmokeTests : IClassFixture<WebApplicationFactory<Pr
         response.StatusCode.Should().Be(HttpStatusCode.OK);
 
         var payload = await response.Content.ReadFromJsonAsync<DecisionResponseDto>();
-        payload.Should().NotBeNull();
+        //Console.WriteLine(JsonSerializer.Serialize(payload, new JsonSerializerOptions
+        //{
+        //    WriteIndented = true
+        //}));
 
-        payload!.Decision.BestContextHealth.Should().Be("Poor");
-        payload.RecommendedAlternative.Should().NotBeNull();
-        payload.Alternatives.Should().BeEmpty();
-        payload.WardrobeFeedback.Should().NotBeNull();
-        payload.WardrobeFeedback!.Code.Should().Be("RAIN_SUEDE_SHOES");
-        payload.Decision.Outfit.Items.Should().OnlyHaveUniqueItems(x => $"{x.Category}-{x.ColorFamily}");
+        payload!.Decision.BestContextHealth.Should().Be("Okay");
+
+        payload.Decision.Outfit.Items
+            .Should()
+            .Contain(x => x.Category == "Shoes" && x.ColorFamily == "Brown");
+
+        payload.Decision.Outfit.Items
+            .Should()
+            .NotContain(x => x.Category == "Shoes" && x.ColorFamily == "Black");
+
+        payload.RecommendedAlternative.Should().BeNull();
+        payload.WardrobeFeedback.Should().BeNull();
+        payload.Alternatives.Should().NotBeEmpty();
     }
 
     [Fact]

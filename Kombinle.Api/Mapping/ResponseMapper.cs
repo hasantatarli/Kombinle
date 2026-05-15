@@ -76,9 +76,7 @@ public static class ResponseMapper
     {
         return slotName.Equals("Outerwear", StringComparison.OrdinalIgnoreCase)
                || (slotName.Equals("Anchor", StringComparison.OrdinalIgnoreCase)
-                   && (garment.Category == Category.Jacket
-                       || garment.Category == Category.Blazer
-                       || garment.Category == Category.Coat));
+                   && garment.Category == Category.Jacket);
     }
 
     private static (List<OutfitItemDto> CoreItems, List<OutfitItemDto> Layers) MapOutfitSections(ScoredCombination best)
@@ -299,7 +297,7 @@ public static class ResponseMapper
 
         if (isSoftWarning)
         {
-            
+
             return hasAlternatives
                 ? "DECISION_SOFT_WARNING_WITH_ALTERNATIVES"
                 : "DECISION_SOFT_WARNING_NO_ALTERNATIVES";
@@ -401,7 +399,8 @@ public static class ResponseMapper
                     ShortTr: outfitShortTr
                 ),
                 BestContextHealth: "Unknown",
-                WhyThisWorksTr: new List<string>()
+                WhyThisWorksTr: new List<string>(),
+                ContextNotes: new List<ContextNoteDto>()
             ),
             RecommendedAlternative: null,
             WardrobeFeedback: null,
@@ -451,7 +450,8 @@ public static class ResponseMapper
                 ShortTr: BuildShortFromCandidate(best.Candidate)
             ),
             BestContextHealth: summary.BestContextHealth.ToString(),
-            WhyThisWorksTr: BuildWhyThisWorks(best)
+            WhyThisWorksTr: BuildWhyThisWorks(best),
+            ContextNotes: MapContextNotes(best)
         );
     }
 
@@ -553,6 +553,19 @@ public static class ResponseMapper
         return result
             .Distinct(StringComparer.OrdinalIgnoreCase)
             .Take(3)
+            .ToList();
+    }
+
+    private static List<ContextNoteDto> MapContextNotes(ScoredCombination? best)
+    {
+        if (best?.ContextUserNotes == null || best.ContextUserNotes.Count == 0)
+            return new List<ContextNoteDto>();
+
+        return best.ContextUserNotes
+            .Where(x => x != null && !string.IsNullOrWhiteSpace(x.Text) && !string.IsNullOrWhiteSpace(x.Code))
+            .GroupBy(x => x.Code!.Trim())
+            .Select(g => g.First())
+            .Select(x => new ContextNoteDto(x.Code!.Trim(), x.Text.Trim()))
             .ToList();
     }
 }

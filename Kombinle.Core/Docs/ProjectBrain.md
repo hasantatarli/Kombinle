@@ -79,7 +79,7 @@ Engine artık sadece Occasion bazlı değil, aşağıdaki üçlüye göre karar 
 Outfit iki parçaya ayrılır:
 
 - CoreItems → temel kombin (top, bottom, shoes)
-- Layers → dış katmanlar (jacket, blazer, coat)
+- Layers → dış katmanlar (jacket, Jacket, coat)
 
 Bu sayede:
 
@@ -91,7 +91,7 @@ Layer model evolved from slot-only logic to semantic layer behavior.
 Layer roles:
 
 - Comfort: Hoodie, Cardigan
-- Structure: Jacket, Blazer
+- Structure: Jacket, Jacket
 - Protection: Coat
 
 Layer intensity affects context suitability.
@@ -227,7 +227,7 @@ Model generic, bazı davranışlar path-specific.
 - Occasion defines required formality
 - Items scored against required formality
 - Casual occasion:
-  - Formal anchors (e.g., blazer) receive penalty
+  - Formal anchors (e.g., Jacket) receive penalty
   - Casual anchors (cardigan, hoodie) preferred
 - Formal occasion:
   - Non-formal items strongly penalized

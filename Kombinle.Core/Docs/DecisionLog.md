@@ -107,7 +107,7 @@ High
 
 ### Context
 
-Categories like Hoodie, Jacket, Blazer and Coat were all treated too similarly.
+Categories like Hoodie, Jacket, Jacket and Coat were all treated too similarly.
 
 This caused weak or confusing recommendations such as:
 - Hoodie being treated as rain-appropriate
@@ -360,7 +360,7 @@ High
 
 ### Context
 
-Best kombin jacket/blazer içerdiğinde, ceketsiz alternatif generic reason ile açıklanıyordu.
+Best kombin jacket/Jacket içerdiğinde, ceketsiz alternatif generic reason ile açıklanıyordu.
 
 Örnek:
 
@@ -924,3 +924,74 @@ Priority order:
 
 Reason:
 - Kullanıcıya en kritik problem gösterilmeli
+
+
+---
+## BestPool and Deterministic Rotation
+
+### Context
+Real-user feedback showed that the demo could feel repetitive because the same top-ranked outfit was repeatedly recommended.
+
+### Decision
+A BestPool concept was introduced.
+
+BestPool is an internal elite-quality candidate pool, not a user-visible list.
+
+Rules:
+- Built from ranked combinations
+- Candidate score must be at least 75% of Best score
+- Candidate must not have worse ContextDelta than Best
+- Candidate must not be hard-failed
+- Candidate must have meaningful difference
+- Existing ranking order is preserved
+- Max pool size is capped
+- Random selection is not used
+
+Rotation behavior:
+- API accepts `rotationAttempt`
+- `rotationAttempt = 0` returns the first BestPool candidate
+- Repeated “Kombin Öner” clicks increase `rotationAttempt`
+- Selected Best is `BestPool[rotationAttempt % BestPool.Count]`
+- Alternatives are not promoted to Best
+- BestPool is not shown directly to the user
+
+### Reason
+This reduces repeated-best perception while preserving deterministic and explainable behavior.
+
+### Non-goals
+- No personalization yet
+- No persistence/history
+- No randomization
+- No user choice learning yet
+- Alternatives are not used as rotation candidates
+
+### Confidence
+High
+
+---
+
+## Occasion Config Audit and Category Boundaries
+
+### Context
+Smart/Casual recommendations were being distorted because some occasion configs were too restrictive or had misleading target formality.
+
+### Decision
+Occasion `allowedCategories` should act as domain guardrails, not overly strict styling definitions.
+
+Changes:
+- `office_business_casual` target formality set to `Smart`
+- `smart_casual_dinner` target formality set to `Smart`
+- Smart/Casual occasions allow broader valid categories such as `Tshirt`, `Jeans`, `Sneakers`
+- Formal work occasions allow `Jacket` as an anchor
+- `wedding_formal_flexible` supports optional `Outerwear`
+
+### Reason
+The generator should not block valid wardrobe items too early. Generation defines acceptable boundaries; scoring decides which candidate is best.
+
+### Non-goals
+- No category catalog refactor yet
+- No database-backed taxonomy yet
+- No dynamic category creation
+
+### Confidence
+High

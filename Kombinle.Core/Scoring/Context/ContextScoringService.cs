@@ -51,21 +51,25 @@ namespace Kombinle.Core.Scoring.Context
                 {
                     res.DeltaScore -= 12;
                     // Console.WriteLine("[LAYER] Summer indoor high intensity penalty applied");
+                    res.UserNotes.Add(new ContextUserNote("UNNECESSARY_LAYER_INDOOR", "İç mekân ve yaz koşullarında daha hafif kombin daha rahat olur."));
                 }
                 else if (intensity >= 3)
                 {
                     res.DeltaScore -= 6;
                     //Console.WriteLine("[LAYER] Summer indoor medium intensity penalty applied");
+                    res.UserNotes.Add(new ContextUserNote("UNNECESSARY_LAYER_INDOOR", "İç mekân ve yaz koşullarında daha hafif kombin daha rahat olur."));
                 }
                 else if (intensity == 2)
                 {
                     res.DeltaScore -= 3;
                     //Console.WriteLine("[LAYER] Summer indoor structured layer penalty applied");
+                    res.UserNotes.Add(new ContextUserNote("UNNECESSARY_LAYER_INDOOR", "İç mekân ve yaz koşullarında daha hafif kombin daha rahat olur."));
                 }
                 else if (intensity == 1)
                 {
                     res.DeltaScore -= 2;
                     //Console.WriteLine("[LAYER] Summer indoor light layer penalty applied");
+                    res.UserNotes.Add(new ContextUserNote("UNNECESSARY_LAYER_INDOOR", "İç mekân ve yaz koşullarında daha hafif kombin daha rahat olur."));
                 }
             }
 
@@ -75,17 +79,20 @@ namespace Kombinle.Core.Scoring.Context
                 {
                     res.DeltaScore -= 12;
                     //Console.WriteLine("[LAYER] Winter outdoor low intensity penalty applied");
+                    res.UserNotes.Add(new ContextUserNote("OUTDOOR_NO_OUTERWEAR", "Dış ortamda daha koruyucu bir katman faydalı olabilir."));
                 }
                 else if (intensity == 2)
                 {
                     res.DeltaScore -= 4;
                     //Console.WriteLine("[LAYER] Winter outdoor medium-low intensity penalty applied");
+                    res.UserNotes.Add(new ContextUserNote("OUTDOOR_NO_OUTERWEAR", "Dış ortamda daha koruyucu bir katman faydalı olabilir."));
                 }
 
                 if (hasProtectionLayer)
                 {
                     res.DeltaScore += 3;
                     //Console.WriteLine("[LAYER] Winter outdoor protection bonus applied");
+                    res.UserNotes.Add(new ContextUserNote("WINTER_OUTDOOR_PROTECTIVE_LAYER", "Soğuk/dış ortam için dış katman kombini daha koruyucu hale getirir."));
                 }
             }
         }
@@ -260,8 +267,7 @@ namespace Kombinle.Core.Scoring.Context
 
         private static bool IsStructuredLayer(Category category)
         {
-            return category == Category.Jacket ||
-                   category == Category.Blazer;
+            return category == Category.Jacket;
         }
 
         private static bool IsHeavyLayer(Category category)
@@ -275,12 +281,13 @@ namespace Kombinle.Core.Scoring.Context
                 category == Category.Cardigan)
                 return LayerRole.Comfort;
 
-            if (category == Category.Jacket ||
-                category == Category.Blazer)
+            if (category ==  Category.Jacket)
                 return LayerRole.Structure;
 
-            if (category == Category.Coat)
+            if (category == Category.LightOuterwear ||
+                category == Category.Coat)
                 return LayerRole.Protection;
+
 
             return LayerRole.None;
         }

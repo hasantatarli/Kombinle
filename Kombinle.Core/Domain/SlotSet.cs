@@ -77,7 +77,7 @@ namespace Kombinle.Core.Domain
                 {
                     Slot = Slot.Outerwear,
                     Level = RequirementLevel.Optional,
-                    AllowedCategories = new List<Category> { Category.Coat, Category.Jacket }
+                    AllowedCategories = new List<Category> { Category.Coat, Category.LightOuterwear }
                 }
             }
             };
@@ -151,7 +151,7 @@ namespace Kombinle.Core.Domain
                 {
                     Slot = Slot.Outerwear,
                     Level = RequirementLevel.Optional,
-                    AllowedCategories = new List<Category> { Category.Jacket, Category.Coat }
+                    AllowedCategories = new List<Category> { Category.LightOuterwear, Category.Coat }
                 }
             }
             };
@@ -191,7 +191,7 @@ namespace Kombinle.Core.Domain
                 {
                     Slot = Slot.Outerwear,
                     Level = RequirementLevel.Optional,
-                    AllowedCategories = new List<Category> { Category.Jacket, Category.Coat }
+                    AllowedCategories = new List<Category> { Category.LightOuterwear, Category.Coat }
                 }
             }
             };

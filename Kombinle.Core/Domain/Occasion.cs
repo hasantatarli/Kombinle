@@ -24,35 +24,35 @@ namespace Kombinle.Core.Domain
 
         public List<string> CombinationModes { get; set; } = new();
 
-        // Hazır örnekler (istersen çoğaltırız)
-        public static Occasion WeddingFormal_JacketOrDress()
-        {
-            return new Occasion
-            {
-                Name = "Wedding (Dress or Jacket Formal)",
-                RequiredFormality = Formality.Formal,
-                SlotSet = SlotSet.JacketOrDressFormal(),
-                PreferredAnchorColors = new List<ColorFamily>
-                {
-                    ColorFamily.Navy,
-                    ColorFamily.Black,
-                    ColorFamily.Grey
-                },
-                PreferredAnchorColorTieBreakBonus = 1
-            };
-        }
+        //// Hazır örnekler (istersen çoğaltırız)
+        //public static Occasion WeddingFormal_JacketOrDress()
+        //{
+        //    return new Occasion
+        //    {
+        //        Name = "Wedding (Dress or Jacket Formal)",
+        //        RequiredFormality = Formality.Formal,
+        //        SlotSet = SlotSet.JacketOrDressFormal(),
+        //        PreferredAnchorColors = new List<ColorFamily>
+        //        {
+        //            ColorFamily.Navy,
+        //            ColorFamily.Black,
+        //            ColorFamily.Grey
+        //        },
+        //        PreferredAnchorColorTieBreakBonus = 1
+        //    };
+        //}
 
-        public static Occasion WeddingFormal_DressOnly()
-        {
-            return new Occasion
-            {
-                Name = "Wedding (DressOnly)",
-                RequiredFormality = Formality.Formal,
-                SlotSet = SlotSet.DressOnlyFormal(),
-                PreferredAnchorColors = new() { ColorFamily.Navy, ColorFamily.Black, ColorFamily.Grey },
-                PreferredAnchorColorTieBreakBonus = 1
-            };
-        }
+        //public static Occasion WeddingFormal_DressOnly()
+        //{
+        //    return new Occasion
+        //    {
+        //        Name = "Wedding (DressOnly)",
+        //        RequiredFormality = Formality.Formal,
+        //        SlotSet = SlotSet.DressOnlyFormal(),
+        //        PreferredAnchorColors = new() { ColorFamily.Navy, ColorFamily.Black, ColorFamily.Grey },
+        //        PreferredAnchorColorTieBreakBonus = 1
+        //    };
+        //}
 
         // ----------------------------
         // BUSINESS MEETING

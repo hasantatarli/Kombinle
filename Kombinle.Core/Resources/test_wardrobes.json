@@ -107,12 +107,12 @@
       },
 
       {
-        "category": "Jacket",
+        "category": "LightOuterwear",
         "colorFamily": "Navy",
         "formality": "Formal"
       },
       {
-        "category": "Blazer",
+        "category": "Jacket",
         "colorFamily": "Black",
         "formality": "Smart"
       },
@@ -232,22 +232,22 @@
       },
 
       {
-        "category": "Jacket",
+        "category": "LightOuterwear",
         "colorFamily": "Navy",
         "formality": "Smart"
       },
       {
-        "category": "Jacket",
+        "category": "LightOuterwear",
         "colorFamily": "Black",
         "formality": "Casual"
       },
       {
-        "category": "Jacket",
+        "category": "LightOuterwear",
         "colorFamily": "Grey",
         "formality": "Formal"
       },
       {
-        "category": "Blazer",
+        "category": "Jacket",
         "colorFamily": "Grey",
         "formality": "Smart"
       },
@@ -397,7 +397,7 @@
         "formality": "Casual"
       },
       {
-        "category": "Jacket",
+        "category": "LightOuterwear",
         "colorFamily": "Navy",
         "formality": "Formal"
       },
@@ -475,12 +475,12 @@
       },
 
       {
-        "category": "Blazer",
+        "category": "Jacket",
         "colorFamily": "Grey",
         "formality": "Smart"
       },
       {
-        "category": "Jacket",
+        "category": "LightOuterwear",
         "colorFamily": "Navy",
         "formality": "Smart"
       },

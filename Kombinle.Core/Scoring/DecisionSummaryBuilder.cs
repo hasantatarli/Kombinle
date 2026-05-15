@@ -94,7 +94,12 @@ namespace Kombinle.Core.Scoring
             summary.Best = best;
             summary.BestRisk = RiskOf(best);
 
-            
+            summary.BestContextNotes = best.ContextUserNotes
+                                            .Where(n => n != null && !string.IsNullOrWhiteSpace(n.Text))
+                                            .DistinctBy(n => n.Code)
+                                            .ToList();
+
+
 
 
             //Console.WriteLine("=== BEST POOL ===");
@@ -110,8 +115,8 @@ namespace Kombinle.Core.Scoring
             var bestHasLayerOrOuterwear =
                 best.Candidate.SlotToItem.Values.Any(i =>
                     i.Category == Category.Coat ||
+                    i.Category == Category.LightOuterwear ||
                     i.Category == Category.Jacket ||
-                    i.Category == Category.Blazer ||
                     i.Category == Category.Cardigan ||
                     i.Category == Category.Hoodie)
                 ||
@@ -333,7 +338,7 @@ namespace Kombinle.Core.Scoring
             if (s.WarningCount > 0) return DecisionRiskLevel.Warning;
             return DecisionRiskLevel.Safe;
         }
-
+        /*
         private static string BuildDebugShort(CombinationCandidate c, ScoredCombination s)
         {
             var parts = new List<string>
@@ -364,6 +369,7 @@ namespace Kombinle.Core.Scoring
 
             return $"{string.Join(" + ", parts)}{outerTag} | Score:{s.Score} TB:{s.TieBreakScore} | {riskTag}";
         }
+        */
 
         private static string BuildUserShort(CombinationCandidate c)
         {

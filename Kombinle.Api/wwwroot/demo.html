@@ -314,8 +314,8 @@
             Shoes: "Ayakkabı",
             Sneakers: "Spor Ayakkabı",
             Boots: "Bot",
+            LightOuterwear: "Mevsimlik Mont",
             Jacket: "Ceket",
-            Blazer: "Blazer Ceket",
             Coat: "Kaban",
             Cardigan: "Hırka"
         };
@@ -366,8 +366,9 @@
                 Shoes: "Ayakkabı",
                 Sneakers: "Spor Ayakkabı",
                 Boots: "Bot",
+                LightOuterwear: "Mevsimlik Mont",
                 Jacket: "Ceket",
-                Blazer: "Blazer Ceket",
+                Jacket: "Ceket",
                 Coat: "Kaban",
                 Cardigan: "Hırka"
             };
@@ -406,6 +407,32 @@
                                             ${reasons.map(r => `<li><strong>${r.titleTr}</strong><br><span>${r.detailTr}</span></li>`).join("")}
                                         </ul>
                                     `;
+        }
+
+        function renderContextNotes(notes) {
+            if (!notes || notes.length === 0) return "";
+
+            return `
+        <div style="margin-top:10px;">
+            <strong>Koşul Notları</strong>
+            <ul>
+                ${notes.map(n => `<li>${n.textTr}</li>`).join("")}
+            </ul>
+        </div>
+    `;
+        }
+
+        function renderContextNotes(notes) {
+            if (!notes || notes.length === 0) return "";
+
+            return `
+        <div class="mini-card">
+            <h3>Koşul Notları</h3>
+            <ul>
+                ${notes.map(n => `<li>${n.textTr}</li>`).join("")}
+            </ul>
+        </div>
+    `;
         }
 
         function renderResult(data) {
@@ -456,9 +483,12 @@
                                         <div class="mini-card">
                                             <h3>Neden?</h3>
                                             <ul>
-                                                ${(decision.whyThisWorksTr || []).map(x => `<li>${x}</li>`).join("")}
+                                                ${(decision.whyThisWorksTr || [])
+                                                            .map(x => `<li>${x}</li>`)
+                                                            .join("")}
                                             </ul>
                                         </div>
+                                        ${renderContextNotes(decision.contextNotes)}
                                     </div>
                                     <br />
                                     ${feedbackHtml}

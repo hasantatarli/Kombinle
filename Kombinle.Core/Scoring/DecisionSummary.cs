@@ -72,7 +72,7 @@ namespace Kombinle.Core.Scoring
 
         public List<ScoredCombination> BestPool { get; set; } = new();
 
-
+        public List<ContextUserNote> BestContextNotes { get; set; } = new();
 
     }
 }

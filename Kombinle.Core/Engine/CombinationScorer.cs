@@ -86,7 +86,7 @@ namespace Kombinle.Core.Engine
             }
 
             // Casual occasion'da formal anchor fazla baskın görünür.
-            // Casual jacket/blazer kabul edilebilir; Formal anchor ise hafif değil, belirgin ceza almalı.
+            // Casual jacket/Jacket kabul edilebilir; Formal anchor ise hafif değil, belirgin ceza almalı.
             if (occasion.RequiredFormality == Formality.Casual
                 && candidate.Anchor != null
                 && candidate.Anchor.Formality == Formality.Formal)
@@ -289,8 +289,8 @@ namespace Kombinle.Core.Engine
             category == Category.Sweater ||
             category == Category.Hoodie ||
             category == Category.Cardigan ||
+            //category == Category.Jacket ||
             category == Category.Jacket ||
-            category == Category.Blazer ||
             category == Category.Coat;
 
         private static bool IsBottomCategory(Category category) =>

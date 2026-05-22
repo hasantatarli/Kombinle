@@ -6,11 +6,18 @@ using Kombinle.Core.Engine;
 using Kombinle.Core.Generation;
 using Kombinle.Core.Scoring;
 using Kombinle.Core.Infrastructure;
+using Kombinle.Api.Services;
 
 namespace Kombinle.Api.Services;
 
 public sealed class DecisionService : IDecisionService
 {
+    private readonly WardrobeProfileService _wardrobeProfileService;
+
+    public DecisionService(WardrobeProfileService wardrobeProfileService)
+    {
+        _wardrobeProfileService = wardrobeProfileService;
+    }
     public DecisionResponse Decide(DecisionRequest req)
     {
         // 1) Occasion resolve
@@ -43,7 +50,20 @@ public sealed class DecisionService : IDecisionService
         }
         else if (!string.IsNullOrWhiteSpace(req.WardrobeProfileId))
         {
-            wardrobe = TestWardrobeLoader.Load(req.WardrobeProfileId);
+            var profile = _wardrobeProfileService.GetProfile(req.WardrobeProfileId);
+
+            if (profile is null)
+                throw new Exception($"Wardrobe profile not found: {req.WardrobeProfileId}");
+
+            wardrobe = profile.Items
+                .Select(x => MappingHelpers.ToGarment(new GarmentInputDto(
+                    TempId: x.Id,
+                    Category: x.Category,
+                    ColorFamily: x.ColorFamily,
+                    Formality: x.Formality,
+                    Shoe: null
+                )))
+                .ToList();
         }
         else
         {

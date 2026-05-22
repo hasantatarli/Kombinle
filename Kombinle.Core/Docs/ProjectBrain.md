@@ -379,3 +379,22 @@ Its purpose is to answer:
 - Image recognition
 - Real weather API
 - Commerce / purchase recommendations
+
+### Current Demo Capabilities
+
+- Real weather retrieval (Open-Meteo)
+- Static city-based context selection
+- Lightweight context summary bar
+- Advanced context override testing
+- Dynamic wardrobe profile loading
+- Wardrobe summary preview
+- Category-grouped wardrobe inspection drawer
+
+### Product Direction Emerging
+
+Demo is evolving from:
+- technical API visualization
+
+toward:
+
+- lightweight interactive outfit assistant validation

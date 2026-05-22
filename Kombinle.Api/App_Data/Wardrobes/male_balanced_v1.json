@@ -1,0 +1,150 @@
+﻿{
+    "id":  "male_balanced_v1",
+    "displayName":  "Erkek Balanced",
+    "items":  [
+                  {
+                      "id":  "item_1",
+                      "category":  "Shirt",
+                      "colorFamily":  "White",
+                      "formality":  "Formal"
+                  },
+                  {
+                      "id":  "item_2",
+                      "category":  "Shirt",
+                      "colorFamily":  "Blue",
+                      "formality":  "Smart"
+                  },
+                  {
+                      "id":  "item_3",
+                      "category":  "Shirt",
+                      "colorFamily":  "Black",
+                      "formality":  "Casual"
+                  },
+                  {
+                      "id":  "item_4",
+                      "category":  "Tshirt",
+                      "colorFamily":  "White",
+                      "formality":  "Casual"
+                  },
+                  {
+                      "id":  "item_5",
+                      "category":  "Tshirt",
+                      "colorFamily":  "Black",
+                      "formality":  "Casual"
+                  },
+                  {
+                      "id":  "item_6",
+                      "category":  "Sweater",
+                      "colorFamily":  "Grey",
+                      "formality":  "Smart"
+                  },
+                  {
+                      "id":  "item_7",
+                      "category":  "Hoodie",
+                      "colorFamily":  "Black",
+                      "formality":  "Casual"
+                  },
+                  {
+                      "id":  "item_8",
+                      "category":  "Pants",
+                      "colorFamily":  "Grey",
+                      "formality":  "Formal"
+                  },
+                  {
+                      "id":  "item_9",
+                      "category":  "Pants",
+                      "colorFamily":  "Black",
+                      "formality":  "Formal"
+                  },
+                  {
+                      "id":  "item_10",
+                      "category":  "Pants",
+                      "colorFamily":  "Navy",
+                      "formality":  "Formal"
+                  },
+                  {
+                      "id":  "item_11",
+                      "category":  "Pants",
+                      "colorFamily":  "Brown",
+                      "formality":  "Formal"
+                  },
+                  {
+                      "id":  "item_12",
+                      "category":  "Pants",
+                      "colorFamily":  "Beige",
+                      "formality":  "Casual"
+                  },
+                  {
+                      "id":  "item_13",
+                      "category":  "Pants",
+                      "colorFamily":  "Black",
+                      "formality":  "Smart"
+                  },
+                  {
+                      "id":  "item_14",
+                      "category":  "Jeans",
+                      "colorFamily":  "Blue",
+                      "formality":  "Casual"
+                  },
+                  {
+                      "id":  "item_15",
+                      "category":  "Shoes",
+                      "colorFamily":  "Black",
+                      "formality":  "Formal"
+                  },
+                  {
+                      "id":  "item_16",
+                      "category":  "Shoes",
+                      "colorFamily":  "Brown",
+                      "formality":  "Casual"
+                  },
+                  {
+                      "id":  "item_17",
+                      "category":  "Sneakers",
+                      "colorFamily":  "White",
+                      "formality":  "Casual"
+                  },
+                  {
+                      "id":  "item_18",
+                      "category":  "Sneakers",
+                      "colorFamily":  "Black",
+                      "formality":  "Casual"
+                  },
+                  {
+                      "id":  "item_19",
+                      "category":  "LightOuterwear",
+                      "colorFamily":  "Navy",
+                      "formality":  "Smart"
+                  },
+                  {
+                      "id":  "item_20",
+                      "category":  "LightOuterwear",
+                      "colorFamily":  "Black",
+                      "formality":  "Casual"
+                  },
+                  {
+                      "id":  "item_21",
+                      "category":  "LightOuterwear",
+                      "colorFamily":  "Grey",
+                      "formality":  "Formal"
+                  },
+                  {
+                      "id":  "item_22",
+                      "category":  "Jacket",
+                      "colorFamily":  "Grey",
+                      "formality":  "Smart"
+                  },
+                  {
+                      "id":  "item_23",
+                      "category":  "Coat",
+                      "colorFamily":  "Black",
+                      "formality":  "Formal"
+                  },
+                  {
+                      "id":  "item_24",
+                      "category":  "Tie",
+                      "colorFamily":  "Black",
+                      "formality":  "Formal"
+                  }
+              ]
+}

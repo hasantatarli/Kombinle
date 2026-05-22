@@ -30,7 +30,12 @@
         Grey,
         Beige,
         Blue,
-        Red
+        Red,
+        Green,
+        Olive,
+        Cream,
+        Camel,
+        Burgundy
     }
 
     public enum Formality

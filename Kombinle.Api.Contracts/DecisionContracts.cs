@@ -106,6 +106,20 @@ namespace Kombinle.Api.Contracts
          string TextTr
     );
 
+    public sealed record WeatherContextResponseDto(
+        string Weather,
+        string Season,
+        double TemperatureC,
+        double PrecipitationMm,
+        double SnowfallCm,
+        string Source
+    );
+
+
+    public sealed record WardrobeProfileSummaryDto(
+        string Id,
+        string DisplayName
+    );
     public record ApiError(string Error, string Message);
 }
 

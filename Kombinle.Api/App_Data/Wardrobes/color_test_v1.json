@@ -1,0 +1,42 @@
+﻿{
+    "id":  "color_test_v1",
+    "displayName":  "Color Test",
+    "items":  [
+                  {
+                      "id":  "item_1",
+                      "category":  "Shirt",
+                      "colorFamily":  "Cream",
+                      "formality":  "Smart"
+                  },
+                  {
+                      "id":  "item_2",
+                      "category":  "Pants",
+                      "colorFamily":  "Olive",
+                      "formality":  "Smart"
+                  },
+                  {
+                      "id":  "item_3",
+                      "category":  "Coat",
+                      "colorFamily":  "Camel",
+                      "formality":  "Smart"
+                  },
+                  {
+                      "id":  "item_4",
+                      "category":  "Dress",
+                      "colorFamily":  "Burgundy",
+                      "formality":  "Formal"
+                  },
+                  {
+                      "id":  "item_5",
+                      "category":  "Shoes",
+                      "colorFamily":  "Brown",
+                      "formality":  "Smart"
+                  },
+                  {
+                      "id":  "item_6",
+                      "category":  "Shoes",
+                      "colorFamily":  "Black",
+                      "formality":  "Formal"
+                  }
+              ]
+}

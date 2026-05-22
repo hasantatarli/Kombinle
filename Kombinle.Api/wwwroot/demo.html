@@ -172,12 +172,378 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        .top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            margin-bottom: 16px;
+        }
+
+            .top-bar h1 {
+                margin: 0;
+            }
+
+        .context-summary-card {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: white;
+            border: 1px solid #e4e7ec;
+            border-radius: 12px;
+            padding: 12px 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            min-width: 360px;
+            justify-content: center;
+        }
+
+        .context-summary-text {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 15px;
+            white-space: nowrap;
+        }
+
+        .context-summary-separator {
+            color: #d0d5dd;
+        }
+
+        .context-link-btn {
+            height: auto;
+            border: none;
+            background: none;
+            color: #2563eb;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 700;
+            padding: 0;
+            margin-left: 4px;
+        }
+
+        .controls {
+            justify-content: space-between;
+        }
+
+            .controls .field {
+                min-width: 190px;
+            }
+
+            .controls button.primary-action {
+                height: 38px;
+                padding: 8px 18px;
+            }
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15,23,42,0.08);
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-end;
+            padding: 210px 48px 0 48px;
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+
+        .modal-card {
+            background: white;
+            width: 520px;
+            max-width: 92vw;
+            border-radius: 14px;
+            padding: 22px;
+            box-shadow: 0 14px 36px rgba(15,23,42,0.18);
+            border: 1px solid #e4e7ec;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 18px;
+            gap: 12px;
+        }
+
+            .modal-header h3 {
+                margin: 0 0 8px 0;
+                font-size: 20px;
+            }
+
+        .modal-subtitle {
+            margin: 0;
+            color: #667085;
+            font-size: 14px;
+        }
+
+        .modal-close-btn {
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 22px;
+            line-height: 1;
+            height: auto;
+            padding: 0;
+            color: #101828;
+        }
+
+        .modal-grid {
+            display: grid;
+            gap: 14px;
+        }
+
+        .readonly-context-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-height: 36px;
+            padding: 7px 10px;
+            border: 1px solid #d0d5dd;
+            border-radius: 8px;
+            background: #f3f4f6;
+            color: #667085;
+            font-size: 14px;
+        }
+
+        .reset-weather-btn {
+            font-size: 9px;
+        }
+
+        .modal-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: 18px;
+            font-size: 13px;
+            color: #667085;
+        }
+
+            .modal-footer button {
+                height: 36px;
+                padding: 7px 16px;
+            }
+
+        @media (max-width: 900px) {
+            .top-bar {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .context-summary-card {
+                width: 100%;
+                min-width: 0;
+                box-sizing: border-box;
+                justify-content: flex-start;
+                flex-wrap: wrap;
+            }
+
+            .context-summary-text {
+                flex-wrap: wrap;
+                white-space: normal;
+            }
+
+            .modal-overlay {
+                align-items: center;
+                justify-content: center;
+                padding: 24px;
+            }
+
+            .advanced-toggle {
+                margin-top: 18px;
+            }
+
+            .advanced-btn {
+                border: none;
+                background: none;
+                color: #2563eb;
+                cursor: pointer;
+                padding: 0;
+                font-size: 14px;
+                font-weight: 600;
+            }
+
+            .advanced-panel {
+                margin-top: 14px;
+                padding-top: 14px;
+                border-top: 1px solid #e5e7eb;
+            }
+
+            .advanced-help {
+                margin-top: 0;
+                font-size: 13px;
+                color: #666;
+            }
+
+            .override-badge {
+                font-size: 12px;
+                font-weight: 700;
+                color: #b45309;
+                background: #fff7ed;
+                border: 1px solid #fed7aa;
+                border-radius: 999px;
+                padding: 3px 8px;
+            }
+        }
+
+        /*   .wardrobe-preview {
+            margin-bottom: 14px;
+            padding: 10px 14px;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 13px;
+            color: #374151;
+        }
+
+            .wardrobe-preview strong {
+                color: #111827;
+            }*/
+
+        .controls {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr auto;
+            gap: 14px;
+            align-items: end;
+        }
+
+        .wardrobe-preview {
+            margin: -4px 0 14px 0;
+            padding: 10px 14px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 13px;
+            color: #374151;
+        }
+
+        .muted-preview {
+            color: #6b7280;
+            font-style: italic;
+        }
+
+        .wardrobe-preview-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .view-wardrobe-btn {
+            border: 1px solid #d1d5db;
+            background: white;
+            border-radius: 8px;
+            padding: 6px 10px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .wardrobe-modal-card {
+            width: 860px;
+            max-width: 92vw;
+        }
+
+        .wardrobe-items-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .wardrobe-item-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 10px;
+            background: #fafafa;
+        }
+
+        .wardrobe-item-category {
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .wardrobe-category-section {
+            margin-bottom: 18px;
+        }
+
+            .wardrobe-category-section h4 {
+                margin: 0 0 8px 0;
+                font-size: 15px;
+            }
+
+        .wardrobe-category-count {
+            margin-left: 6px;
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .wardrobe-category-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .wardrobe-item-chip {
+            border: 1px solid #e5e7eb;
+            border-radius: 999px;
+            padding: 6px 10px;
+            background: #fafafa;
+            font-size: 13px;
+        }
+
+            .wardrobe-item-chip span {
+                margin-left: 6px;
+                color: #6b7280;
+            }
+
+        #wardrobe-modal-content {
+            max-height: 70vh;
+            overflow-y: auto;
+            padding-right: 6px;
+        }
+
+        .wardrobe-insights {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .wardrobe-insight-item {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 10px 12px;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
 
     <div class="page">
-        <h1>Kombinle Demo</h1>
+        <div class="top-bar">
+            <h1>Kombinle Demo</h1>
+
+            <div class="context-summary-card">
+                <span id="context-summary-text" class="context-summary-text">
+                    <span>📍 İstanbul</span>
+                    <span class="context-summary-separator">|</span>
+                    <span>☀ Açık</span>
+                    <span class="context-summary-separator">|</span>
+                    <span>🌱 İlkbahar</span>
+                    ${weatherOverrideActive ? `<span class="override-badge">Override</span>` : ""}
+                </span>
+
+                <button type="button"
+                        class="context-link-btn"
+                        onclick="openContextModal()">
+                    Değiştir ✎
+                </button>
+            </div>
+        </div>
 
         <div class="controls">
             <div class="field">
@@ -193,32 +559,13 @@
 
             <div class="field">
                 <label>Wardrobe / Dolap</label>
-                <select id="wardrobe">
-                    <option value="female_basic_v1">Kadın Basic</option>
-                    <option value="female_balanced_v1">Kadın Balanced</option>
-                    <option value="male_basic_v1">Erkek Basic</option>
-                    <option value="male_balanced_v1">Erkek Balanced</option>
-                    <option value="male_extended_v1">Erkek Extended</option>
+                <select id="wardrobe" onchange="loadWardrobePreview()">
                 </select>
             </div>
 
-            <div class="field">
-                <label>Weather / Hava</label>
-                <select id="weather">
-                    <option value="Clear">Clear / Açık</option>
-                    <option value="Rain">Rain / Yağmur</option>
-                </select>
-            </div>
-            <div class="field">
-                <label>Season / Sezon</label>
-                <select id="season">
-                    <option value="">Auto</option>
-                    <option value="Winter">Winter</option>
-                    <option value="Spring">Spring</option>
-                    <option value="Summer">Summer</option>
-                    <option value="Autumn">Autumn</option>
-                </select>
-            </div>
+
+
+
             <div class="field">
                 <label>Setting / Ortam</label>
                 <select id="setting">
@@ -235,8 +582,9 @@
                 </select>
             </div>
 
-            <button onclick="getDecision()">Kombin Öner</button>
+            <button class="primary-action" onclick="getDecision()">Kombin Öner</button>
         </div>
+        <div id="wardrobe-preview" class="wardrobe-preview"></div>
 
         <div id="result"></div>
 
@@ -249,14 +597,393 @@
     <script>
 
 
+        async function loadWardrobeProfiles() {
+            const res = await fetch("/api/v1/wardrobes");
+            const profiles = await res.json();
+
+            const select = document.getElementById("wardrobe");
+            select.innerHTML =
+                `<option value="">Dolap Seçiniz</option>` +
+                profiles
+                    .map(p => `<option value="${p.id}">${p.displayName}</option>`)
+                    .join("");
+
+            loadWardrobePreview()
+        }
+
+        async function loadWardrobePreview() {
+
+            const wardrobeId = document.getElementById("wardrobe")?.value;
+            const preview = document.getElementById("wardrobe-preview");
+
+            if (!wardrobeId) {
+                if (preview) {
+                    preview.innerHTML = "Dolap seçtiğinde burada kısa bir özet göreceksin.";
+                    preview.classList.add("muted-preview");
+                }
+                return;
+            }
+
+            if (preview) {
+                preview.classList.remove("muted-preview");
+            }
+
+            const res = await fetch(`/api/v1/wardrobes/${wardrobeId}`);
+            const data = await res.json();
+
+            const counts = {};
+
+            for (const item of data.items || []) {
+                counts[item.category] = (counts[item.category] || 0) + 1;
+            }
+
+            const summary = Object.entries(counts)
+                .map(([category, count]) => `${count} ${categoryTrMap[category] || category}`)
+                .join(" · ");
+
+            document.getElementById("wardrobe-preview").innerHTML = `
+                    <div class="wardrobe-preview-content">
+                        <div>
+                            <strong>Dolap Özeti:</strong>
+                            ${data.itemCount} parça · ${summary}
+                        </div>
+
+                        <button
+                            class="view-wardrobe-btn"
+                            onclick="openWardrobeModal()">
+                            Dolabı Gör
+                        </button>
+                    </div>
+                `;
+
+
+        }
+
+        async function openWardrobeModal() {
+
+            const wardrobeId =
+                document.getElementById("wardrobe")?.value;
+
+            if (!wardrobeId)
+                return;
+
+            const res =
+                await fetch(`/api/v1/wardrobes/${wardrobeId}`);
+
+            const data = await res.json();
+
+            const categoryGroups = {};
+
+            for (const item of data.items || []) {
+                const category = item.category;
+
+                if (!categoryGroups[category]) {
+                    categoryGroups[category] = [];
+                }
+
+                categoryGroups[category].push(item);
+            }
+
+            const html = Object.entries(categoryGroups)
+                .map(([category, items]) => `
+                <div class="wardrobe-category-section">
+                    <h4>
+                        ${categoryTrMap[category] || category}
+                        <span class="wardrobe-category-count">${items.length}</span>
+                    </h4>
+
+                    <div class="wardrobe-category-items">
+                        ${items.map(item => `
+                            <div class="wardrobe-item-chip">
+                                ${colorTrMap[item.colorFamily] || item.colorFamily}
+                                ${categoryTrMap[item.category] || item.category}
+                                <span>${item.formality}</span>
+                            </div>
+                        `).join("")}
+                    </div>
+                </div>
+            `)
+                        .join("");
+
+            const insights = buildWardrobeInsights(data.items || []);
+
+            document.getElementById("wardrobe-modal-content").innerHTML = `
+                <div class="wardrobe-insights">
+                    ${insights}
+                </div>
+
+                <div class="wardrobe-items-grid">
+                    ${html}
+                </div>
+            `;
+
+            document
+                .getElementById("wardrobe-modal")
+                ?.classList.remove("hidden");
+        }
+
+        function closeWardrobeModal() {
+            document
+                .getElementById("wardrobe-modal")
+                ?.classList.add("hidden");
+        }
+
+        function buildWardrobeInsights(items) {
+
+            const categories = {};
+            const formalities = {};
+
+            for (const item of items) {
+
+                categories[item.category] =
+                    (categories[item.category] || 0) + 1;
+
+                formalities[item.formality] =
+                    (formalities[item.formality] || 0) + 1;
+            }
+
+            const insights = [];
+
+            if ((categories["Shoes"] || 0) <= 1) {
+                insights.push("⚠ Ayakkabı çeşitliliği düşük");
+            }
+            else {
+                insights.push("✓ Ayakkabı çeşitliliği iyi");
+            }
+
+            if ((categories["Outerwear"] || 0) >= 2) {
+                insights.push("✓ Katman çeşitliliği iyi");
+            }
+
+            if ((formalities["Formal"] || 0) >= 3) {
+                insights.push("✓ Formal kombin kapasitesi güçlü");
+            }
+
+            if ((formalities["Casual"] || 0) <= 2) {
+                insights.push("⚠ Casual parça sayısı düşük");
+            }
+
+            return insights
+                .map(x => `<div class="wardrobe-insight-item">${x}</div>`)
+                .join("");
+        }
+
         function displayGarmentName(value) {
             return garmentNameMap[value] || value;
+        }
+
+
+        function weatherLabel(value) {
+            const map = {
+                Clear: "Açık",
+                Rain: "Yağmur",
+                Snow: "Kar",
+                Hot: "Sıcak",
+                Cold: "Soğuk"
+            };
+
+            return map[value] || value || "-";
+        }
+
+        function weatherIcon(value) {
+            const map = {
+                Clear: "☀",
+                Rain: "🌧",
+                Snow: "❄",
+                Hot: "🔥",
+                Cold: "🥶"
+            };
+
+            return map[value] || "☀";
+        }
+
+        function seasonLabel(value) {
+            const map = {
+                Winter: "Kış",
+                Spring: "İlkbahar",
+                Summer: "Yaz",
+                Autumn: "Sonbahar"
+            };
+
+            return map[value] || value || "-";
+        }
+
+        function seasonIcon(value) {
+            const map = {
+                Winter: "❄",
+                Spring: "🌱",
+                Summer: "☀",
+                Autumn: "🍂"
+            };
+
+            return map[value] || "🌱";
+        }
+
+        let weatherOverrideActive = false;
+
+        function markWeatherOverride() {
+            weatherOverrideActive = true;
+            updateContextSummary();
+        }
+
+        async function resetWeatherToReal() {
+            weatherOverrideActive = false;
+
+            await onCityChanged();
+
+            updateContextSummary();
+        }
+
+        function updateContextSummary() {
+            const citySelect = document.getElementById("city");
+            const cityText = citySelect?.options[citySelect.selectedIndex]?.text || "İstanbul";
+            const weather = document.getElementById("weather")?.value || "Clear";
+            const season = document.getElementById("season")?.value || "Spring";
+            const temp = window.currentTemperatureC;
+            const isOverridePanelOpen =
+                !document.getElementById("advanced-context-panel")
+                    ?.classList.contains("hidden");
+
+            const el = document.getElementById("context-summary-text");
+
+            if (el) {
+                el.innerHTML = `
+                                    <span>📍 ${cityText}</span>
+                                    <span class="context-summary-separator">|</span>
+
+                                    <span>${weatherIcon(weather)} ${weatherLabel(weather)}</span>
+                                    <span class="context-summary-separator">|</span>
+
+                                    <span>${seasonIcon(season)} ${seasonLabel(season)}</span>
+
+                                    ${temp !== undefined && temp !== null
+                        ? `
+                                            <span class="context-summary-separator">|</span>
+                                            <span>🌡 ${Math.round(temp)}°C</span>
+                                            `
+                        : ""
+                    }
+
+                                    ${weatherOverrideActive
+                        ? `
+                                            <span class="context-summary-separator">|</span>
+                                            <span class="override-badge">Override</span>
+                                            `
+                        : ""
+                    }
+                                `;
+            }
+
+            const weatherBox = document.getElementById("weather-readonly");
+            if (weatherBox) {
+                weatherBox.innerText = `${weatherIcon(weather)} ${weatherLabel(weather)}`;
+            }
+
+            const seasonBox = document.getElementById("season-readonly");
+            if (seasonBox) {
+                seasonBox.innerText = `${seasonIcon(season)} ${seasonLabel(season)}`;
+            }
+        }
+
+        async function onCityChanged() {
+            const city = document.getElementById("city")?.value;
+
+            if (!city)
+                return;
+
+            try {
+                const res = await fetch(
+                    `/api/v1/weather/context?city=${encodeURIComponent(city)}`
+                );
+
+                const data = await res.json();
+                window.currentTemperatureC = data.temperatureC;
+                const weatherSelect = document.getElementById("weather");
+                const seasonSelect = document.getElementById("season");
+
+                if (weatherSelect)
+                    weatherSelect.value = data.weather;
+
+                if (seasonSelect)
+                    seasonSelect.value = data.season;
+
+                updateContextSummary();
+            }
+            catch (err) {
+                console.error("City weather fetch failed", err);
+            }
+        }
+
+        async function autoDetectWeather() {
+            if (!navigator.geolocation) {
+                updateContextSummary();
+                return;
+            }
+
+
+            navigator.geolocation.getCurrentPosition(
+                async (position) => {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+
+                    try {
+                        const res = await fetch(
+                            `/api/v1/weather/context?lat=${lat}&lon=${lon}`
+                        );
+
+                        const data = await res.json();
+                        window.currentTemperatureC = data.temperatureC;
+                        const weatherSelect = document.getElementById("weather");
+                        const seasonSelect = document.getElementById("season");
+
+                        if (weatherSelect)
+                            weatherSelect.value = data.weather;
+
+                        if (seasonSelect)
+                            seasonSelect.value = data.season;
+
+                        updateContextSummary();
+                    } catch (err) {
+                        console.error("Weather fetch failed", err);
+                        updateContextSummary();
+                    }
+                },
+                () => {
+                    updateContextSummary();
+                }
+            );
+        }
+
+        function openContextModal() {
+            document
+                .getElementById("context-modal")
+                ?.classList.remove("hidden");
+        }
+
+        function closeContextModal() {
+            updateContextSummary();
+
+            document
+                .getElementById("context-modal")
+                ?.classList.add("hidden");
         }
 
         let rotationAttempt = 0;
         let lastRequestKey = "";
 
         async function getDecision() {
+
+            const wardrobeId = document.getElementById("wardrobe").value;
+
+            if (!wardrobeId) {
+                const preview = document.getElementById("wardrobe-preview");
+                if (preview) {
+                    preview.innerHTML = "Kombin önermek için önce bir dolap seçmelisin.";
+                    preview.classList.add("muted-preview");
+                }
+                return;
+            }
+
             const requestKey = [
                 document.getElementById("occasion").value,
                 document.getElementById("wardrobe").value,
@@ -273,13 +1000,11 @@
                 lastRequestKey = requestKey;
             }
 
-            
-
             const req = {
                 occasionId: document.getElementById("occasion").value,
                 wardrobeProfileId: document.getElementById("wardrobe").value,
-                rotationAttempt: rotationAttempt,
                 items: [],
+                rotationAttempt: rotationAttempt,
                 context: {
                     weather: document.getElementById("weather").value,
                     season: document.getElementById("season").value,
@@ -316,6 +1041,7 @@
             Boots: "Bot",
             LightOuterwear: "Mevsimlik Mont",
             Jacket: "Ceket",
+            Blazer: "Blazer Ceket",
             Coat: "Kaban",
             Cardigan: "Hırka"
         };
@@ -329,6 +1055,11 @@
             Brown: "Kahverengi",
             Blue: "Mavi",
             Red: "Kırmızı",
+            Green: "Yeşil",
+            Olive: "Zeytin Yeşili",
+            Cream: "Krem",
+            Camel: "Camel",
+            Burgundy: "Bordo",
             Green: "Yeşil"
         };
 
@@ -353,6 +1084,16 @@
                 Blue: "Mavi",
                 Red: "Kırmızı",
                 Green: "Yeşil",
+                Olive: "Zeytin Yeşili",
+                Cream: "Krem",
+                Camel: "Camel",
+                Burgundy: "Bordo",
+                Green: "Yeşil",
+                Olive: "Zeytin Yeşili",
+                Cream: "Krem",
+                Camel: "Camel",
+                Burgundy: "Bordo",
+                Green: "Yeşil",
 
                 Blouse: "Bluz",
                 Shirt: "Gömlek",
@@ -368,7 +1109,7 @@
                 Boots: "Bot",
                 LightOuterwear: "Mevsimlik Mont",
                 Jacket: "Ceket",
-                Jacket: "Ceket",
+                Blazer: "Blazer Ceket",
                 Coat: "Kaban",
                 Cardigan: "Hırka"
             };
@@ -393,46 +1134,27 @@
             if (!items || items.length === 0) return "<p>Yok</p>";
 
             return `
-                                        <ul>
-                                            ${items.map(i => `<li>${itemText(i)}</li>`).join("")}
-                                        </ul>
-                                    `;
+                                                                        <ul>
+                                                                            ${items.map(i => `<li>${itemText(i)}</li>`).join("")}
+                                                                        </ul>
+                                                                    `;
         }
 
         function renderReasons(reasons) {
             if (!reasons || reasons.length === 0) return "";
 
             return `
-                                        <ul>
-                                            ${reasons.map(r => `<li><strong>${r.titleTr}</strong><br><span>${r.detailTr}</span></li>`).join("")}
-                                        </ul>
-                                    `;
+                                                                        <ul>
+                                                                            ${reasons.map(r => `<li><strong>${r.titleTr}</strong><br><span>${r.detailTr}</span></li>`).join("")}
+                                                                        </ul>
+                                                                    `;
         }
 
-        function renderContextNotes(notes) {
-            if (!notes || notes.length === 0) return "";
-
-            return `
-        <div style="margin-top:10px;">
-            <strong>Koşul Notları</strong>
-            <ul>
-                ${notes.map(n => `<li>${n.textTr}</li>`).join("")}
-            </ul>
-        </div>
-    `;
-        }
-
-        function renderContextNotes(notes) {
-            if (!notes || notes.length === 0) return "";
-
-            return `
-        <div class="mini-card">
-            <h3>Koşul Notları</h3>
-            <ul>
-                ${notes.map(n => `<li>${n.textTr}</li>`).join("")}
-            </ul>
-        </div>
-    `;
+        function toggleAdvancedContext() {
+            const panel = document.getElementById("advanced-context-panel");
+            if (!panel)
+                return;
+            panel.classList.toggle("hidden");
         }
 
         function renderResult(data) {
@@ -441,71 +1163,191 @@
 
             const alternativesHtml = data.alternatives && data.alternatives.length > 0
                 ? data.alternatives.map((alt, index) => `
-                                <div class="alt-card">
-                                    <div class="alt-title">${translateOutfitText(alt.shortTr)}</div>
-                                    ${renderReasons(alt.reasons)}
-                                </div>
-                            `).join("")
+                                                                <div class="alt-card">
+                                                                    <div class="alt-title">${translateOutfitText(alt.shortTr)}</div>
+                                                                    ${renderReasons(alt.reasons)}
+                                                                </div>
+                                                            `).join("")
                 : "<div class='card'>Alternatif öneri yok.</div>";
 
             const feedbackHtml = data.wardrobeFeedback
                 ? `
-                                <div class="warning">
-                                    <strong>Dolap / Koşul Notu</strong>
-                                    <p><strong>${data.wardrobeFeedback.lineTr}</strong></p>
-                                    <p>${data.wardrobeFeedback.detailTr || ""}</p>
-                                </div>
-                            `
+                                                                <div class="warning">
+                                                                    <strong>Dolap / Koşul Notu</strong>
+                                                                    <p><strong>${data.wardrobeFeedback.lineTr}</strong></p>
+                                                                    <p>${data.wardrobeFeedback.detailTr || ""}</p>
+                                                                </div>
+                                                            `
                 : "";
 
             document.getElementById("result").innerHTML = `
-                            <div class="layout">
-                                <div>
-                                <h3>Önerilen Kombin</h3>
-                                    <div class="card main-card">
-                                        <h2>${decision.headlineTr}</h2>
-                                        <p>${decision.subtextTr || ""}</p>
-                                        <div class="summary">${translateOutfitText(outfit.shortTr)}</div>
-                                        <p><strong>Durum:</strong> ${translateContextHealth(decision.bestContextHealth)}</p>
-                                    </div>
+                                                            <div class="layout">
+                                                                <div>
+                                                                <h3>Önerilen Kombin</h3>
+                                                                    <div class="card main-card">
+                                                                        <h2>${decision.headlineTr}</h2>
+                                                                        <p>${decision.subtextTr || ""}</p>
+                                                                        <div class="summary">${translateOutfitText(outfit.shortTr)}</div>
+                                                                        <p><strong>Durum:</strong> ${translateContextHealth(decision.bestContextHealth)}</p>
+                                                                    </div>
 
-                                    <div class="mini-grid">
-                                        <div class="mini-card">
-                                            <h3>Temel Kombin</h3>
-                                            ${renderItems(outfit.coreItems)}
-                                        </div>
+                                                                    <div class="mini-grid">
+                                                                        <div class="mini-card">
+                                                                            <h3>Temel Kombin</h3>
+                                                                            ${renderItems(outfit.coreItems)}
+                                                                        </div>
 
-                                        <div class="mini-card">
-                                            <h3>Katmanlar</h3>
-                                            ${renderItems(outfit.layers)}
-                                        </div>
+                                                                        <div class="mini-card">
+                                                                            <h3>Katmanlar</h3>
+                                                                            ${renderItems(outfit.layers)}
+                                                                        </div>
 
-                                        <div class="mini-card">
-                                            <h3>Neden?</h3>
-                                            <ul>
-                                                ${(decision.whyThisWorksTr || [])
-                                                            .map(x => `<li>${x}</li>`)
-                                                            .join("")}
-                                            </ul>
-                                        </div>
-                                        ${renderContextNotes(decision.contextNotes)}
-                                    </div>
-                                    <br />
-                                    ${feedbackHtml}
-                                </div>
+                                                                        <div class="mini-card">
+                                                                            <h3>Neden?</h3>
+                                                                            <ul>
+                                                                                ${(decision.whyThisWorksTr || []).map(x => `<li>${x}</li>`).join("")}
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                    <br />
+                                                                    ${feedbackHtml}
+                                                                </div>
 
-                                <div>
-                                    <h3>Alternatifler</h3>
+                                                                <div>
+                                                                    <h3>Alternatifler</h3>
 <p style="font-size:13px; color:#555; margin-top:-6px;">
-            Farklı bir görünüm veya daha güvenli seçenek istersen bunlara bakabilirsin.
+                                            Farklı bir görünüm veya daha güvenli seçenek istersen bunlara bakabilirsin.
 </p>
-                                    <div class="alternatives">
-                                        ${alternativesHtml}
-                                    </div>
-                                </div>
-                            </div>
-                        `;
+                                                                    <div class="alternatives">
+                                                                        ${alternativesHtml}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        `;
         }
+        updateContextSummary();
+        autoDetectWeather();
+        loadWardrobeProfiles();
     </script>
+    <div id="context-modal" class="modal-overlay hidden" onclick="closeContextModal()">
+        <div class="modal-card" onclick="event.stopPropagation()">
+
+            <div class="modal-header">
+                <div>
+                    <h3>Hava Durumu ve Konum</h3>
+                    <p class="modal-subtitle">Konumu değiştirirsen hava durumu otomatik güncellenir.</p>
+                </div>
+
+                <button class="modal-close-btn"
+                        onclick="closeContextModal()">
+                    ×
+                </button>
+            </div>
+
+            <div class="modal-grid">
+
+                <div class="field">
+                    <label>Şehir</label>
+
+                    <select id="city" onchange="onCityChanged()">
+                        <option value="Istanbul">İstanbul</option>
+                        <option value="Ankara">Ankara</option>
+                        <option value="Antalya">Antalya</option>
+                        <option value="Bursa">Bursa</option>
+                        <option value="Konya">Konya</option>
+                        <option value="Samsun">Samsun</option>
+                    </select>
+                </div>
+
+                <!--<div class="field">
+                    <label>Hava Durumu</label>
+                    <div id="weather-readonly" class="readonly-context-box">☀ Açık</div>
+                </div>
+
+                <div class="field">
+                    <label>Mevsim</label>
+                    <div id="season-readonly" class="readonly-context-box">🌱 İlkbahar</div>
+                </div>-->
+
+            </div>
+
+            <!--<div class="advanced-toggle">
+                <button type="button"
+                        class="advanced-btn"
+                        onclick="toggleAdvancedContext()">
+                    Gelişmiş Ayarlar
+                </button>
+            </div>-->
+
+            <div id="advanced-context-panel" class="advanced-panel">
+
+                <p class="advanced-help">
+                    Gerçek hava durumu yerine özel senaryo test etmek için kullanılır.
+                </p>
+
+                <div class="modal-grid">
+
+                    <div>
+                        <label>Weather Override</label>
+
+                        <select id="weather" onchange="markWeatherOverride()">
+                            <option value="Clear">Clear / Açık</option>
+                            <option value="Rain">Rain / Yağmur</option>
+                            <option value="Snow">Snow / Kar</option>
+                            <option value="Cold">Cold / Soğuk</option>
+                            <option value="Hot">Hot / Sıcak</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label>Season Override</label>
+
+                        <select id="season" onchange="markWeatherOverride()">
+                            <option value="Winter">Winter / Kış</option>
+                            <option value="Spring">Spring / İlkbahar</option>
+                            <option value="Summer">Summer / Yaz</option>
+                            <option value="Autumn">Autumn / Sonbahar</option>
+                        </select>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <span>ⓘ Hava durumu Open-Meteo servisinden alınmaktadır.</span>
+                <br />
+                <button type="button"
+                        class="reset-weather-btn"
+                        onclick="resetWeatherToReal()">
+                    Gerçek havaya dön
+                </button>
+                <button onclick="closeContextModal()">Kapat</button>
+
+            </div>
+
+        </div>
+    </div>
+    <div id="wardrobe-modal" class="modal-overlay hidden">
+
+        <div class="modal-card wardrobe-modal-card">
+
+            <div class="modal-header">
+                <h3>Dolap İçeriği</h3>
+
+                <button class="modal-close-btn"
+                        onclick="closeWardrobeModal()">
+                    ✕
+                </button>
+            </div>
+
+            <div id="wardrobe-modal-content">
+            </div>
+
+        </div>
+
+    </div>
+
+
 </body>
 </html>

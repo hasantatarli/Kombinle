@@ -43,6 +43,19 @@ namespace Kombinle.Core.Infrastructure
         }
     }
 
+    //public static List<WardrobeProfileSummaryDto> ListProfiles()
+    //    {
+    //        return new List<WardrobeProfileSummaryDto>
+    //{
+    //    new("female_basic_v1", "Kadın Basic"),
+    //    new("female_balanced_v1", "Kadın Balanced"),
+    //    new("male_basic_v1", "Erkek Basic"),
+    //    new("male_balanced_v1", "Erkek Balanced"),
+    //    new("male_extended_v1", "Erkek Extended"),
+    //    new("color_test_v1", "Color Test")
+    //};
+    //    }
+
     public class TestWardrobeProfile
     {
         public string Name { get; set; } = "";

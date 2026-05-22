@@ -1,0 +1,78 @@
+﻿{
+    "id":  "male_basic_v1",
+    "displayName":  "Erkek Basic",
+    "items":  [
+                  {
+                      "id":  "item_1",
+                      "category":  "Shirt",
+                      "colorFamily":  "White",
+                      "formality":  "Formal"
+                  },
+                  {
+                      "id":  "item_2",
+                      "category":  "Shirt",
+                      "colorFamily":  "Blue",
+                      "formality":  "Smart"
+                  },
+                  {
+                      "id":  "item_3",
+                      "category":  "Tshirt",
+                      "colorFamily":  "White",
+                      "formality":  "Casual"
+                  },
+                  {
+                      "id":  "item_4",
+                      "category":  "Pants",
+                      "colorFamily":  "Grey",
+                      "formality":  "Formal"
+                  },
+                  {
+                      "id":  "item_5",
+                      "category":  "Pants",
+                      "colorFamily":  "Beige",
+                      "formality":  "Casual"
+                  },
+                  {
+                      "id":  "item_6",
+                      "category":  "Jeans",
+                      "colorFamily":  "Blue",
+                      "formality":  "Casual"
+                  },
+                  {
+                      "id":  "item_7",
+                      "category":  "Shoes",
+                      "colorFamily":  "Black",
+                      "formality":  "Formal"
+                  },
+                  {
+                      "id":  "item_8",
+                      "category":  "Shoes",
+                      "colorFamily":  "Brown",
+                      "formality":  "Casual"
+                  },
+                  {
+                      "id":  "item_9",
+                      "category":  "Sneakers",
+                      "colorFamily":  "White",
+                      "formality":  "Casual"
+                  },
+                  {
+                      "id":  "item_10",
+                      "category":  "Cardigan",
+                      "colorFamily":  "Grey",
+                      "formality":  "Casual"
+                  },
+                  {
+                      "id":  "item_11",
+                      "category":  "LightOuterwear",
+                      "colorFamily":  "Navy",
+                      "formality":  "Formal"
+                  },
+                  {
+                      "id":  "item_12",
+                      "category":  "Coat",
+                      "colorFamily":  "Black",
+                      "formality":  "Formal"
+                  }
+              ]
+}

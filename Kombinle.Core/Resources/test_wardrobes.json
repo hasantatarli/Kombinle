@@ -127,6 +127,21 @@
         "category": "Bag",
         "colorFamily": "Black",
         "formality": "Formal"
+      },
+      {
+        "category": "Dress",
+        "colorFamily": "Burgundy",
+        "formality": "Formal"
+      },
+      {
+        "category": "Blouse",
+        "colorFamily": "Cream",
+        "formality": "Smart"
+      },
+      {
+        "category": "Skirt",
+        "colorFamily": "Olive",
+        "formality": "Smart"
       }
     ]
   },
@@ -498,9 +513,57 @@
         "category": "Coat",
         "colorFamily": "Navy",
         "formality": "Casual"
+      },
+      {
+        "category": "Shirt",
+        "colorFamily": "Cream",
+        "formality": "Smart"
+      },
+      {
+        "category": "Pants",
+        "colorFamily": "Olive",
+        "formality": "Smart"
+      },
+      {
+        "category": "Coat",
+        "colorFamily": "Camel",
+        "formality": "Smart"
       }
-
-
+    ]
+  },
+  "color_test_v1": {
+    "name": "Color Test Wardrobe v1",
+    "items": [
+      {
+        "category": "Shirt",
+        "colorFamily": "Cream",
+        "formality": "Smart"
+      },
+      {
+        "category": "Pants",
+        "colorFamily": "Olive",
+        "formality": "Smart"
+      },
+      {
+        "category": "Coat",
+        "colorFamily": "Camel",
+        "formality": "Smart"
+      },
+      {
+        "category": "Dress",
+        "colorFamily": "Burgundy",
+        "formality": "Formal"
+      },
+      {
+        "category": "Shoes",
+        "colorFamily": "Brown",
+        "formality": "Smart"
+      },
+      {
+        "category": "Shoes",
+        "colorFamily": "Black",
+        "formality": "Formal"
+      }
     ]
   }
 

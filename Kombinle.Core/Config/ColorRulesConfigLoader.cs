@@ -49,23 +49,23 @@ namespace Kombinle.Core.Config
                 ClashPairs = MapPairs(dto.ClashPairs, "clashPairs")
             };
 
-            foreach (var pair in dto.ClashPairs ?? new List<ColorPairRuleDto>())
-            {
-                if (string.IsNullOrWhiteSpace(pair.A) || string.IsNullOrWhiteSpace(pair.B))
-                    throw new InvalidOperationException("Color clash pair is missing color fields.");
+            //foreach (var pair in dto.ClashPairs ?? new List<ColorPairRuleDto>())
+            //{
+            //    if (string.IsNullOrWhiteSpace(pair.A) || string.IsNullOrWhiteSpace(pair.B))
+            //        throw new InvalidOperationException("Color clash pair is missing color fields.");
 
-                if (!Enum.TryParse<ColorFamily>(pair.A, ignoreCase: true, out var colorA))
-                    throw new InvalidOperationException($"Unknown color family in clash pair: '{pair.A}'.");
+            //    if (!Enum.TryParse<ColorFamily>(pair.A, ignoreCase: true, out var colorA))
+            //        throw new InvalidOperationException($"Unknown color family in clash pair: '{pair.A}'.");
 
-                if (!Enum.TryParse<ColorFamily>(pair.B, ignoreCase: true, out var colorB))
-                    throw new InvalidOperationException($"Unknown color family in clash pair: '{pair.B}'.");
+            //    if (!Enum.TryParse<ColorFamily>(pair.B, ignoreCase: true, out var colorB))
+            //        throw new InvalidOperationException($"Unknown color family in clash pair: '{pair.B}'.");
 
-                config.ClashPairs.Add(new ColorPairRule
-                {
-                    A = colorA,
-                    B = colorB
-                });
-            }
+            //    config.ClashPairs.Add(new ColorPairRule
+            //    {
+            //        A = colorA,
+            //        B = colorB
+            //    });
+            //}
 
             foreach (var color in dto.NeutralColors ?? new List<string>())
             {

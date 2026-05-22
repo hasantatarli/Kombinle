@@ -1,0 +1,78 @@
+﻿{
+    "id":  "female_basic_v1",
+    "displayName":  "Kadın Basic",
+    "items":  [
+                  {
+                      "id":  "item_1",
+                      "category":  "Blouse",
+                      "colorFamily":  "White",
+                      "formality":  "Formal"
+                  },
+                  {
+                      "id":  "item_2",
+                      "category":  "Blouse",
+                      "colorFamily":  "Blue",
+                      "formality":  "Casual"
+                  },
+                  {
+                      "id":  "item_3",
+                      "category":  "Tshirt",
+                      "colorFamily":  "White",
+                      "formality":  "Casual"
+                  },
+                  {
+                      "id":  "item_4",
+                      "category":  "Pants",
+                      "colorFamily":  "Beige",
+                      "formality":  "Casual"
+                  },
+                  {
+                      "id":  "item_5",
+                      "category":  "Pants",
+                      "colorFamily":  "Grey",
+                      "formality":  "Formal"
+                  },
+                  {
+                      "id":  "item_6",
+                      "category":  "Jeans",
+                      "colorFamily":  "Blue",
+                      "formality":  "Casual"
+                  },
+                  {
+                      "id":  "item_7",
+                      "category":  "Dress",
+                      "colorFamily":  "Black",
+                      "formality":  "Formal"
+                  },
+                  {
+                      "id":  "item_8",
+                      "category":  "Shoes",
+                      "colorFamily":  "Black",
+                      "formality":  "Formal"
+                  },
+                  {
+                      "id":  "item_9",
+                      "category":  "Shoes",
+                      "colorFamily":  "Brown",
+                      "formality":  "Casual"
+                  },
+                  {
+                      "id":  "item_10",
+                      "category":  "Sneakers",
+                      "colorFamily":  "White",
+                      "formality":  "Casual"
+                  },
+                  {
+                      "id":  "item_11",
+                      "category":  "Cardigan",
+                      "colorFamily":  "Beige",
+                      "formality":  "Casual"
+                  },
+                  {
+                      "id":  "item_12",
+                      "category":  "Coat",
+                      "colorFamily":  "Grey",
+                      "formality":  "Formal"
+                  }
+              ]
+}

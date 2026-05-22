@@ -83,10 +83,39 @@
     {
       "a": "Brown",
       "b": "Navy"
+    },
+    {
+      "a": "Olive",
+      "b": "Beige"
+    },
+    {
+      "a": "Olive",
+      "b": "White"
+    },
+    {
+      "a": "Camel",
+      "b": "Navy"
+    },
+    {
+      "a": "Burgundy",
+      "b": "Grey"
+    },
+    {
+      "a": "Cream",
+      "b": "Brown"
     }
 
   ],
-  "weakPairs": [],
+  "weakPairs": [
+    {
+      "a": "Black",
+      "b": "Navy"
+    },
+    {
+      "a": "Brown",
+      "b": "Grey"
+    }
+  ],
   "clashPairs": [
     {
       "a": "Black",

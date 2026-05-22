@@ -66,6 +66,7 @@ Open
 
 ---
 
+
 ## Context Must Affect Generation and Scoring
 
 ### Context
@@ -994,4 +995,109 @@ The generator should not block valid wardrobe items too early. Generation define
 - No dynamic category creation
 
 ### Confidence
+High
+
+---
+
+## 2026-05-15 — Context Notes & Category Semantics Cleanup
+
+### Context Notes Pipeline
+- Added first-class `ContextUserNotes` flow from `ContextScoringService`
+  through `ScoredCombination` → `ResponseMapper` → API response.
+- Context guidance is now separated from internal scoring reasons.
+- Demo UI now renders contextual notes independently from generic “Why?” messaging.
+
+### Category Semantics Refactor
+- Removed ambiguous `Blazer` semantic separation.
+- Standardized:
+  - `Jacket` → structured/smart jacket family
+  - `LightOuterwear` → seasonal/light protective outerwear
+  - `Coat` → heavy outerwear
+- Prevented confusing “double jacket” combinations in UI semantics.
+
+### Context Behavior Improvements
+- Rain + suede scenarios now prefer safer alternatives automatically
+  instead of selecting risky combinations and warning afterwards.
+- `RecommendedAlternative` promotion remains reserved for stronger
+  context failures (`Poor` health).
+
+### Rotation & Alternative Stability
+- Deterministic rotation behavior stabilized using BestPool cycling.
+- Alternative outputs now remain semantically cleaner across repeated requests.
+
+### Product Direction
+- Engine phase considered mostly stabilized.
+- Focus shifts toward MVP productization:
+  wardrobe management, persistent profiles, session flow, and outfit history.
+
+  ---
+  ## 2026-05-15 — Weather Context Integration (MVP v1)
+
+### Weather API Integration
+- Added lightweight weather context integration using Open-Meteo.
+- Weather provider remains isolated in API layer; engine still consumes deterministic `ContextInput`.
+- Added `/api/v1/weather/context` endpoint.
+
+### Context Mapping
+- Current weather is mapped into existing engine semantics:
+  - Rain
+  - Snow
+  - Hot
+  - Cold
+  - Clear
+- Season is inferred from month for MVP simplicity.
+
+### Demo UX Direction
+- Demo now supports automatic weather detection via browser geolocation.
+- Long-term UX direction:
+  - compact context summary card
+  - manual override support
+  - selectable destination city
+- Initial MVP city list:
+  - Istanbul
+  - Ankara
+  - Antalya
+  - Bursa
+  - Konya
+  - Samsun
+	
+---
+
+## Demo UI Evolved Into Product Validation Surface
+
+### Context
+
+Initial demo UI behaved mostly like a technical testing screen.
+
+As real-user testing increased, the need emerged for:
+
+- lightweight weather visibility
+- contextual awareness
+- wardrobe inspection
+- cleaner product-oriented interaction
+
+### Decision
+
+Demo UI now acts as a lightweight product validation surface rather than only a raw API tester.
+
+### Implementations
+
+- Real weather integration through Open-Meteo
+- City-based context loading
+- Lightweight top-bar context summary
+- Advanced weather override testing panel
+- Dynamic wardrobe profile loading
+- Wardrobe preview summary
+- Side-drawer wardrobe inspection UI
+- Category-grouped wardrobe visualization
+
+### Reason
+
+Users evaluate recommendations more naturally when:
+- wardrobe is visible
+- context feels real
+- outfit generation appears connected to an actual environment
+
+### Confidence
+
 High

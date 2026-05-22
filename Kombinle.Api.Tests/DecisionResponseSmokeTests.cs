@@ -5,6 +5,7 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using Xunit;
+using Kombinle.Api.Contracts;
 
 namespace Kombinle.Api.Tests;
 
@@ -413,6 +414,58 @@ public class DecisionResponseSmokeTests : IClassFixture<WebApplicationFactory<Pr
         //payload.WardrobeFeedback!.Code.Should().Be("INCOMPLETE_OUTFIT");
     }
 
+    [Fact]
+    public async Task SameRequest_ShouldRotateShownBestWithinBestPool()
+    {
+        var json = """
+        {
+          "occasionId": "smart_casual_dinner",
+          "wardrobeProfileId": "male_extended_v1",
+          "context": {
+            "weather": "Clear",
+            "season": "Spring",
+            "setting": "Indoor",
+            "timeOfDay": "Night"
+          }
+        }
+        """;
+
+        var json2 = """
+        {
+          "occasionId": "smart_casual_dinner",
+          "wardrobeProfileId": "male_extended_v1",
+          "rotationAttempt": 1,
+          "context": {
+            "weather": "Clear",
+            "season": "Spring",
+            "setting": "Indoor",
+            "timeOfDay": "Night"
+          }
+        }
+        """;
+
+        var firstResponse = await PostJson(json);
+        firstResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+        var firstPayload =
+            await firstResponse.Content.ReadFromJsonAsync<DecisionResponseDto>();
+
+        firstPayload.Should().NotBeNull();
+
+        var secondResponse = await PostJson(json2);
+        secondResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+        var secondPayload =
+            await secondResponse.Content.ReadFromJsonAsync<DecisionResponseDto>();
+
+        secondPayload.Should().NotBeNull();
+
+        firstPayload!.Debug.BestPoolCount.Should().BeGreaterThan(1);
+        secondPayload!.Debug.RotationAttempt.Should().BeGreaterThan(firstPayload.Debug.RotationAttempt);
+
+        secondPayload.Debug.RawBestSignature.Should().Be(firstPayload.Debug.RawBestSignature);
+        secondPayload.Debug.ShownBestSignature.Should().NotBe(firstPayload.Debug.ShownBestSignature);
+    }
 
 }
 
@@ -423,7 +476,7 @@ public sealed class DecisionResponseDto
     public AlternativeCardDto? RecommendedAlternative { get; set; }
     public WardrobeFeedbackCardDto? WardrobeFeedback { get; set; }
     public List<AlternativeCardDto> Alternatives { get; set; } = new();
-    public DebugDto Debug { get; set; } = new();
+    public DebugDto? Debug { get; set; }
 }
 
 public sealed class DecisionCardDto
@@ -467,11 +520,11 @@ public sealed class WardrobeFeedbackCardDto
     public string Code { get; set; } = "";
 }
 
-public sealed class DebugDto
-{
-    public int GeneratedCount { get; set; }
-    public int RankedCount { get; set; }
-    public double ContextAvgDelta { get; set; }
-    public double ContextPenaltyRate { get; set; }
-    public double ContextWarningRate { get; set; }
-}
+//public sealed class DebugDto
+//{
+//    public int GeneratedCount { get; set; }
+//    public int RankedCount { get; set; }
+//    public double ContextAvgDelta { get; set; }
+//    public double ContextPenaltyRate { get; set; }
+//    public double ContextWarningRate { get; set; }
+//}

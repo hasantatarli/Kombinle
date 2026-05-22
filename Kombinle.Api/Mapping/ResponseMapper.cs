@@ -371,8 +371,21 @@ public static class ResponseMapper
             RankedCount: summary.RankedCount,
             ContextAvgDelta: summary.ContextAvgDelta,
             ContextPenaltyRate: summary.ContextPenaltyRate,
-            ContextWarningRate: summary.ContextWarningRate
-        );
+            ContextWarningRate: summary.ContextWarningRate, 
+            RawBestSignature: summary.RawBest?.Candidate.Signature,
+            ShownBestSignature: summary.Best?.Candidate.Signature, 
+            RotationAttempt: summary.RotationAttempt,
+            BestPoolCount: summary.BestPool?.Count ?? 0, 
+            BestPoolCandidates:
+                summary.BestPool?
+                    .Select(x => new BestPoolCandidateDebugDto(
+                        Signature: x.Candidate.Signature,
+                        Score: x.Score,
+                        //TieBreak: x.TieBreak,
+                        ContextDelta: x.ContextDelta
+                    ))
+                    .ToList()
+            );
     }
 
     private static DecisionResponse CreateNoBestResponse(DecisionSummary summary)

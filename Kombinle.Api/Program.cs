@@ -23,6 +23,7 @@ builder.Services.Configure<JsonOptions>(o =>
 builder.Services.AddSingleton<IDecisionService, DecisionService>();
 builder.Services.AddHttpClient<WeatherContextService>();
 builder.Services.AddSingleton<WardrobeProfileService>();
+builder.Services.AddSingleton<CategoryCatalogService>();
 
 var app = builder.Build();
 
@@ -92,21 +93,45 @@ app.MapGet("/api/v1/wardrobes", (WardrobeProfileService service) =>
     return Results.Ok(profiles);
 });
 
-app.MapGet("/api/v1/wardrobes/{id}", (string id, WardrobeProfileService service) =>
+app.MapGet("/api/v1/wardrobes/{id}", (string id, WardrobeProfileService wardrobeService, CategoryCatalogService categoryCatalogService) =>
 {
-    var profile = service.GetProfile(id);
+    var profile = wardrobeService.GetProfile(id);
 
     if (profile is null)
         return Results.NotFound();
+
+    var categories = categoryCatalogService
+        .GetAll()
+        .ToDictionary(x => x.Id, StringComparer.OrdinalIgnoreCase);
 
     return Results.Ok(new
     {
         id = profile.Id,
         displayName = profile.DisplayName,
         itemCount = profile.Items.Count,
-        items = profile.Items
+        items = profile.Items.Select(item =>
+        {
+            categories.TryGetValue(item.Category, out var category);
+
+            return new
+            {
+                id = item.Id,
+                category = item.Category,
+                categoryDisplayNameTr = category?.DisplayNameTr ?? item.Category,
+                categoryDisplayNameEn = category?.DisplayNameEn ?? item.Category,
+                categoryGroup = category?.Group ?? "Other",
+                colorFamily = item.ColorFamily,
+                formality = item.Formality
+            };
+        })
     });
 });
+
+app.MapGet("/api/v1/catalog/categories",
+    (CategoryCatalogService service) =>
+    {
+        return Results.Ok(service.GetAll());
+    });
 
 app.UseDefaultFiles();
 app.UseStaticFiles();

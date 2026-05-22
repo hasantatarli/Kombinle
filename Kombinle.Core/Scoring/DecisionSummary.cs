@@ -74,5 +74,8 @@ namespace Kombinle.Core.Scoring
 
         public List<ContextUserNote> BestContextNotes { get; set; } = new();
 
+        public ScoredCombination? RawBest { get; set; }
+        public int RotationAttempt { get; set; }
+
     }
 }

@@ -57,59 +57,59 @@ namespace Kombinle.Core.Domain
         // ----------------------------
         // BUSINESS MEETING
         // ----------------------------
-        public static Occasion BusinessMeeting_Formal()
-        {
-            return new Occasion
-            {
-                Name = "Business Meeting (Formal)",
-                RequiredFormality = Formality.Formal,
-                SlotSet = SlotSet.JacketFormal(),
-                PreferredAnchorColors = new() { ColorFamily.Navy, ColorFamily.Black, ColorFamily.Grey },
-                DefaultContext = new ContextInput(
-                    Weather: Weather.Rain,
-                    Setting: Setting.Outdoor,
-                    Time: TimeOfDay.Night
-                )
-            };
-        }
+        //public static Occasion BusinessMeeting_Formal()
+        //{
+        //    return new Occasion
+        //    {
+        //        Name = "Business Meeting (Formal)",
+        //        RequiredFormality = Formality.Formal,
+        //        SlotSet = SlotSet.JacketFormal(),
+        //        PreferredAnchorColors = new() { ColorFamily.Navy, ColorFamily.Black, ColorFamily.Grey },
+        //        DefaultContext = new ContextInput(
+        //            Weather: Weather.Rain,
+        //            Setting: Setting.Outdoor,
+        //            Time: TimeOfDay.Night
+        //        )
+        //    };
+        //}
 
-        // ----------------------------
-        // CASUAL WEEKEND
-        // ----------------------------
-        public static Occasion CasualWeekend()
-        {
-            return new Occasion
-            {
-                Name = "Casual Weekend",
-                RequiredFormality = Formality.Casual,
-                SlotSet = SlotSet.Casual(),
-                PreferredAnchorColors = new() { ColorFamily.Navy, ColorFamily.Grey, ColorFamily.Beige },
-                DefaultContext = new ContextInput(
-                    Weather: Weather.Clear,
-                    Setting: Setting.Outdoor,
-                    Time: TimeOfDay.Day
-                )
-            };
-        }
+        //// ----------------------------
+        //// CASUAL WEEKEND
+        //// ----------------------------
+        //public static Occasion CasualWeekend()
+        //{
+        //    return new Occasion
+        //    {
+        //        Name = "Casual Weekend",
+        //        RequiredFormality = Formality.Casual,
+        //        SlotSet = SlotSet.Casual(),
+        //        PreferredAnchorColors = new() { ColorFamily.Navy, ColorFamily.Grey, ColorFamily.Beige },
+        //        DefaultContext = new ContextInput(
+        //            Weather: Weather.Clear,
+        //            Setting: Setting.Outdoor,
+        //            Time: TimeOfDay.Day
+        //        )
+        //    };
+        //}
 
-        // ----------------------------
-        // INTERVIEW
-        // ----------------------------
-        public static Occasion Interview_Formal()
-        {
-            return new Occasion
-            {
-                Name = "Interview (Formal)",
-                RequiredFormality = Formality.Formal,
-                SlotSet = SlotSet.JacketFormal(),
-                PreferredAnchorColors = new() { ColorFamily.Navy, ColorFamily.Black },
-                DefaultContext = new ContextInput(
-                    Weather: Weather.Clear,
-                    Setting: Setting.Indoor,
-                    Time: TimeOfDay.Day
-                )
-            };
-        }
+        //// ----------------------------
+        //// INTERVIEW
+        //// ----------------------------
+        //public static Occasion Interview_Formal()
+        //{
+        //    return new Occasion
+        //    {
+        //        Name = "Interview (Formal)",
+        //        RequiredFormality = Formality.Formal,
+        //        SlotSet = SlotSet.JacketFormal(),
+        //        PreferredAnchorColors = new() { ColorFamily.Navy, ColorFamily.Black },
+        //        DefaultContext = new ContextInput(
+        //            Weather: Weather.Clear,
+        //            Setting: Setting.Indoor,
+        //            Time: TimeOfDay.Day
+        //        )
+        //    };
+        //}
     }
 
 }

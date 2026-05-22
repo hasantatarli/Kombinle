@@ -642,19 +642,19 @@
                 .join(" · ");
 
             document.getElementById("wardrobe-preview").innerHTML = `
-                    <div class="wardrobe-preview-content">
-                        <div>
-                            <strong>Dolap Özeti:</strong>
-                            ${data.itemCount} parça · ${summary}
-                        </div>
+                        <div class="wardrobe-preview-content">
+                            <div>
+                                <strong>Dolap Özeti:</strong>
+                                ${data.itemCount} parça · ${summary}
+                            </div>
 
-                        <button
-                            class="view-wardrobe-btn"
-                            onclick="openWardrobeModal()">
-                            Dolabı Gör
-                        </button>
-                    </div>
-                `;
+                            <button
+                                class="view-wardrobe-btn"
+                                onclick="openWardrobeModal()">
+                                Dolabı Gör
+                            </button>
+                        </div>
+                    `;
 
 
         }
@@ -675,47 +675,47 @@
             const categoryGroups = {};
 
             for (const item of data.items || []) {
-                const category = item.category;
+                const group = item.categoryGroup || "Other";
 
-                if (!categoryGroups[category]) {
-                    categoryGroups[category] = [];
+                if (!categoryGroups[group]) {
+                    categoryGroups[group] = [];
                 }
 
-                categoryGroups[category].push(item);
+                categoryGroups[group].push(item);
             }
 
             const html = Object.entries(categoryGroups)
-                .map(([category, items]) => `
-                <div class="wardrobe-category-section">
-                    <h4>
-                        ${categoryTrMap[category] || category}
-                        <span class="wardrobe-category-count">${items.length}</span>
-                    </h4>
+                .map(([group, items]) => `
+                    <div class="wardrobe-category-section">
+                        <h4>
+                            ${groupLabel(group)}
+                            <span class="wardrobe-category-count">${items.length}</span>
+                        </h4>
 
-                    <div class="wardrobe-category-items">
-                        ${items.map(item => `
-                            <div class="wardrobe-item-chip">
-                                ${colorTrMap[item.colorFamily] || item.colorFamily}
-                                ${categoryTrMap[item.category] || item.category}
-                                <span>${item.formality}</span>
-                            </div>
-                        `).join("")}
+                        <div class="wardrobe-category-items">
+                            ${items.map(item => `
+                                <div class="wardrobe-item-chip">
+                                    ${colorTrMap[item.colorFamily] || item.colorFamily}
+                                    ${item.categoryDisplayNameTr || item.category}
+                                    <span>${item.formality}</span>
+                                </div>
+                            `).join("")}
+                        </div>
                     </div>
-                </div>
-            `)
-                        .join("");
+                `)
+                .join("");
 
             const insights = buildWardrobeInsights(data.items || []);
 
             document.getElementById("wardrobe-modal-content").innerHTML = `
-                <div class="wardrobe-insights">
-                    ${insights}
-                </div>
+                    <div class="wardrobe-insights">
+                        ${insights}
+                    </div>
 
-                <div class="wardrobe-items-grid">
-                    ${html}
-                </div>
-            `;
+                    <div class="wardrobe-items-grid">
+                        ${html}
+                    </div>
+                `;
 
             document
                 .getElementById("wardrobe-modal")
@@ -848,30 +848,30 @@
 
             if (el) {
                 el.innerHTML = `
-                                    <span>📍 ${cityText}</span>
-                                    <span class="context-summary-separator">|</span>
+                                        <span>📍 ${cityText}</span>
+                                        <span class="context-summary-separator">|</span>
 
-                                    <span>${weatherIcon(weather)} ${weatherLabel(weather)}</span>
-                                    <span class="context-summary-separator">|</span>
+                                        <span>${weatherIcon(weather)} ${weatherLabel(weather)}</span>
+                                        <span class="context-summary-separator">|</span>
 
-                                    <span>${seasonIcon(season)} ${seasonLabel(season)}</span>
+                                        <span>${seasonIcon(season)} ${seasonLabel(season)}</span>
 
-                                    ${temp !== undefined && temp !== null
+                                        ${temp !== undefined && temp !== null
                         ? `
-                                            <span class="context-summary-separator">|</span>
-                                            <span>🌡 ${Math.round(temp)}°C</span>
-                                            `
+                                                <span class="context-summary-separator">|</span>
+                                                <span>🌡 ${Math.round(temp)}°C</span>
+                                                `
                         : ""
                     }
 
-                                    ${weatherOverrideActive
+                                        ${weatherOverrideActive
                         ? `
-                                            <span class="context-summary-separator">|</span>
-                                            <span class="override-badge">Override</span>
-                                            `
+                                                <span class="context-summary-separator">|</span>
+                                                <span class="override-badge">Override</span>
+                                                `
                         : ""
                     }
-                                `;
+                                    `;
             }
 
             const weatherBox = document.getElementById("weather-readonly");
@@ -987,6 +987,7 @@
             const requestKey = [
                 document.getElementById("occasion").value,
                 document.getElementById("wardrobe").value,
+                document.getElementById("city").value,
                 document.getElementById("weather").value,
                 document.getElementById("season").value,
                 document.getElementById("setting").value,
@@ -1026,25 +1027,55 @@
                 JSON.stringify(data, null, 2);
         }
 
-        const categoryTrMap = {
-            Blouse: "Bluz",
-            Shirt: "Gömlek",
-            TShirt: "Tişört",
-            Sweater: "Kazak",
-            Hoodie: "Kapüşonlu Üst",
-            Pants: "Pantolon",
-            Jeans: "Jean",
-            Skirt: "Etek",
-            Dress: "Elbise",
-            Shoes: "Ayakkabı",
-            Sneakers: "Spor Ayakkabı",
-            Boots: "Bot",
-            LightOuterwear: "Mevsimlik Mont",
-            Jacket: "Ceket",
-            Blazer: "Blazer Ceket",
-            Coat: "Kaban",
-            Cardigan: "Hırka"
-        };
+        //const categoryTrMap = {
+        //    Blouse: "Bluz",
+        //    Shirt: "Gömlek",
+        //    TShirt: "Tişört",
+        //    Sweater: "Kazak",
+        //    Hoodie: "Kapüşonlu Üst",
+        //    Pants: "Pantolon",
+        //    Jeans: "Jean",
+        //    Skirt: "Etek",
+        //    Dress: "Elbise",
+        //    Shoes: "Ayakkabı",
+        //    Sneakers: "Spor Ayakkabı",
+        //    Boots: "Bot",
+        //    LightOuterwear: "Mevsimlik Mont",
+        //    Jacket: "Ceket",
+        //    Blazer: "Blazer Ceket",
+        //    Coat: "Kaban",
+        //    Cardigan: "Hırka"
+        //};
+
+        let categoryTrMap = {};
+        let categoryGroupMap = {};
+
+
+
+        async function loadCategoryCatalog() {
+            const res = await fetch("/api/v1/catalog/categories");
+            const categories = await res.json();
+
+            categoryTrMap = {};
+
+            for (const c of categories) {
+                categoryTrMap[c.id] = c.displayNameTr;
+                categoryGroupMap[c.id] = c.group;
+            }
+        }
+
+        function groupLabel(group) {
+            const map = {
+                Top: "Üstler",
+                Bottom: "Altlar",
+                Shoes: "Ayakkabılar",
+                Layer: "Katmanlar",
+                Dress: "Elbiseler",
+                Accessory: "Aksesuarlar"
+            };
+
+            return map[group] || group || "Diğer";
+        }
 
         const colorTrMap = {
             White: "Beyaz",
@@ -1134,20 +1165,20 @@
             if (!items || items.length === 0) return "<p>Yok</p>";
 
             return `
-                                                                        <ul>
-                                                                            ${items.map(i => `<li>${itemText(i)}</li>`).join("")}
-                                                                        </ul>
-                                                                    `;
+                                                                            <ul>
+                                                                                ${items.map(i => `<li>${itemText(i)}</li>`).join("")}
+                                                                            </ul>
+                                                                        `;
         }
 
         function renderReasons(reasons) {
             if (!reasons || reasons.length === 0) return "";
 
             return `
-                                                                        <ul>
-                                                                            ${reasons.map(r => `<li><strong>${r.titleTr}</strong><br><span>${r.detailTr}</span></li>`).join("")}
-                                                                        </ul>
-                                                                    `;
+                                                                            <ul>
+                                                                                ${reasons.map(r => `<li><strong>${r.titleTr}</strong><br><span>${r.detailTr}</span></li>`).join("")}
+                                                                            </ul>
+                                                                        `;
         }
 
         function toggleAdvancedContext() {
@@ -1163,71 +1194,72 @@
 
             const alternativesHtml = data.alternatives && data.alternatives.length > 0
                 ? data.alternatives.map((alt, index) => `
-                                                                <div class="alt-card">
-                                                                    <div class="alt-title">${translateOutfitText(alt.shortTr)}</div>
-                                                                    ${renderReasons(alt.reasons)}
-                                                                </div>
-                                                            `).join("")
+                                                                    <div class="alt-card">
+                                                                        <div class="alt-title">${translateOutfitText(alt.shortTr)}</div>
+                                                                        ${renderReasons(alt.reasons)}
+                                                                    </div>
+                                                                `).join("")
                 : "<div class='card'>Alternatif öneri yok.</div>";
 
             const feedbackHtml = data.wardrobeFeedback
                 ? `
-                                                                <div class="warning">
-                                                                    <strong>Dolap / Koşul Notu</strong>
-                                                                    <p><strong>${data.wardrobeFeedback.lineTr}</strong></p>
-                                                                    <p>${data.wardrobeFeedback.detailTr || ""}</p>
-                                                                </div>
-                                                            `
+                                                                    <div class="warning">
+                                                                        <strong>Dolap / Koşul Notu</strong>
+                                                                        <p><strong>${data.wardrobeFeedback.lineTr}</strong></p>
+                                                                        <p>${data.wardrobeFeedback.detailTr || ""}</p>
+                                                                    </div>
+                                                                `
                 : "";
 
             document.getElementById("result").innerHTML = `
-                                                            <div class="layout">
-                                                                <div>
-                                                                <h3>Önerilen Kombin</h3>
-                                                                    <div class="card main-card">
-                                                                        <h2>${decision.headlineTr}</h2>
-                                                                        <p>${decision.subtextTr || ""}</p>
-                                                                        <div class="summary">${translateOutfitText(outfit.shortTr)}</div>
-                                                                        <p><strong>Durum:</strong> ${translateContextHealth(decision.bestContextHealth)}</p>
+                                                                <div class="layout">
+                                                                    <div>
+                                                                    <h3>Önerilen Kombin</h3>
+                                                                        <div class="card main-card">
+                                                                            <h2>${decision.headlineTr}</h2>
+                                                                            <p>${decision.subtextTr || ""}</p>
+                                                                            <div class="summary">${translateOutfitText(outfit.shortTr)}</div>
+                                                                            <p><strong>Durum:</strong> ${translateContextHealth(decision.bestContextHealth)}</p>
+                                                                        </div>
+
+                                                                        <div class="mini-grid">
+                                                                            <div class="mini-card">
+                                                                                <h3>Temel Kombin</h3>
+                                                                                ${renderItems(outfit.coreItems)}
+                                                                            </div>
+
+                                                                            <div class="mini-card">
+                                                                                <h3>Katmanlar</h3>
+                                                                                ${renderItems(outfit.layers)}
+                                                                            </div>
+
+                                                                            <div class="mini-card">
+                                                                                <h3>Neden?</h3>
+                                                                                <ul>
+                                                                                    ${(decision.whyThisWorksTr || []).map(x => `<li>${x}</li>`).join("")}
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                        <br />
+                                                                        ${feedbackHtml}
                                                                     </div>
 
-                                                                    <div class="mini-grid">
-                                                                        <div class="mini-card">
-                                                                            <h3>Temel Kombin</h3>
-                                                                            ${renderItems(outfit.coreItems)}
-                                                                        </div>
-
-                                                                        <div class="mini-card">
-                                                                            <h3>Katmanlar</h3>
-                                                                            ${renderItems(outfit.layers)}
-                                                                        </div>
-
-                                                                        <div class="mini-card">
-                                                                            <h3>Neden?</h3>
-                                                                            <ul>
-                                                                                ${(decision.whyThisWorksTr || []).map(x => `<li>${x}</li>`).join("")}
-                                                                            </ul>
-                                                                        </div>
-                                                                    </div>
-                                                                    <br />
-                                                                    ${feedbackHtml}
-                                                                </div>
-
-                                                                <div>
-                                                                    <h3>Alternatifler</h3>
+                                                                    <div>
+                                                                        <h3>Alternatifler</h3>
 <p style="font-size:13px; color:#555; margin-top:-6px;">
-                                            Farklı bir görünüm veya daha güvenli seçenek istersen bunlara bakabilirsin.
+                                                Farklı bir görünüm veya daha güvenli seçenek istersen bunlara bakabilirsin.
 </p>
-                                                                    <div class="alternatives">
-                                                                        ${alternativesHtml}
+                                                                        <div class="alternatives">
+                                                                            ${alternativesHtml}
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                        `;
+                                                            `;
         }
         updateContextSummary();
-        autoDetectWeather();
+        loadCategoryCatalog();
         loadWardrobeProfiles();
+        autoDetectWeather();
     </script>
     <div id="context-modal" class="modal-overlay hidden" onclick="closeContextModal()">
         <div class="modal-card" onclick="event.stopPropagation()">

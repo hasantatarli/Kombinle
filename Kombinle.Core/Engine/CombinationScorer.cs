@@ -261,46 +261,15 @@ namespace Kombinle.Core.Engine
 
         private static bool IsCorePair(Garment a, Garment b, bool isDressMode)
         {
-            if (isDressMode)
-            {
-                return (a.Category == Category.Dress && IsFootwearCategory(b.Category)) ||
-                       (b.Category == Category.Dress && IsFootwearCategory(a.Category));
-            }
-
-            return (IsTopCategory(a.Category) && IsBottomCategory(b.Category)) ||
-                   (IsTopCategory(b.Category) && IsBottomCategory(a.Category));
+            return CategorySemantics.IsCorePair(a.Category, b.Category, isDressMode);
         }
 
         private static bool IsSupportPair(Garment a, Garment b, bool isDressMode)
         {
-            if (isDressMode)
-            {
-                return false;
-            }
-
-            return (IsBottomCategory(a.Category) && IsFootwearCategory(b.Category)) ||
-                   (IsBottomCategory(b.Category) && IsFootwearCategory(a.Category));
+            return CategorySemantics.IsSupportPair(a.Category, b.Category, isDressMode);
         }
 
-        private static bool IsTopCategory(Category category) =>
-            category == Category.Shirt ||
-            category == Category.Blouse ||
-            category == Category.Tshirt ||
-            category == Category.Sweater ||
-            category == Category.Hoodie ||
-            category == Category.Cardigan ||
-            //category == Category.Jacket ||
-            category == Category.Jacket ||
-            category == Category.Coat;
 
-        private static bool IsBottomCategory(Category category) =>
-            category == Category.Pants ||
-            category == Category.Skirt ||
-            category == Category.Jeans;
-
-        private static bool IsFootwearCategory(Category category) =>
-            category == Category.Shoes ||
-            category == Category.Sneakers;
 
         // Aynı özelliklerde farklı obje olma ihtimaline karşı
         private static bool IsSameGarment(Garment? a, Garment? b)

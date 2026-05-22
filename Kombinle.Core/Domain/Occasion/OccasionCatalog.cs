@@ -9,30 +9,18 @@ namespace Kombinle.Core.Domain.Occasions
 
         private static Dictionary<string, Occasion> BuildMap()
         {
-            // 1) JSON'dan dene
-            try
-            {
-                var baseDir = AppContext.BaseDirectory;
-                var path = Path.Combine(baseDir, "Resources", "occasions.json");
+            var baseDir = AppContext.BaseDirectory;
+            var path = Path.Combine(baseDir, "Resources", "occasions.json");
 
-                if (File.Exists(path))
-                {
-                    var loaded = OccasionCatalogLoader.LoadFromJsonFile(path);
-                    if (loaded.Count > 0) return loaded;
-                }
-            }
-            catch
-            {
-                // fallback'e düş
-            }
+            if (!File.Exists(path))
+                throw new FileNotFoundException("Occasions catalog file not found.", path);
 
-            // 2) Fallback (mevcut factory’ler)
-            return new Dictionary<string, Occasion>(StringComparer.OrdinalIgnoreCase)
-            {
-                ["business_meeting_formal"] = Occasion.BusinessMeeting_Formal(),
-                ["casual_weekend"] = Occasion.CasualWeekend(),
-                ["interview_formal"] = Occasion.Interview_Formal()
-            };
+            var loaded = OccasionCatalogLoader.LoadFromJsonFile(path);
+
+            if (loaded.Count == 0)
+                throw new InvalidOperationException("Occasion catalog is empty.");
+
+            return loaded;
         }
 
         public static bool TryGet(string occasionId, out Occasion occasion)

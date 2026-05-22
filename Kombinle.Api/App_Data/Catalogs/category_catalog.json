@@ -1,0 +1,130 @@
+[
+  {
+    "id": "Blouse",
+    "displayNameTr": "Bluz",
+    "displayNameEn": "Blouse",
+    "group": "Top",
+    "slots": [ "Top" ],
+    "traits": [ "Top" ]
+  },
+  {
+    "id": "Shirt",
+    "displayNameTr": "Gömlek",
+    "displayNameEn": "Shirt",
+    "group": "Top",
+    "slots": [ "Top" ],
+    "traits": [ "Top" ]
+  },
+  {
+    "id": "Tshirt",
+    "displayNameTr": "Tişört",
+    "displayNameEn": "T-shirt",
+    "group": "Top",
+    "slots": [ "Top" ],
+    "traits": [ "Top", "Casual" ]
+  },
+  {
+    "id": "Pants",
+    "displayNameTr": "Pantolon",
+    "displayNameEn": "Pants",
+    "group": "Bottom",
+    "slots": [ "Bottom" ],
+    "traits": [ "Bottom" ]
+  },
+  {
+    "id": "Jeans",
+    "displayNameTr": "Jean",
+    "displayNameEn": "Jeans",
+    "group": "Bottom",
+    "slots": [ "Bottom" ],
+    "traits": [ "Bottom", "Casual" ]
+  },
+  {
+    "id": "Dress",
+    "displayNameTr": "Elbise",
+    "displayNameEn": "Dress",
+    "group": "Dress",
+    "slots": [ "Anchor" ],
+    "traits": [ "OnePiece", "DressPath" ]
+  },
+  {
+    "id": "Shoes",
+    "displayNameTr": "Ayakkabı",
+    "displayNameEn": "Shoes",
+    "group": "Shoes",
+    "slots": [ "Shoes" ],
+    "traits": [ "Shoes" ]
+  },
+  {
+    "id": "Sneakers",
+    "displayNameTr": "Spor Ayakkabı",
+    "displayNameEn": "Sneakers",
+    "group": "Shoes",
+    "slots": [ "Shoes" ],
+    "traits": [ "Shoes", "Casual" ]
+  },
+  {
+    "id": "Jacket",
+    "displayNameTr": "Ceket",
+    "displayNameEn": "Jacket",
+    "group": "Layer",
+    "slots": [ "Anchor", "Outerwear" ],
+    "traits": [ "Layer", "Structure" ]
+  },
+  {
+    "id": "LightOuterwear",
+    "displayNameTr": "Mevsimlik Mont",
+    "displayNameEn": "Light Outerwear",
+    "group": "Layer",
+    "slots": [ "Outerwear" ],
+    "traits": [ "Layer", "Light", "Protection" ]
+  },
+  {
+    "id": "Coat",
+    "displayNameTr": "Kaban",
+    "displayNameEn": "Coat",
+    "group": "Layer",
+    "slots": [ "Outerwear" ],
+    "traits": [ "Layer", "Protection" ]
+  },
+  {
+    "id": "Cardigan",
+    "displayNameTr": "Hırka",
+    "displayNameEn": "Cardigan",
+    "group": "Layer",
+    "slots": [ "Anchor", "Outerwear" ],
+    "traits": [ "Layer", "Comfort" ]
+  },
+  {
+    "id": "Bag",
+    "displayNameTr": "Çanta",
+    "displayNameEn": "Bag",
+    "group": "Accessory",
+    "slots": [ "Accessory" ],
+    "traits": [ "Accessory" ]
+  },
+  {
+    "id": "Hoodie",
+    "displayNameTr": "Kapüşonlu Üst",
+    "displayNameEn": "Hoodie",
+    "group": "Top",
+    "slots": [ "Top", "Anchor" ],
+    "traits": [ "Top", "Layer", "Comfort", "Casual" ]
+  },
+  {
+    "id": "Sweater",
+    "displayNameTr": "Kazak",
+    "displayNameEn": "Sweater",
+    "group": "Top",
+    "slots": [ "Top" ],
+    "traits": [ "Top", "Warm" ]
+  },
+  {
+    "id": "Skirt",
+    "displayNameTr": "Etek",
+    "displayNameEn": "Skirt",
+    "group": "Bottom",
+    "slots": [ "Bottom" ],
+    "traits": [ "Bottom" ]
+  }
+]

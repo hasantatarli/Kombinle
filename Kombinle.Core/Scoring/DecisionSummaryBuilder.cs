@@ -77,6 +77,9 @@ namespace Kombinle.Core.Scoring
 
             var coreSlots = GetCoreSlots(occasion);
 
+            summary.RawBest = best;
+            summary.RotationAttempt = rotationAttempt;
+
             summary.BestPool = BestPoolBuilder.Build(
                 ranked,
                 best,

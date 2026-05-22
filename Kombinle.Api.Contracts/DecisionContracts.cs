@@ -98,9 +98,20 @@ namespace Kombinle.Api.Contracts
         int RankedCount,
         double ContextAvgDelta,
         double ContextPenaltyRate,
-        double ContextWarningRate
+        double ContextWarningRate,
+        string? RawBestSignature,
+        string? ShownBestSignature,
+        int RotationAttempt,
+        int BestPoolCount,
+        List<BestPoolCandidateDebugDto>? BestPoolCandidates
     );
 
+    public record BestPoolCandidateDebugDto(
+        string Signature,
+        int Score,
+        //int TieBreak,
+        int ContextDelta
+    );
     public record ContextNoteDto(
          string Code,
          string TextTr

@@ -241,15 +241,15 @@ namespace Kombinle.Core.Scoring.Context
         private static bool HasOuterwear(CombinationCandidate candidate)
         {
             var hasInSlots = candidate.SlotToItem.Values.Any(x =>
-                IsLightLayer(x.Category) ||
-                IsStructuredLayer(x.Category) ||
-                IsHeavyLayer(x.Category));
+                CategorySemantics.IsLightLayer(x.Category) ||
+                CategorySemantics.IsStructuredLayer(x.Category) ||
+                CategorySemantics.IsHeavyLayer(x.Category));
 
             var hasAnchorLayer =
                 candidate.Anchor != null &&
-                (IsLightLayer(candidate.Anchor.Category) ||
-                 IsStructuredLayer(candidate.Anchor.Category) ||
-                 IsHeavyLayer(candidate.Anchor.Category));
+                (CategorySemantics.IsLightLayer(candidate.Anchor.Category) ||
+                 CategorySemantics.IsStructuredLayer(candidate.Anchor.Category) ||
+                 CategorySemantics.IsHeavyLayer(candidate.Anchor.Category));
 
             return hasInSlots || hasAnchorLayer;
         }
@@ -259,42 +259,42 @@ namespace Kombinle.Core.Scoring.Context
                 ? o.Outerwear?.Protection
                 : null;
 
-        private static bool IsLightLayer(Category category)
-        {
-            return category == Category.Cardigan ||
-                   category == Category.Hoodie;
-        }
+        //private static bool IsLightLayer(Category category)
+        //{
+        //    return category == Category.Cardigan ||
+        //           category == Category.Hoodie;
+        //}
 
-        private static bool IsStructuredLayer(Category category)
-        {
-            return category == Category.Jacket;
-        }
+        //private static bool IsStructuredLayer(Category category)
+        //{
+        //    return category == Category.Jacket;
+        //}
 
-        private static bool IsHeavyLayer(Category category)
-        {
-            return category == Category.Coat;
-        }
+        //private static bool IsHeavyLayer(Category category)
+        //{
+        //    return category == Category.Coat;
+        //}
 
-        private static LayerRole GetLayerRole(Category category)
-        {
-            if (category == Category.Hoodie ||
-                category == Category.Cardigan)
-                return LayerRole.Comfort;
+        //private static LayerRole GetLayerRole(Category category)
+        //{
+        //    if (category == Category.Hoodie ||
+        //        category == Category.Cardigan)
+        //        return LayerRole.Comfort;
 
-            if (category ==  Category.Jacket)
-                return LayerRole.Structure;
+        //    if (category ==  Category.Jacket)
+        //        return LayerRole.Structure;
 
-            if (category == Category.LightOuterwear ||
-                category == Category.Coat)
-                return LayerRole.Protection;
+        //    if (category == Category.LightOuterwear ||
+        //        category == Category.Coat)
+        //        return LayerRole.Protection;
 
 
-            return LayerRole.None;
-        }
+        //    return LayerRole.None;
+        //}
 
         private static int GetLayerIntensity(Category category)
         {
-            return GetLayerRole(category) switch
+            return CategorySemantics.GetLayerRole(category) switch
             {
                 LayerRole.Comfort => 1,
                 LayerRole.Structure => 2,
@@ -316,7 +316,7 @@ namespace Kombinle.Core.Scoring.Context
         private static bool HasLayerRole(CombinationCandidate candidate, LayerRole role)
         {
             return candidate.SlotToItem.Values.Any(x =>
-                GetLayerRole(x.Category) == role);
+                CategorySemantics.GetLayerRole(x.Category) == role);
         }
     }
 }

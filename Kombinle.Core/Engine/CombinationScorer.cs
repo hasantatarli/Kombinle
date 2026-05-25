@@ -31,7 +31,7 @@ namespace Kombinle.Core.Engine
             var items = candidate.Combination.Items;
             var anchor = candidate.Anchor;
 
-            bool isDressMode = candidate.Anchor?.Category == Category.Dress;
+            bool isDressMode = candidate.Anchor != null && CategorySemantics.IsOnePiece(candidate.Anchor.Category);
             bool isTopBottomMode = !isDressMode;
 
             // 1) Formality sinyali (Generator zaten filtreliyor ama skor sinyali olarak tutuyoruz)
@@ -197,6 +197,14 @@ namespace Kombinle.Core.Engine
                 result.Add(-1, "Anchor eksik (TopBottom mode)");
             }
 
+            var anchorReq = occasion.SlotSet.Get(Slot.Anchor);
+
+            if (anchorReq?.Level == RequirementLevel.Soft &&
+                candidate.Anchor != null)
+            {
+                result.Add(4, "Soft anchor kullanıldı");
+            }
+
             // 4) Düşük skor = Warning (HardFail değil)
             if (result.Score < _cfg.WarningThreshold)
             {
@@ -293,6 +301,19 @@ namespace Kombinle.Core.Engine
                 Formality.Formal => 2,
                 _ => 0
             };
+        }
+
+        private static int ScoreSoftAnchorPresence(CombinationCandidate candidate, Occasion occasion)
+        {
+            var anchorReq = occasion.SlotSet.Get(Slot.Anchor);
+
+            if (anchorReq == null || anchorReq.Level != RequirementLevel.Soft)
+                return 0;
+
+            if (candidate.Anchor == null)
+                return 0;
+
+            return 4;
         }
 
     }

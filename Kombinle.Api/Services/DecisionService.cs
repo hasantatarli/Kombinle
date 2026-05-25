@@ -128,6 +128,7 @@ public sealed class DecisionService : IDecisionService
             generated: combos,
             ranked: ranked,
             effectiveContext: effectiveContext,
+            wardrobe: wardrobe,
             req.RotationAttempt,
             alternativeCount: 2,    
             alternativeMaxScoreGap: cfg.AlternativeMaxScoreGap,

@@ -24,6 +24,13 @@
     "detailTr": "Bu plan için ceket şart değil ama eklersen daha derli toplu ve resmi görünür.",
     "detailEn": "A jacket isn’t required, but it makes the outfit look more structured and formal."
   },
+  "SOFT_ANCHOR_FORMALITY_WEAK": {
+    "kind": "WardrobeFeedback",
+    "titleTr": "Daha formal bir ceket kombini güçlendirir",
+    "titleEn": "A more formal jacket would strengthen the outfit",
+    "detailTr": "Dolabında ceket var, ancak bu plan için daha formal bir ceket daha uygun olur.",
+    "detailEn": "You have a jacket, but a more formal jacket would fit this plan better."
+  },
   "NO_VIABLE_COMBINATION": {
     "kind": "WardrobeFeedback",
     "titleTr": "Bu parçalarla uyumlu bir kombin çıkaramadım",
@@ -49,4 +56,7 @@
     "detailTr": "Bu koşullarda ekstra katman kombini gereğinden ağır hissettirebilir.",
     "detailEn": "Under these conditions, the extra layer may make the outfit feel heavier than needed."
   }
+
+
+
 }

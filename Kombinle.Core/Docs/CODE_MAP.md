@@ -369,3 +369,8 @@ Bu dosyanın amacı:
 * `DEMO`
 
 Bu etiketler, silme kararı vermeden önce görünürlüğü artırmak için kullanılmalıdır.
+
+
+---
+- Dress path generation now uses `CategorySemantics.IsOnePiece()`
+  instead of direct `Category.Dress` checks.

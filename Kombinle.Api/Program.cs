@@ -6,9 +6,8 @@
 //app.Run();
 
 using Kombinle.Api.Contracts;
-using Kombinle.Api.Mapping;
 using Kombinle.Api.Services;
-using Kombinle.Core.Infrastructure;
+using Kombinle.Core.Domain;
 using Microsoft.AspNetCore.Http.Json;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,6 +25,12 @@ builder.Services.AddSingleton<WardrobeProfileService>();
 builder.Services.AddSingleton<CategoryCatalogService>();
 
 var app = builder.Build();
+
+var categoryCatalogService =
+    app.Services.GetRequiredService<CategoryCatalogService>();
+
+CategorySemantics.Provider =
+    new JsonCategorySemanticsProvider(categoryCatalogService);
 
 app.MapGet("/api/v1/weather/context",
     async (

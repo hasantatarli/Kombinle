@@ -19,17 +19,17 @@
         {
           "slot": "Top",
           "level": "Hard",
-          "allowedCategories": [ "Shirt", "Blouse" ]
+          "allowedTraits": [ "Top" ]
         },
         {
           "slot": "Bottom",
           "level": "Hard",
-          "allowedCategories": [ "Pants", "Skirt" ]
+          "allowedTraits": [ "Bottom" ]
         },
         {
           "slot": "Shoes",
           "level": "Hard",
-          "allowedCategories": [ "Shoes" ]
+          "allowedTraits": [ "Shoes" ]
         },
         {
           "slot": "Outerwear",
@@ -61,17 +61,18 @@
         {
           "slot": "Top",
           "level": "Hard",
-          "allowedCategories": [ "Shirt", "Blouse", "Tshirt", "Sweater", "Cardigan" ]
+          "allowedTraits": [ "Top" ]
         },
         {
           "slot": "Bottom",
           "level": "Hard",
-          "allowedCategories": [ "Pants", "Skirt", "Jeans" ]
+          "allowedTraits": [ "Bottom" ]
         },
         {
           "slot": "Shoes",
           "level": "Hard",
-          "allowedCategories": [ "Shoes", "Sneakers" ]
+          "allowedTraits": [ "Shoes" ]
+
         },
         {
           "slot": "Outerwear",
@@ -102,17 +103,20 @@
         {
           "slot": "Top",
           "level": "Hard",
-          "allowedCategories": [ "Shirt", "Blouse", "Tshirt", "Sweater", "Hoodie", "Cardigan" ]
+          "allowedTraits": [ "Top" ]
+
+
         },
         {
           "slot": "Bottom",
           "level": "Hard",
-          "allowedCategories": [ "Pants", "Skirt", "Jeans" ]
+          "allowedTraits": [ "Bottom" ]
         },
         {
           "slot": "Shoes",
           "level": "Hard",
-          "allowedCategories": [ "Shoes", "Sneakers" ]
+          "allowedTraits": [ "Shoes" ]
+
         },
         {
           "slot": "Outerwear",
@@ -143,17 +147,17 @@
         {
           "slot": "Top",
           "level": "Hard",
-          "allowedCategories": [ "Shirt", "Blouse" ]
+          "allowedTraits": [ "Top" ]
         },
         {
           "slot": "Bottom",
           "level": "Hard",
-          "allowedCategories": [ "Pants", "Skirt" ]
+          "allowedTraits": [ "Bottom" ]
         },
         {
           "slot": "Shoes",
           "level": "Hard",
-          "allowedCategories": [ "Shoes" ]
+          "allowedTraits": [ "Shoes" ]
         },
         {
           "slot": "Outerwear",
@@ -184,17 +188,17 @@
         {
           "slot": "Top",
           "level": "Hard",
-          "allowedCategories": [ "Shirt", "Blouse", "Tshirt" ]
+          "allowedTraits": [ "Top" ]
         },
         {
           "slot": "Bottom",
           "level": "Hard",
-          "allowedCategories": [ "Pants", "Skirt", "Jeans" ]
+          "allowedTraits": [ "Bottom" ]
         },
         {
           "slot": "Shoes",
           "level": "Hard",
-          "allowedCategories": [ "Shoes", "Sneakers" ]
+          "allowedTraits": [ "Shoes" ]
         },
         {
           "slot": "Outerwear",
@@ -225,7 +229,7 @@
         {
           "slot": "Shoes",
           "level": "Hard",
-          "allowedCategories": [ "Shoes" ]
+          "allowedTraits": [ "Shoes" ]
         },
         {
           "slot": "Outerwear",
@@ -257,17 +261,17 @@
         {
           "slot": "Top",
           "level": "Hard",
-          "allowedCategories": [ "Shirt", "Blouse" ]
+          "allowedTraits": [ "Top" ]
         },
         {
           "slot": "Bottom",
           "level": "Hard",
-          "allowedCategories": [ "Pants", "Skirt" ]
+          "allowedTraits": [ "Bottom" ]
         },
         {
           "slot": "Shoes",
           "level": "Hard",
-          "allowedCategories": [ "Shoes" ]
+          "allowedTraits": [ "Shoes" ]
         },
         {
           "slot": "Outerwear",

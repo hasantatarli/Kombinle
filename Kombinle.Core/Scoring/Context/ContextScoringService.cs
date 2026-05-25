@@ -73,6 +73,22 @@ namespace Kombinle.Core.Scoring.Context
                 }
             }
 
+            if (context.Setting == Setting.Indoor &&
+                 context.Season != Season.Winter &&
+                 context.Season != Season.Summer &&
+                 hasProtectionLayer)
+            {
+                if (intensity >= 2)
+                {
+                    res.DeltaScore -= 4;
+                    res.UserNotes.Add(new ContextUserNote("INDOOR_LAYER_SOFT_PENALTY", "İç mekân için daha hafif bir kombin daha rahat olabilir."));
+                }
+                else if (intensity == 1)
+                {
+                    res.DeltaScore -= 2;
+                }
+            }
+
             if (context.Season == Season.Winter && context.Setting == Setting.Outdoor)
             {
                 if (intensity <= 1)
@@ -95,6 +111,9 @@ namespace Kombinle.Core.Scoring.Context
                     res.UserNotes.Add(new ContextUserNote("WINTER_OUTDOOR_PROTECTIVE_LAYER", "Soğuk/dış ortam için dış katman kombini daha koruyucu hale getirir."));
                 }
             }
+
+
+
         }
 
         private static void ApplyRain(CombinationCandidate candidate, ContextInput context, ContextResult res)

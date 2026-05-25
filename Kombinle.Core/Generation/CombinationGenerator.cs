@@ -60,9 +60,10 @@ namespace Kombinle.Core.Generation
 
             var anchorReq = occasion.SlotSet.Get(Slot.Anchor);
             var anchorLevel = anchorReq?.Level ?? RequirementLevel.Hard;
+            var effectiveContext = context ?? occasion.DefaultContext ?? new ContextInput();
 
             // 1) Candidate anchors
-            var anchorCandidates = _anchorSelector.SelectAnchors(wardrobe, occasion)
+            var anchorCandidates = _anchorSelector.SelectAnchors(wardrobe, occasion, effectiveContext)
                 .Select(a => (Garment: (Garment?)a.Garment, Reason: a.Reason))
                 .ToList();
 
@@ -166,6 +167,7 @@ namespace Kombinle.Core.Generation
 
             var anchorReq = occasion.SlotSet.Get(Slot.Anchor);
             var anchorLevel = anchorReq?.Level ?? RequirementLevel.Hard;
+            var effectiveContext = context ?? occasion.DefaultContext ?? new ContextInput();
 
             // 1) Candidate anchors
             //var anchorCandidates = _anchorSelector.SelectAnchors(wardrobe, occasion)
@@ -184,9 +186,9 @@ namespace Kombinle.Core.Generation
                 (null, "TopBottom mode: no anchor baseline.")
             };
 
-            var optionalAnchors = _anchorSelector.SelectAnchors(wardrobe, occasion)
+            var optionalAnchors = _anchorSelector.SelectAnchors(wardrobe, occasion, effectiveContext)
                 .Select(a => (Garment: (Garment?)a.Garment, Reason: a.Reason))
-                .Where(a => a.Garment != null && a.Garment.Category != Category.Dress)
+                .Where(a => a.Garment != null && !CategorySemantics.IsOnePiece(a.Garment.Category))
                 .ToList();
 
             anchorCandidates.AddRange(optionalAnchors);
@@ -204,8 +206,8 @@ namespace Kombinle.Core.Generation
                 foreach (var slot in pool.Keys.ToList())
                 {
                     pool[slot] = pool[slot]
-                        .Where(g => g.Category != Category.Dress)
-                        .ToList();
+                                        .Where(g => !CategorySemantics.IsOnePiece(g.Category))
+                                        .ToList();
                 }
 
                 // 1) Primary
@@ -287,8 +289,8 @@ namespace Kombinle.Core.Generation
             var seen = new HashSet<string>();
 
             var dresses = wardrobe
-                .Where(g => g.Category == Category.Dress)
-                .ToList();
+                             .Where(g => CategorySemantics.IsOnePiece(g.Category))
+                             .ToList();
 
             var shoes = wardrobe
                 .Where(g => g.Category == Category.Shoes)

@@ -45,7 +45,7 @@
     "displayNameEn": "Dress",
     "group": "Dress",
     "slots": [ "Anchor" ],
-    "traits": [ "OnePiece", "DressPath" ]
+    "traits": [ "OnePiece" ]
   },
   {
     "id": "Shoes",
@@ -76,7 +76,7 @@
     "displayNameTr": "Mevsimlik Mont",
     "displayNameEn": "Light Outerwear",
     "group": "Layer",
-    "slots": [ "Outerwear" ],
+    "slots": [ "Outerwear","Anchor" ],
     "traits": [ "Layer", "Light", "Protection" ]
   },
   {
@@ -85,7 +85,7 @@
     "displayNameEn": "Coat",
     "group": "Layer",
     "slots": [ "Outerwear" ],
-    "traits": [ "Layer", "Protection" ]
+    "traits": [ "Layer", "Protection", "Heavy" ]
   },
   {
     "id": "Cardigan",
@@ -93,7 +93,7 @@
     "displayNameEn": "Cardigan",
     "group": "Layer",
     "slots": [ "Anchor", "Outerwear" ],
-    "traits": [ "Layer", "Comfort" ]
+    "traits": [ "Layer", "Comfort", "Light" ]
   },
   {
     "id": "Bag",
@@ -109,7 +109,7 @@
     "displayNameEn": "Hoodie",
     "group": "Top",
     "slots": [ "Top", "Anchor" ],
-    "traits": [ "Top", "Layer", "Comfort", "Casual" ]
+    "traits": [ "Top", "Layer", "Comfort", "Casual", "Light" ]
   },
   {
     "id": "Sweater",

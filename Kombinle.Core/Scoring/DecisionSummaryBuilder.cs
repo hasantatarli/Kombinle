@@ -23,6 +23,7 @@ namespace Kombinle.Core.Scoring
             List<CombinationCandidate> generated,
             List<ScoredCombination> ranked,
             ContextInput? effectiveContext,
+            List<Garment>? wardrobe = null,
             int rotationAttempt = 0,
             int alternativeCount = 2,
             int alternativeMaxScoreGap = 20, // H2.3b guardrail
@@ -117,11 +118,8 @@ namespace Kombinle.Core.Scoring
             var anchorReq = occasion.SlotSet.Get(Slot.Anchor);
             var bestHasLayerOrOuterwear =
                 best.Candidate.SlotToItem.Values.Any(i =>
-                    i.Category == Category.Coat ||
-                    i.Category == Category.LightOuterwear ||
-                    i.Category == Category.Jacket ||
-                    i.Category == Category.Cardigan ||
-                    i.Category == Category.Hoodie)
+                    CategorySemantics.IsLayer(i.Category) ||
+                    CategorySemantics.IsOuterwear(i.Category))
                 ||
                 best.Candidate.Anchor is not null;
 
@@ -129,23 +127,42 @@ namespace Kombinle.Core.Scoring
                 (effectiveContext?.Season == Season.Summer && effectiveContext?.Setting == Setting.Indoor)
                 || bestHasLayerOrOuterwear;
 
+            var softAnchorCategories =
+                anchorReq?.AllowedCategories ?? new List<Category>();
 
+            var sourceWardrobe = wardrobe ?? new List<Garment>();
 
-            if (anchorReq?.Level == RequirementLevel.Soft && best.Candidate.Anchor == null && !suppressSoftAnchorFeedback)
+            var hasAnySoftAnchorInWardrobe =
+                sourceWardrobe.Any(x => softAnchorCategories.Contains(x.Category));
+
+            var hasRequiredFormalitySoftAnchorInWardrobe =
+                sourceWardrobe.Any(x =>
+                    softAnchorCategories.Contains(x.Category) &&
+                    x.Formality >= occasion.RequiredFormality);
+
+            if (anchorReq?.Level == RequirementLevel.Soft &&
+                best.Candidate.Anchor == null &&
+                !suppressSoftAnchorFeedback)
             {
-                summary.WardrobeFeedback.Add(new WardrobeFeedback(
+                if (hasAnySoftAnchorInWardrobe &&
+                    !hasRequiredFormalitySoftAnchorInWardrobe)
+                {
+                    summary.WardrobeFeedback.Add(new WardrobeFeedback(
+                        type: WardrobeGapType.MissingSoftAnchor,
+                        contextWarningCode: "SOFT_ANCHOR_FORMALITY_WEAK",
+                        message: "Bu plan için daha formal bir ceket kombini güçlendirir."
+                    ));
+                }
+                else
+                {
+                    summary.WardrobeFeedback.Add(new WardrobeFeedback(
                         type: WardrobeGapType.MissingSoftAnchor,
                         contextWarningCode: "SOFT_ANCHOR_MISSING",
                         message: "Bu plan için bir ceket kombini güçlendirir."
-                ));
+                    ));
+                }
             }
 
-
-            //summary.BestContextHealth = ComputeContextHealth(
-            //    avgDelta: best.ContextDelta,
-            //    penaltyRate: best.ContextDelta < 0 ? 1.0 : 0.0,
-            //    warningRate: best.ContextWarningCodes.Count > 0 ? 1.0 : 0.0
-            //);
 
             // Context health metrics
             summary.ContextAvgDelta = ranked.Average(s => (double)s.ContextDelta);
@@ -274,28 +291,6 @@ namespace Kombinle.Core.Scoring
             return required;
         }
 
-        //internal static bool HasMeaningfulDifference(
-        //    CombinationCandidate best,
-        //    CombinationCandidate other,
-        //    List<Slot> coreSlots)
-        //{
-        //    if (coreSlots == null || coreSlots.Count == 0)
-        //        return !string.Equals(best.Signature, other.Signature, StringComparison.Ordinal);
-
-        //    foreach (var slot in coreSlots)
-        //    {
-        //        var aHas = best.SlotToItem.TryGetValue(slot, out var a);
-        //        var bHas = other.SlotToItem.TryGetValue(slot, out var b);
-
-        //        if (aHas != bHas) return true;
-        //        if (!aHas || !bHas) continue;
-
-        //        if (!IsSameGarment(a!, b!)) return true;
-        //    }
-
-        //    return false;
-        //}
-
         internal static bool HasMeaningfulDifference(
          CombinationCandidate best,
          CombinationCandidate other,
@@ -341,38 +336,6 @@ namespace Kombinle.Core.Scoring
             if (s.WarningCount > 0) return DecisionRiskLevel.Warning;
             return DecisionRiskLevel.Safe;
         }
-        /*
-        private static string BuildDebugShort(CombinationCandidate c, ScoredCombination s)
-        {
-            var parts = new List<string>
-    {
-        c.Anchor == null ? "NoAnchor" : $"{c.Anchor.ColorFamily} {c.Anchor.Category}"
-    };
-
-            if (c.SlotToItem.TryGetValue(Slot.Top, out var top))
-                parts.Add($"{top.ColorFamily} {top.Category}");
-
-            if (c.SlotToItem.TryGetValue(Slot.Bottom, out var bottom))
-                parts.Add($"{bottom.ColorFamily} {bottom.Category}");
-
-            if (c.SlotToItem.TryGetValue(Slot.Shoes, out var shoes))
-                parts.Add($"{shoes.ColorFamily} {shoes.Category}");
-            else
-                parts.Add("Shoes:(missing)");
-
-            var outerTag = c.SlotToItem.ContainsKey(Slot.Outerwear) ? " +Outerwear" : "";
-
-            var risk = RiskOf(s);
-            var riskTag = risk switch
-            {
-                DecisionRiskLevel.Safe => "SAFE",
-                DecisionRiskLevel.Warning => "WARN",
-                _ => "HARDFAIL"
-            };
-
-            return $"{string.Join(" + ", parts)}{outerTag} | Score:{s.Score} TB:{s.TieBreakScore} | {riskTag}";
-        }
-        */
 
         private static string BuildUserShort(CombinationCandidate c)
         {

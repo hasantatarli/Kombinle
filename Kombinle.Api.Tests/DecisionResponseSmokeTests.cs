@@ -1,11 +1,12 @@
 ﻿using FluentAssertions;
+using Kombinle.Api.Contracts;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.VisualStudio.TestPlatform.Utilities;
 using System.Net;
 using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using Xunit;
-using Kombinle.Api.Contracts;
 
 namespace Kombinle.Api.Tests;
 
@@ -41,7 +42,22 @@ public class DecisionResponseSmokeTests : IClassFixture<WebApplicationFactory<Pr
         var response = await PostJson(json);
         response.StatusCode.Should().Be(HttpStatusCode.OK);
 
+   
+
         var payload = await response.Content.ReadFromJsonAsync<DecisionResponseDto>();
+
+        //Console.WriteLine(payload!.Decision.Outfit.ShortTr);
+        //foreach (var item in payload.Decision.Outfit.Items)
+        //{
+        //    Console.WriteLine($"{item.Slot} - {item.Category} - {item.ColorFamily}");
+        //}
+        //Console.WriteLine(payload.WardrobeFeedback?.Code);
+
+        //Console.WriteLine($"RawBest: {payload.Debug?.RawBestSignature}");
+        //Console.WriteLine($"ShownBest: {payload.Debug?.ShownBestSignature}");
+        //Console.WriteLine($"RotationAttempt: {payload.Debug?.RotationAttempt}");
+        //Console.WriteLine($"BestPoolCount: {payload.Debug?.BestPoolCount}");
+
         payload.Should().NotBeNull();
 
         payload!.Decision.BestContextHealth.Should().Be("Good");
@@ -211,19 +227,19 @@ public class DecisionResponseSmokeTests : IClassFixture<WebApplicationFactory<Pr
     public async Task WeddingFlexible_DressPath_ShouldReturnDressOutfit()
     {
         var json = """
-    {
-      "occasionId": "wedding_formal_flexible",
-      "context": {
-        "weather": "Clear",
-        "setting": "Outdoor",
-        "timeOfDay": "Day"
-      },
-      "items": [
-        { "tempId": "wf1", "category": "Dress", "colorFamily": "Black", "formality": "Formal" },
-        { "tempId": "wf2", "category": "Shoes", "colorFamily": "Black", "formality": "Formal" }
-      ]
-    }
-    """;
+        {
+          "occasionId": "wedding_formal_flexible",
+          "context": {
+            "weather": "Clear",
+            "setting": "Outdoor",
+            "timeOfDay": "Day"
+          },
+          "items": [
+            { "tempId": "wf1", "category": "Dress", "colorFamily": "Black", "formality": "Formal" },
+            { "tempId": "wf2", "category": "Shoes", "colorFamily": "Black", "formality": "Formal" }
+          ]
+        }
+        """;
 
         var response = await PostJson(json);
         response.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -465,6 +481,105 @@ public class DecisionResponseSmokeTests : IClassFixture<WebApplicationFactory<Pr
 
         secondPayload.Debug.RawBestSignature.Should().Be(firstPayload.Debug.RawBestSignature);
         secondPayload.Debug.ShownBestSignature.Should().NotBe(firstPayload.Debug.ShownBestSignature);
+    }
+
+    [Fact]
+    public async Task CasualWeekend_ShouldSelectShoesUsingAllowedTraits()
+    {
+        var json = """
+        {
+          "occasionId": "casual_weekend",
+          "wardrobeProfileId": "male_extended_v1",
+          "context": {
+            "weather": "Clear",
+            "season": "Spring",
+            "setting": "Indoor",
+            "timeOfDay": "Day"
+          }
+        }
+        """;
+
+        var response = await PostJson(json);
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+        var payload =
+            await response.Content.ReadFromJsonAsync<DecisionResponseDto>();
+
+        payload.Should().NotBeNull();
+
+        payload!.Decision.Outfit.Items
+            .Should()
+            .Contain(x => x.Slot == "Shoes");
+
+        payload.Decision.Outfit.Items
+            .Where(x => x.Slot == "Shoes")
+            .Should()
+            .OnlyContain(x =>
+                x.Category == "Shoes" ||
+                x.Category == "Sneakers");
+    }
+
+    [Fact]
+    public async Task CasualWeekend_ShouldSelectTopUsingAllowedTraits()
+    {
+        var json = """
+        {
+          "occasionId": "casual_weekend",
+          "wardrobeProfileId": "male_extended_v1",
+          "context": {
+            "weather": "Clear",
+            "season": "Spring",
+            "setting": "Indoor",
+            "timeOfDay": "Day"
+          }
+        }
+        """;
+
+        var response = await PostJson(json);
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+        var payload =
+            await response.Content.ReadFromJsonAsync<DecisionResponseDto>();
+
+        payload.Should().NotBeNull();
+
+        payload!.Decision.Outfit.Items
+            .Should()
+            .Contain(x => x.Slot == "Top");
+
+        payload.Decision.Outfit.Items
+            .Where(x => x.Slot == "Top")
+            .Should()
+            .OnlyContain(x =>
+                x.Category == "Tshirt" ||
+                x.Category == "Shirt" ||
+                x.Category == "Sweater");
+    }
+
+    [Fact]
+    public async Task SoftAnchorPresentButTooLowFormality_ShouldReturnFormalityWeakFeedback()
+    {
+        var json = """
+        {
+          "occasionId": "business_meeting_formal",
+          "wardrobeProfileId": "male_extended_v1",
+          "context": {
+            "weather": "Clear",
+            "season": "Spring",
+            "setting": "Indoor",
+            "timeOfDay": "Day"
+          }
+        }
+        """;
+
+        var response = await PostJson(json);
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+        var payload = await response.Content.ReadFromJsonAsync<DecisionResponseDto>();
+
+        payload.Should().NotBeNull();
+        payload!.WardrobeFeedback.Should().NotBeNull();
+        payload.WardrobeFeedback!.Code.Should().Be("SOFT_ANCHOR_FORMALITY_WEAK");
     }
 
 }

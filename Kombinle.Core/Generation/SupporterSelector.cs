@@ -25,7 +25,7 @@ namespace Kombinle.Core.Generation
 
                 var list = wardrobe
                     .Where(g =>
-                        req.AllowedCategories.Contains(g.Category) &&
+                         SlotRequirementMatcher.Matches(g, req) &&
                             (anchor == null || !IsSameGarment(g, anchor)) &&
                             (anchor == null || !ColorRules.IsClashing(anchor.ColorFamily, g.ColorFamily))
                     )

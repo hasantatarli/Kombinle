@@ -35,6 +35,8 @@ namespace Kombinle.Core.Domain.Occasions
             public string? Slot { get; set; }
             public string? Level { get; set; }
             public List<string>? AllowedCategories { get; set; }
+
+            public List<string>? AllowedTraits { get; set; }
         }
 
         public static Dictionary<string, Occasion> LoadFromJsonFile(string filePath)
@@ -119,14 +121,20 @@ namespace Kombinle.Core.Domain.Occasions
                     .Select(x => ParseEnumOrThrow<Category>(x, $"Occasion '{id}' slotSet.requirements.allowedCategories"))
                     .ToList();
 
-                if (allowed.Count == 0)
-                    throw new InvalidOperationException($"Occasion '{id}' slot '{slot}' has empty allowedCategories.");
+                var allowedTraits = r.AllowedTraits ?? new List<string>();
+
+                if (allowed.Count == 0 && allowedTraits.Count == 0)
+                {
+                    throw new InvalidOperationException(
+                        $"Occasion '{id}' slot '{slot}' has no allowedCategories or allowedTraits.");
+                }
 
                 reqs.Add(new SlotRequirement
                 {
                     Slot = slot,
                     Level = level,
-                    AllowedCategories = allowed
+                    AllowedCategories = allowed,
+                    AllowedTraits = allowedTraits
                 });
             }
 

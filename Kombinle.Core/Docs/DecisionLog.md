@@ -1101,3 +1101,121 @@ Users evaluate recommendations more naturally when:
 ### Confidence
 
 High
+
+---
+
+## Transition Toward Taxonomy-Driven Architecture
+
+### Context
+
+As category count increased, semantic behavior became fragmented across the engine.
+
+Adding categories such as:
+- LightOuterwear
+- Hoodie
+- Sweater
+- Skirt
+
+started to create scaling and maintenance risks.
+
+The same category knowledge existed in:
+- scoring
+- context logic
+- pairing
+- wardrobe analysis
+- UI grouping
+
+### Decision
+
+A taxonomy-driven architecture transition was started.
+
+### Implementations
+
+- Category metadata moved to JSON catalog
+- CategoryCatalogService introduced
+- Wardrobe API responses enriched with taxonomy metadata
+- UI grouping migrated from raw category grouping to semantic group grouping
+- CategorySemantics centralized semantic category logic:
+  - top categories
+  - bottom categories
+  - footwear categories
+  - layer roles
+  - core/support pair semantics
+
+### Additional Cleanup
+
+- Legacy occasion fallback factories removed
+- Occasion JSON catalog became the single source of truth
+- Static SlotSet preset dependency reduced
+
+### Reason
+
+The system needs to support future category growth without:
+- widespread enum checks
+- multi-file semantic duplication
+- unstable engine behavior
+
+### Confidence
+
+High
+
+---
+
+## Taxonomy Migration – Remaining Dress Special Cases
+
+Date: 2026-05-25
+
+- `Category.Dress` hardcoded generation filters migrated to `CategorySemantics.IsOnePiece()`
+- `DressPath` semantic trait removed
+- `OnePiece` became the canonical semantic for dress-style outfit paths
+
+Remaining intentional special-cases:
+- CombinationScorer → dress-mode scoring behavior
+- AlternativePicker → dress vs top-bottom alternative reasoning
+- CategorySemantics → dress-footwear core pair logic
+
+These remain intentionally explicit because they represent outfit structure behavior,
+not simple taxonomy membership.
+
+---
+
+## Taxonomy-Driven Generation Migration
+
+Date: 2026-05-25
+
+### Completed
+- `allowedTraits` support added to slot requirements
+- `SlotRequirementMatcher` updated to support trait-based matching
+- Shoes slot migrated to taxonomy-driven selection
+- Top slot migrated to taxonomy-driven selection
+- Bottom slot migrated to taxonomy-driven selection
+
+### Semantic Model Separation
+The engine now distinguishes between:
+
+- Traits → semantic meaning / behavior
+- Slots → outfit composition eligibility
+- Groups → taxonomy / UI grouping
+
+Examples:
+- `Layer`, `Protection`, `Comfort` → traits
+- `Top`, `Bottom`, `Shoes`, `Anchor` → slots
+- `Top`, `Layer`, `Shoes` → groups
+
+### Naming Cleanup
+- `IsTopCategory` → `CanFillTopSlot`
+- `IsBottomCategory` → `CanFillBottomSlot`
+- `IsFootwearCategory` → `CanFillShoesSlot`
+
+### OnePiece Migration
+- `DressPath` semantic trait removed
+- `OnePiece` became the canonical semantic for dress-style outfit structures
+- `CombinationGenerator` migrated from direct `Category.Dress` checks to `CategorySemantics.IsOnePiece()`
+
+### Remaining Intentional Special-Cases
+The following areas still intentionally contain explicit dress-mode logic:
+- `CombinationScorer`
+- `AlternativePicker`
+- `CategorySemantics` dress-footwear core pair handling
+
+These represent outfit structure semantics rather than simple taxonomy membership.

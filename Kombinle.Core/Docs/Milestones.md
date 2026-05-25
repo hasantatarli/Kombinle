@@ -1,26 +1,4 @@
-﻿## Goal
-Move Kombinle from engine demo toward usable MVP product flow.
-
-## In Progress
-- MVP product UX refinement
-- Weather-aware context flow
-- Controlled wardrobe expansion
-- Color palette expansion
-- Session/product interaction improvements
-
-## Next
-- Compact context summary UI
-- Manual city override
-- Wardrobe management
-- Saved wardrobe profiles
-- Outfit history groundwork
-
-## NOT DOING NOW
-- AI clothing detection
-- Full geocoding/search infrastructure
-- Fashion trend AI
-- Social/community features
-- Advanced personalization profiles
+﻿# Milestones
 
 ## Completed
 - Real weather integration added through Open-Meteo
@@ -31,7 +9,10 @@ Move Kombinle from engine demo toward usable MVP product flow.
 - Dynamic wardrobe profile loading added
 - Wardrobe preview summary added
 - Category-grouped wardrobe inspection drawer added
-22/05/2026
+ 
+---
+
+Date: 22/05/2026
 - JSON-based wardrobe persistence pipeline implemented
 - Wardrobe profiles migrated from hardcoded loader to JSON resources
 - WardrobeProfileService added
@@ -52,3 +33,39 @@ Move Kombinle from engine demo toward usable MVP product flow.
   - Top/Bottom semantics
   - Footwear semantics
   - Core/Support pair semantics
+	
+---
+
+Date: 2026-05-25
+## Taxonomy-Driven Generation Migration
+
+### Completed
+- Added provider-backed semantic taxonomy model
+- Added slot-aware semantic provider access
+- Introduced `allowedTraits` support
+- Migrated Shoes generation to taxonomy-driven matching
+- Migrated Top generation to taxonomy-driven matching
+- Migrated Bottom generation to taxonomy-driven matching
+- Added regression tests for trait-driven slot matching
+
+### Semantic Separation
+The engine now separates:
+- Traits → semantic behavior
+- Slots → outfit composition eligibility
+- Groups → taxonomy/UI grouping
+
+### Naming Cleanup
+- `IsTopCategory` → `CanFillTopSlot`
+- `IsBottomCategory` → `CanFillBottomSlot`
+- `IsFootwearCategory` → `CanFillShoesSlot`
+
+### OnePiece Migration
+- Removed `DressPath` semantic trait
+- Introduced `IsOnePiece()`
+- Migrated generation filters away from direct `Category.Dress` checks
+
+### UX Improvements
+- Added distinction between:
+  - missing soft anchor
+  - weak-formality soft anchor
+- Introduced `SOFT_ANCHOR_FORMALITY_WEAK`

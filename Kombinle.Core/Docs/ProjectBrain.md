@@ -398,3 +398,113 @@ Demo is evolving from:
 toward:
 
 - lightweight interactive outfit assistant validation
+
+---
+
+## Architecture Evolution
+
+### Taxonomy-Driven Direction Emerging
+
+The project is transitioning toward a taxonomy-aware architecture.
+
+Category behavior is beginning to move from:
+- scattered enum checks
+
+toward:
+
+- centralized semantic helpers
+- category metadata catalogs
+- API-enriched taxonomy responses
+
+Current state:
+- Category catalog JSON exists
+- Taxonomy metadata is exposed through API
+- UI grouping consumes semantic groups
+- Category semantics centralized in CategorySemantics
+
+Long-term direction:
+- metadata-driven semantic behaviors
+- reduced hardcoded category logic
+- scalable category expansion
+
+
+---
+
+## Taxonomy-Driven Semantic Architecture
+
+Kombinle engine is moving from category-enum-driven outfit generation
+toward taxonomy-driven semantic composition.
+
+The system now separates three distinct concepts:
+
+### Traits
+Traits describe semantic meaning and behavior.
+
+Examples:
+- Layer
+- Protection
+- Structure
+- Comfort
+- Casual
+- Warm
+
+Traits are mainly used for:
+- context scoring
+- semantic behavior
+- comfort/protection logic
+- scoring heuristics
+
+### Slots
+Slots describe outfit composition eligibility.
+
+Examples:
+- Top
+- Bottom
+- Shoes
+- Anchor
+- Outerwear
+
+Slots are mainly used for:
+- generation eligibility
+- combination structure
+- slot requirement matching
+- outfit composition logic
+
+### Groups
+Groups are primarily taxonomy/UI concepts.
+
+Examples:
+- Top
+- Layer
+- Shoes
+- Accessory
+
+Groups are used for:
+- wardrobe organization
+- display grouping
+- UI rendering
+
+### Migration Status
+
+Trait-driven generation:
+- Shoes ✅
+- Top ✅
+- Bottom ✅
+
+Hybrid / partially explicit domains:
+- Anchor
+- Outerwear
+- OnePiece/Dress structures
+
+### Semantic Provider Model
+
+`CategorySemantics` now operates through provider-backed taxonomy data:
+- JSON catalog provider
+- internal fallback semantic map
+- unified slot + trait access
+
+This enables:
+- config-driven expansion
+- future category additions without engine rewrites
+- hybrid semantic behavior
+- explainable outfit generation

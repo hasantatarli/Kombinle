@@ -249,21 +249,6 @@ namespace Kombinle.Core.Scoring
             //    Console.WriteLine();
             //}
 
-            //Console.WriteLine("=== COAT CANDIDATES ===");
-
-            //foreach (var sc in ranked.Where(x =>
-            //    x.Candidate.SlotToItem.Values.Any(i => i.Category == Category.Coat) ||
-            //    x.Candidate.Anchor?.Category == Category.Coat))
-            //{
-            //    Console.WriteLine($"SIGNATURE: {sc.Candidate.Signature}");
-            //    Console.WriteLine($"Score={sc.Score} TieBreak={sc.TieBreakScore} ContextDelta={sc.ContextDelta}");
-            //    Console.WriteLine($"Warnings={string.Join(",", sc.ContextWarningCodes)}");
-
-            //    foreach (var b in sc.Breakdown)
-            //        Console.WriteLine($"  {b.Value} | {b.Reason}");
-
-            //    Console.WriteLine();
-            //}
 
             // W1 - Wardrobe Feedback (read-only, no mutation)
             var wardrobeFeedback = WardrobeFeedbackEngine.Evaluate(ranked);

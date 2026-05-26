@@ -1,5 +1,6 @@
 ﻿using Kombinle.Api.Contracts;
 using Kombinle.Core.Domain;
+using Kombinle.Core.Domain.Semantics;
 using Kombinle.Core.Generation;
 using Kombinle.Core.Scoring;
 using Kombinle.Core.Scoring.Alternatives;
@@ -61,7 +62,7 @@ public static class ResponseMapper
 
         if (best.Candidate.Anchor != null)
         {
-            AddItem("Anchor", best.Candidate.Anchor);
+            AddItem(SemanticSlotNames.Anchor, best.Candidate.Anchor);
         }
 
         foreach (var kv in best.Candidate.SlotToItem.OrderBy(x => GetSlotOrder(x.Key)))
@@ -74,8 +75,8 @@ public static class ResponseMapper
 
     private static bool IsLayerItem(string slotName, Garment garment)
     {
-        return slotName.Equals("Outerwear", StringComparison.OrdinalIgnoreCase)
-               || (slotName.Equals("Anchor", StringComparison.OrdinalIgnoreCase)
+        return slotName.Equals(SemanticSlotNames.Outerwear, StringComparison.OrdinalIgnoreCase)
+               || (slotName.Equals(SemanticSlotNames.Anchor, StringComparison.OrdinalIgnoreCase)
                    && CategorySemantics.IsStructuredLayer(garment.Category));
     }
 
@@ -111,7 +112,7 @@ public static class ResponseMapper
 
         if (best.Candidate.Anchor != null)
         {
-            AddItem("Anchor", best.Candidate.Anchor);
+            AddItem(SemanticSlotNames.Anchor, best.Candidate.Anchor);
         }
 
         foreach (var kv in best.Candidate.SlotToItem.OrderBy(x => GetSlotOrder(x.Key)))

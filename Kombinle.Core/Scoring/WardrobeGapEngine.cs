@@ -1,4 +1,5 @@
 ﻿using Kombinle.Core.Domain;
+using Kombinle.Core.Domain.Semantics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,21 +26,21 @@ namespace Kombinle.Core.Scoring
             bool hasCasualTop = items.Any(x =>
                 CategorySemantics.CanFillTopSlot(x.Category) &&
                 (
-                    CategorySemantics.Provider.HasTrait(x.Category, "Casual") ||
+                    CategorySemantics.Provider.HasTrait(x.Category, SemanticTraits.Casual) ||
                     x.Formality == Formality.Casual
                 ));
 
             bool hasCasualBottom = items.Any(x =>
                 CategorySemantics.CanFillBottomSlot(x.Category) &&
                 (
-                    CategorySemantics.Provider.HasTrait(x.Category, "Casual") ||
+                    CategorySemantics.Provider.HasTrait(x.Category, SemanticTraits.Casual) ||
                     x.Formality == Formality.Casual
                 ));
 
             bool hasCasualShoes = items.Any(x =>
                 CategorySemantics.CanFillShoesSlot(x.Category) &&
                 (
-                    CategorySemantics.Provider.HasTrait(x.Category, "Casual") ||
+                    CategorySemantics.Provider.HasTrait(x.Category, SemanticTraits.Casual) ||
                     x.Formality == Formality.Casual
                 ));
 

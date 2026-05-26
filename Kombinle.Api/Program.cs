@@ -23,14 +23,23 @@ builder.Services.AddSingleton<IDecisionService, DecisionService>();
 builder.Services.AddHttpClient<WeatherContextService>();
 builder.Services.AddSingleton<WardrobeProfileService>();
 builder.Services.AddSingleton<CategoryCatalogService>();
+builder.Services.AddSingleton<ConfigValidationService>();
 
 var app = builder.Build();
 
 var categoryCatalogService =
     app.Services.GetRequiredService<CategoryCatalogService>();
 
-CategorySemantics.Provider =
-    new JsonCategorySemanticsProvider(categoryCatalogService);
+// Category semantics must be initialized from category_catalog.json
+// before handling decision requests.
+// The default provider exists only as a fallback for non-API/core-only execution.
+CategorySemantics.SetProvider(
+    new JsonCategorySemanticsProvider(categoryCatalogService));
+
+var configValidationService =
+    app.Services.GetRequiredService<ConfigValidationService>();
+
+configValidationService.ValidateCategoryTraits(categoryCatalogService);
 
 app.MapGet("/api/v1/weather/context",
     async (

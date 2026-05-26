@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Kombinle.Core.Domain
 {
-    public class AnchorCompositionRule
-    {
-        public Category Anchor { get; set; }
-        public List<Category> RequiredCategories { get; set; } = new();
-    }
+    //public class AnchorCompositionRule
+    //{
+    //    public Category Anchor { get; set; }
+    //    public List<Category> RequiredCategories { get; set; } = new();
+    //}
 
 }

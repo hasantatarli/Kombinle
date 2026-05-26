@@ -1,6 +1,7 @@
 ﻿using Kombinle.Core.Config;
 using Kombinle.Core.Domain;
 using Kombinle.Core.Domain.Context;
+using Kombinle.Core.Domain.Semantics;
 using Kombinle.Core.Generation;
 using Kombinle.Core.Rules;
 using Kombinle.Core.Scoring;
@@ -81,6 +82,32 @@ namespace Kombinle.Core.Engine
                 && candidate.Anchor.Formality == Formality.Formal)
             {
                 result.Add(-6, "Formality: Casual occasion için formal anchor fazla güçlü");
+            }
+
+            if (candidate.Anchor != null)
+            {
+                var role = CategorySemantics.GetLayerRole(candidate.Anchor.Category);
+
+                if (occasion.RequiredFormality >= Formality.Smart &&
+                    role == LayerRole.Structure)
+                {
+                    result.Add(2, "Anchor semantic: Smart/Formal occasion için structured layer uygun");
+                }
+
+                if (occasion.RequiredFormality == Formality.Casual &&
+                    role == LayerRole.Comfort)
+                {
+                    result.Add(2, "Anchor semantic: Casual occasion için comfort layer uygun");
+                }
+
+                if (context?.Setting == Setting.Outdoor &&
+                    (context.Weather == Weather.Rain ||
+                     context.Weather == Weather.Cold ||
+                     context.Season == Season.Winter) &&
+                    role == LayerRole.Protection)
+                {
+                    result.Add(2, "Anchor semantic: Outdoor/soğuk/yağış için protective layer uygun");
+                }
             }
 
             // 2) Renk çifti skorları (anchor-aware)
@@ -239,7 +266,7 @@ namespace Kombinle.Core.Engine
             {
                 bool hasCasualSignal =
                         candidate.SlotToItem.Values.Any(x =>
-                            CategorySemantics.Provider.HasTrait(x.Category, "Casual") ||
+                            CategorySemantics.Provider.HasTrait(x.Category, SemanticTraits.Casual) ||
                             x.Formality == Formality.Casual
                         );
 

@@ -25,5 +25,8 @@ namespace Kombinle.Core.Domain.Occasions
 
         public static bool TryGet(string occasionId, out Occasion occasion)
             => _map.TryGetValue(occasionId, out occasion!);
+
+        public static IReadOnlyDictionary<string, Occasion> All() 
+            => _map;
     }
 }

@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Kombinle.Core.Domain
 {
+    // Default fallback provider.
+    // Used only when the API does not initialize JsonCategorySemanticsProvider.
+    // Active API flow should use category_catalog.json as the source of truth.
     public sealed class DefaultCategorySemanticsProvider : ICategorySemanticsProvider
     {
         public bool HasTrait(Category category, string trait)

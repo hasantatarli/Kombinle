@@ -1,4 +1,6 @@
-﻿namespace Kombinle.Core.Domain;
+﻿using Kombinle.Core.Domain.Semantics;
+
+namespace Kombinle.Core.Domain;
 
 public static class CategorySemantics
 {
@@ -6,30 +8,39 @@ public static class CategorySemantics
     // This semantic map mirrors category_catalog.json.
     // Next step: load immutable category semantics from catalog
     // instead of maintaining this map manually.
-    public static ICategorySemanticsProvider Provider { get; set; } = new DefaultCategorySemanticsProvider();
+    public static ICategorySemanticsProvider Provider { get; private set; } = new DefaultCategorySemanticsProvider();
 
+    public static void SetProvider(ICategorySemanticsProvider provider)
+    {
+        Provider = provider ?? throw new ArgumentNullException(nameof(provider));
+    }
+
+    // TEMPORARY FALLBACK MAP
+    // Active API flow should use JsonCategorySemanticsProvider.
+    // This map exists only for tests or non-API/Core-only execution paths.
+    // Long-term source of truth: category_catalog.json.
     private static readonly Dictionary<Category, CategorySemanticInfo> Map = new()
     {
-        [Category.Blouse] = new("Top", ["Top"], [Slot.Top]),
-        [Category.Shirt] = new("Top", ["Top"], [Slot.Top]),
-        [Category.Tshirt] = new("Top", ["Top", "Casual"], [Slot.Top]),
-        [Category.Sweater] = new("Top", ["Top", "Warm"], [Slot.Top]),
-        [Category.Hoodie] = new("Top", ["Top", "Layer", "Comfort", "Light", "Casual"], [Slot.Top, Slot.Anchor]),
+        [Category.Blouse] = new("Top", [SemanticTraits.Top], [Slot.Top]),
+        [Category.Shirt] = new("Top", [SemanticTraits.Top], [Slot.Top]),
+        [Category.Tshirt] = new("Top", [SemanticTraits.Top, SemanticTraits.Casual], [Slot.Top]),
+        [Category.Sweater] = new("Top", [SemanticTraits.Top, SemanticTraits.Warm], [Slot.Top]),
+        [Category.Hoodie] = new("Top", [SemanticTraits.Top, SemanticTraits.Layer, SemanticTraits.Comfort, SemanticTraits.Light, SemanticTraits.Casual], [Slot.Top, Slot.Anchor]),
 
-        [Category.Cardigan] = new("Layer", ["Layer", "Comfort", "Light"], [Slot.Anchor, Slot.Outerwear]),
+        [Category.Cardigan] = new("Layer", [SemanticTraits.Layer, SemanticTraits.Comfort, SemanticTraits.Light], [Slot.Anchor, Slot.Outerwear]),
 
-        [Category.Pants] = new("Bottom", ["Bottom"], [Slot.Bottom]),
-        [Category.Skirt] = new("Bottom", ["Bottom"], [Slot.Bottom]),
-        [Category.Jeans] = new("Bottom", ["Bottom", "Casual"], [Slot.Bottom]),
+        [Category.Pants] = new("Bottom", [SemanticTraits.Bottom], [Slot.Bottom]),
+        [Category.Skirt] = new("Bottom", [SemanticTraits.Bottom], [Slot.Bottom]),
+        [Category.Jeans] = new("Bottom", [SemanticTraits.Bottom, SemanticTraits.Casual], [Slot.Bottom]),
 
-        [Category.Shoes] = new("Shoes", ["Shoes"], [Slot.Shoes]),
-        [Category.Sneakers] = new("Shoes", ["Shoes", "Casual"], [Slot.Shoes]),
+        [Category.Shoes] = new("Shoes", [SemanticTraits.Shoes], [Slot.Shoes]),
+        [Category.Sneakers] = new("Shoes", [SemanticTraits.Shoes, SemanticTraits.Casual], [Slot.Shoes]),
 
-        [Category.Dress] = new("Dress", ["OnePiece"], [Slot.Anchor]),
+        [Category.Dress] = new("Dress", [SemanticTraits.OnePiece], [Slot.Anchor]),
 
-        [Category.Jacket] = new("Layer", ["Layer", "Structure"], [Slot.Anchor, Slot.Outerwear]),
-        [Category.LightOuterwear] = new("Layer", ["Layer", "Light", "Protection"], [Slot.Outerwear, Slot.Anchor]),
-        [Category.Coat] = new("Layer", ["Layer", "Protection", "Heavy"], [Slot.Outerwear]),
+        [Category.Jacket] = new("Layer", [SemanticTraits.Layer, SemanticTraits.Structure], [Slot.Anchor, Slot.Outerwear]),
+        [Category.LightOuterwear] = new("Layer", [SemanticTraits.Layer, SemanticTraits.Protection, SemanticTraits.Light], [Slot.Outerwear, Slot.Anchor]),
+        [Category.Coat] = new("Layer", [SemanticTraits.Layer, SemanticTraits.Protection, SemanticTraits.Heavy], [Slot.Outerwear]),
 
         [Category.Bag] = new("Accessory", ["Accessory"], [Slot.Accessory])
     };
@@ -73,27 +84,27 @@ public static class CategorySemantics
     }
     public static bool IsComfortLayer(Category category)
     {
-        return Provider.HasTrait(category, "Comfort");
+        return Provider.HasTrait(category, SemanticTraits.Comfort);
     }
 
     public static bool IsStructuredLayer(Category category)
     {
-        return Provider.HasTrait(category, "Structure");
+        return Provider.HasTrait(category, SemanticTraits.Structure);
     }
 
     public static bool IsProtectionLayer(Category category)
     {
-        return Provider.HasTrait(category, "Protection");
+        return Provider.HasTrait(category, SemanticTraits.Protection);
     }
 
     public static bool IsLightLayer(Category category)
     {
-        return Provider.HasTrait(category, "Light");
+        return Provider.HasTrait(category, SemanticTraits.Light);
     }
 
     public static bool IsHeavyLayer(Category category)
     {
-        return Provider.HasTrait(category, "Heavy");
+        return Provider.HasTrait(category, SemanticTraits.Heavy);
     }
 
 
@@ -141,7 +152,7 @@ public static class CategorySemantics
 
     public static bool IsOnePiece(Category category)
     {
-        return Provider.HasTrait(category, "OnePiece");
+        return Provider.HasTrait(category, SemanticTraits.OnePiece);
     }
 
     public static bool IsOuterwear(Category category)
@@ -160,6 +171,6 @@ public static class CategorySemantics
             && info.Slots.Contains(slot);
     }
 
-    
+
 
 }

@@ -8,21 +8,39 @@ namespace Kombinle.Api.Services
 
         public JsonCategorySemanticsProvider(CategoryCatalogService catalogService)
         {
-            _map = catalogService
-                .GetAll()
-                .Select(x => new
+            var items = catalogService.GetAll();
+
+            _map = new Dictionary<Category, CategorySemanticEntry>();
+
+            foreach (var item in items)
+            {
+                if (string.IsNullOrWhiteSpace(item.Id))
+                    throw new InvalidOperationException("Category catalog item has empty id.");
+
+                if (!Enum.TryParse<Category>(item.Id, ignoreCase: true, out var category))
+                    throw new InvalidOperationException($"Unknown category id in catalog: {item.Id}");
+
+                if (string.IsNullOrWhiteSpace(item.Group))
+                    throw new InvalidOperationException($"Category '{item.Id}' has empty group.");
+
+                if (item.Traits == null)
+                    throw new InvalidOperationException($"Category '{item.Id}' has null traits.");
+
+                if (item.Slots == null)
+                    throw new InvalidOperationException($"Category '{item.Id}' has null slots.");
+
+                foreach (var slot in item.Slots)
                 {
-                    Parsed = Enum.TryParse<Category>(x.Id, ignoreCase: true, out var category),
-                    Category = category,
-                    Item = x
-                })
-                .Where(x => x.Parsed)
-                .ToDictionary(
-                    x => x.Category,
-                    x => new CategorySemanticEntry(
-                        x.Item.Group,
-                        x.Item.Traits ?? [],
-                        x.Item.Slots ?? []));
+                    if (!Enum.TryParse<Slot>(slot, ignoreCase: true, out _))
+                        throw new InvalidOperationException(
+                            $"Category '{item.Id}' has invalid slot: {slot}");
+                }
+
+                _map[category] = new CategorySemanticEntry(
+                    item.Group,
+                    item.Traits,
+                    item.Slots);
+            }
         }
 
         public bool HasTrait(Category category, string trait)
@@ -40,10 +58,7 @@ namespace Kombinle.Api.Services
                 : null;
         }
 
-        private sealed record CategorySemanticEntry(
-        string Group,
-        List<string> Traits,
-        List<string> Slots);
+        private sealed record CategorySemanticEntry(string Group, List<string> Traits, List<string> Slots);
 
         public bool HasSlot(Category category, Slot slot)
         {

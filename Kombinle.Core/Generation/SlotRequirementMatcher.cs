@@ -2,8 +2,22 @@
 
 namespace Kombinle.Core.Generation
 {
-    internal static class SlotRequirementMatcher
+    public static class SlotRequirementMatcher
     {
+        // Matching dimensions:
+        //
+        // allowedCategories:
+        //   Explicit whitelist for exact garment categories.
+        //
+        // allowedTraits:
+        //   Semantic behavior matching
+        //   (e.g. Casual, Structure, Top-like behavior).
+        //
+        // allowedSlots:
+        //   Outfit composition eligibility
+        //   (e.g. can fill Anchor / Outerwear / Shoes slot).
+        //
+        // A garment matching any configured dimension is considered eligible.
         public static bool Matches(
             Garment garment,
             SlotRequirement requirement)
@@ -19,7 +33,9 @@ namespace Kombinle.Core.Generation
                         garment.Category,
                         trait));
 
-            return categoryMatch || traitMatch;
+            var slotMatch = requirement.AllowedSlots.Count > 0 && requirement.AllowedSlots.Any(slot => CategorySemantics.Provider.HasSlot(garment.Category, slot));
+
+            return categoryMatch || traitMatch || slotMatch;
         }
     }
 }

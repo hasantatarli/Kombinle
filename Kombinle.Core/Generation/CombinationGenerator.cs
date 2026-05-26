@@ -293,7 +293,7 @@ namespace Kombinle.Core.Generation
                              .ToList();
 
             var shoes = wardrobe
-                .Where(g => g.Category == Category.Shoes)
+                .Where(g => CategorySemantics.CanFillShoesSlot(g.Category))
                 .ToList();
 
             foreach (var dress in dresses)

@@ -76,7 +76,7 @@ public static class ResponseMapper
     {
         return slotName.Equals("Outerwear", StringComparison.OrdinalIgnoreCase)
                || (slotName.Equals("Anchor", StringComparison.OrdinalIgnoreCase)
-                   && garment.Category == Category.Jacket);
+                   && CategorySemantics.IsStructuredLayer(garment.Category));
     }
 
     private static (List<OutfitItemDto> CoreItems, List<OutfitItemDto> Layers) MapOutfitSections(ScoredCombination best)

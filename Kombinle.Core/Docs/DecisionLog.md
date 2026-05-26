@@ -1219,3 +1219,26 @@ The following areas still intentionally contain explicit dress-mode logic:
 - `CategorySemantics` dress-footwear core pair handling
 
 These represent outfit structure semantics rather than simple taxonomy membership.
+
+---
+## Anchor Slot Migration Boundary
+
+### Decision
+
+Top, Bottom, Shoes and Outerwear generation can use taxonomy-driven matching.
+
+Anchor generation remains mixed:
+
+- `casual_weekend` uses `allowedSlots: ["Anchor"]`
+- formal/smart occasions keep explicit `allowedCategories`
+
+### Reason
+
+Anchor defines outfit structure and occasion character.
+
+Using `allowedSlots: ["Anchor"]` for formal/smart occasions could allow casual anchor categories such as Hoodie or Cardigan to enter contexts where Jacket or Dress should remain explicit.
+
+### Current Rule
+
+- Casual flexible anchor → slot-driven
+- Formal/smart anchor → category-explicit

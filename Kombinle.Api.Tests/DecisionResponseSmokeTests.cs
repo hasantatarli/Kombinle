@@ -1,5 +1,7 @@
 ﻿using FluentAssertions;
 using Kombinle.Api.Contracts;
+using Kombinle.Core.Domain;
+using Kombinle.Core.Generation;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.VisualStudio.TestPlatform.Utilities;
 using System.Net;
@@ -582,6 +584,157 @@ public class DecisionResponseSmokeTests : IClassFixture<WebApplicationFactory<Pr
         payload.WardrobeFeedback!.Code.Should().Be("SOFT_ANCHOR_FORMALITY_WEAK");
     }
 
+    [Fact]
+    public async Task CasualWeekend_ShouldSelectAnchorUsingAllowedSlots()
+    {
+        var json = """
+        {
+          "occasionId": "casual_weekend",
+          "wardrobeProfileId": "male_extended_v1",
+          "context": {
+            "weather": "Clear",
+            "season": "Spring",
+            "setting": "Indoor",
+            "timeOfDay": "Day"
+          }
+        }
+        """;
+
+        var response = await PostJson(json);
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+        var payload =
+            await response.Content.ReadFromJsonAsync<DecisionResponseDto>();
+
+        payload.Should().NotBeNull();
+
+        payload!.Decision.Outfit.Items
+            .Should()
+            .Contain(x => x.Slot == "Anchor");
+    }
+    [Fact]
+    public async Task CasualWeekend_IndoorSpring_ShouldAvoidLightOuterwearAsBestAnchor()
+    {
+        var json = """
+        {
+          "occasionId": "casual_weekend",
+          "wardrobeProfileId": "male_extended_v1",
+          "context": {
+            "weather": "Clear",
+            "season": "Spring",
+            "setting": "Indoor",
+            "timeOfDay": "Day"
+          }
+        }
+        """;
+
+        var response = await PostJson(json);
+
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+        var payload =
+            await response.Content.ReadFromJsonAsync<DecisionResponseDto>();
+
+        payload.Should().NotBeNull();
+
+        var anchor =
+            payload!.Decision.Outfit.Items
+                .FirstOrDefault(x => x.Slot == "Anchor");
+
+        anchor.Should().NotBeNull();
+
+        anchor!.Category.Should().NotBe("LightOuterwear");
+    }
+
+    [Fact]
+    public void Matches_ShouldMatchByAllowedSlots()
+    {
+        var garment = new Garment
+        {
+            Category = Category.Hoodie,
+            ColorFamily = ColorFamily.Black,
+            Formality = Formality.Casual
+        };
+
+        var req = new SlotRequirement
+        {
+            Slot = Slot.Anchor,
+            Level = RequirementLevel.Soft,
+            AllowedSlots = new List<Slot> { Slot.Anchor }
+        };
+
+        SlotRequirementMatcher.Matches(garment, req)
+            .Should()
+            .BeTrue();
+    }
+
+    [Fact]
+    public void Matches_ShouldNotMatch_WhenNoCategoryTraitOrSlotMatches()
+    {
+        var garment = new Garment
+        {
+            Category = Category.Coat,
+            ColorFamily = ColorFamily.Black,
+            Formality = Formality.Formal
+        };
+
+        var req = new SlotRequirement
+        {
+            Slot = Slot.Top,
+            Level = RequirementLevel.Hard,
+            AllowedTraits = new List<string> { "Top" }
+        };
+
+        SlotRequirementMatcher.Matches(garment, req)
+            .Should()
+            .BeFalse();
+    }
+
+
+    [Fact]
+    public async Task DressPath_ShouldUseSemanticShoesSlot()
+    {
+        var json = """
+        {
+          "occasionId": "wedding_formal_dress",
+          "context": {
+            "weather": "Clear",
+            "season": "Spring",
+            "setting": "Indoor",
+            "timeOfDay": "Day"
+          },
+          "items": [
+            {
+              "tempId": "d1",
+              "category": "Dress",
+              "colorFamily": "Black",
+              "formality": "Formal"
+            },
+            {
+              "tempId": "s1",
+              "category": "Sneakers",
+              "colorFamily": "White",
+              "formality": "Smart"
+            }
+          ]
+        }
+        """;
+
+        var response = await PostJson(json);
+
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+        var payload =
+            await response.Content.ReadFromJsonAsync<DecisionResponseDto>();
+
+        payload.Should().NotBeNull();
+
+        payload!.Decision.Outfit.Items
+            .Should()
+            .Contain(x =>
+                x.Slot == "Shoes"
+                && x.Category == "Sneakers");
+    }
 }
 
 public sealed class DecisionResponseDto

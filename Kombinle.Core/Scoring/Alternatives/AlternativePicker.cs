@@ -163,8 +163,8 @@ namespace Kombinle.Core.Scoring.Alternatives
                     AddReasonCodeOnce("ALT_COLOR_STYLE_SHIFT_NEUTRAL");
                 }
 
-                if (occasion.RequiredFormality >= Formality.Formal
-                        && best.Candidate.Anchor?.Category == Category.Dress
+                if (occasion.RequiredFormality >= Formality.Formal &&
+                        best.Candidate.Anchor != null && CategorySemantics.IsOnePiece(best.Candidate.Anchor.Category)
                         && HasTopBottomStructure(s))
                 {
                     AddReasonCodeOnce("ALT_STRUCTURE_TOP_BOTTOM");

@@ -34,7 +34,7 @@
         {
           "slot": "Outerwear",
           "level": "Optional",
-          "allowedCategories": [ "Coat", "LightOuterwear" ]
+          "allowedSlots": [ "Outerwear" ]
         }
       ]
     }
@@ -77,7 +77,7 @@
         {
           "slot": "Outerwear",
           "level": "Optional",
-          "allowedCategories": [ "Coat", "LightOuterwear" ]
+          "allowedSlots": [ "Outerwear" ]
         }
       ]
     }
@@ -98,14 +98,12 @@
         {
           "slot": "Anchor",
           "level": "Soft",
-          "allowedCategories": [ "LightOuterwear", "Cardigan", "Hoodie" ]
+          "allowedSlots": [ "Anchor" ]
         },
         {
           "slot": "Top",
           "level": "Hard",
           "allowedTraits": [ "Top" ]
-
-
         },
         {
           "slot": "Bottom",
@@ -121,7 +119,7 @@
         {
           "slot": "Outerwear",
           "level": "Optional",
-          "allowedCategories": [ "Coat", "LightOuterwear" ]
+          "allowedSlots": [ "Outerwear" ]
         }
       ]
     }
@@ -162,7 +160,7 @@
         {
           "slot": "Outerwear",
           "level": "Optional",
-          "allowedCategories": [ "Coat", "LightOuterwear" ]
+          "allowedSlots": [ "Outerwear" ]
         }
       ]
     }
@@ -203,7 +201,7 @@
         {
           "slot": "Outerwear",
           "level": "Optional",
-          "allowedCategories": [ "Coat", "LightOuterwear" ]
+          "allowedSlots": [ "Outerwear" ]
         }
       ]
     }
@@ -234,7 +232,7 @@
         {
           "slot": "Outerwear",
           "level": "Optional",
-          "allowedCategories": [ "LightOuterwear", "Coat" ]
+          "allowedSlots": [ "Outerwear" ]
         }
       ]
     }
@@ -276,7 +274,7 @@
         {
           "slot": "Outerwear",
           "level": "Optional",
-          "allowedCategories": [ "Coat", "LightOuterwear" ]
+          "allowedSlots": [ "Outerwear" ]
         }
       ]
     }

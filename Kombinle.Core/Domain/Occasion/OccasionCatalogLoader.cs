@@ -35,8 +35,8 @@ namespace Kombinle.Core.Domain.Occasions
             public string? Slot { get; set; }
             public string? Level { get; set; }
             public List<string>? AllowedCategories { get; set; }
-
             public List<string>? AllowedTraits { get; set; }
+            public List<string>? AllowedSlots { get; set; }
         }
 
         public static Dictionary<string, Occasion> LoadFromJsonFile(string filePath)
@@ -122,11 +122,22 @@ namespace Kombinle.Core.Domain.Occasions
                     .ToList();
 
                 var allowedTraits = r.AllowedTraits ?? new List<string>();
+                var allowedSlots = (r.AllowedSlots ?? new List<string>())
+                    .Select(x => ParseEnumOrThrow<Slot>(x, $"Occasion '{id}' slotSet.requirements.allowedSlots"))
+                    .ToList();
 
-                if (allowed.Count == 0 && allowedTraits.Count == 0)
+                //if (allowed.Count == 0 && allowedTraits.Count == 0)
+                //{
+                //    throw new InvalidOperationException(
+                //        $"Occasion '{id}' slot '{slot}' has no allowedCategories or allowedTraits.");
+                //}
+
+                if (allowed.Count == 0 &&
+                    allowedTraits.Count == 0 &&
+                    allowedSlots.Count == 0)
                 {
                     throw new InvalidOperationException(
-                        $"Occasion '{id}' slot '{slot}' has no allowedCategories or allowedTraits.");
+                        $"Occasion '{id}' slot '{slot}' has no allowedCategories, allowedTraits or allowedSlots.");
                 }
 
                 reqs.Add(new SlotRequirement
@@ -134,7 +145,8 @@ namespace Kombinle.Core.Domain.Occasions
                     Slot = slot,
                     Level = level,
                     AllowedCategories = allowed,
-                    AllowedTraits = allowedTraits
+                    AllowedTraits = allowedTraits,
+                    AllowedSlots = allowedSlots
                 });
             }
 

@@ -125,6 +125,14 @@ ACTIVE
 Recent changes:
 * Optional outerwear generation is now context-aware
 * `ShouldIncludeOuterwear` considers rain, snow/cold, winter outdoor and autumn outdoor night
+* Dress path generation now uses `CategorySemantics.IsOnePiece()`  instead of direct `Category.Dress` checks.
+
+Generation flow now uses taxonomy-driven slot eligibility.
+
+Important:
+- Top / Bottom / Shoes generation is trait-driven via `allowedTraits`
+- One-piece filtering uses `CategorySemantics.IsOnePiece()`
+- Dress structures remain partially explicit by design
 
 ---
 
@@ -280,6 +288,35 @@ ACTIVE / DEMO
 
 ---
 
+## 9. CategorySemantics
+
+Responsibilities:
+- semantic taxonomy helpers
+- trait-based behavior checks
+- slot eligibility checks
+- provider-backed semantic access
+
+Current semantic separation:
+- Traits → semantic meaning / behavior
+- Slots → outfit composition eligibility
+- Groups → taxonomy/UI grouping
+
+Important helpers:
+- `CanFillTopSlot`
+- `CanFillBottomSlot`
+- `CanFillShoesSlot`
+- `IsOnePiece`
+- `IsLayer`
+- `IsOuterwear`
+- `IsProtectionLayer`
+- `IsStructuredLayer`
+
+Provider model:
+- `JsonCategorySemanticsProvider`
+- internal fallback semantic map
+
+---
+
 ## Supporting / Nested Areas
 
 Bunlar ayrı çekirdek modül olarak değil, üst modüllerin parçası olarak düşünülmelidir:
@@ -371,6 +408,3 @@ Bu dosyanın amacı:
 Bu etiketler, silme kararı vermeden önce görünürlüğü artırmak için kullanılmalıdır.
 
 
----
-- Dress path generation now uses `CategorySemantics.IsOnePiece()`
-  instead of direct `Category.Dress` checks.

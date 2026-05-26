@@ -23,20 +23,25 @@ namespace Kombinle.Core.Scoring
                 return result;
 
             bool hasCasualTop = items.Any(x =>
-                x.Category == Category.Tshirt
-                || x.Category == Category.Hoodie
-                || x.Category == Category.Sweater
-                || ((x.Category == Category.Shirt || x.Category == Category.Blouse)
-                    && x.Formality == Formality.Casual));
+                CategorySemantics.CanFillTopSlot(x.Category) &&
+                (
+                    CategorySemantics.Provider.HasTrait(x.Category, "Casual") ||
+                    x.Formality == Formality.Casual
+                ));
 
             bool hasCasualBottom = items.Any(x =>
-                x.Category == Category.Jeans
-                || (x.Category == Category.Pants && x.Formality == Formality.Casual)
-                || (x.Category == Category.Skirt && x.Formality == Formality.Casual));
+                CategorySemantics.CanFillBottomSlot(x.Category) &&
+                (
+                    CategorySemantics.Provider.HasTrait(x.Category, "Casual") ||
+                    x.Formality == Formality.Casual
+                ));
 
             bool hasCasualShoes = items.Any(x =>
-                x.Category == Category.Sneakers
-                || (x.Category == Category.Shoes && x.Formality == Formality.Casual));
+                CategorySemantics.CanFillShoesSlot(x.Category) &&
+                (
+                    CategorySemantics.Provider.HasTrait(x.Category, "Casual") ||
+                    x.Formality == Formality.Casual
+                ));
 
             if (!hasCasualTop)
             {

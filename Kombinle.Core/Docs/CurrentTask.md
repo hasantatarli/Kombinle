@@ -1,54 +1,21 @@
 ﻿## Goal
-Move Kombinle from engine demo toward usable MVP product flow.
+Stabilize taxonomy-driven semantic outfit generation and reduce remaining hardcoded category logic.
 
 ## In Progress
-- MVP product UX refinement
-- Weather-aware context flow
-- Controlled wardrobe expansion
-- Color palette expansion
-- Session/product interaction improvements
+- Anchor / Outerwear semantic cleanup
+- Reducing remaining hardcoded category checks
+- Semantic provider alignment (traits / slots / groups)
 
 ## Next
-- Compact context summary UI
-- Manual city override
-- Wardrobe management
-- Saved wardrobe profiles
-- Outfit history groundwork
+- Evaluate remaining explicit Anchor semantics
+- Review remaining `Category.Dress` special-cases
+- Add additional regression tests for semantic feedback behavior
+- Continue taxonomy-driven migration for hybrid outfit structures
 
 ## NOT DOING NOW
-- AI clothing detection
-- Full geocoding/search infrastructure
-- Fashion trend AI
-- Social/community features
-- Advanced personalization profiles
+- Full AI-based recommendation layer
+- ML personalization
+- Automatic fashion trend adaptation
+- Full semantic replacement for all explicit dress-mode logic
+- Large-scale scoring refactor
 
-## Completed
-- Real weather integration added through Open-Meteo
-- Demo now supports city-based context loading
-- Lightweight context summary bar added
-- Advanced context override panel added
-- Weather override flow stabilized
-- Dynamic wardrobe profile loading added
-- Wardrobe preview summary added
-- Category-grouped wardrobe inspection drawer added
-22/05/2026
-- JSON-based wardrobe persistence pipeline implemented
-- Wardrobe profiles migrated from hardcoded loader to JSON resources
-- WardrobeProfileService added
-- API wardrobe endpoints now use JSON-backed persistence
-- Decision pipeline now consumes wardrobe JSON profiles
-- BestPool deterministic rotation stabilized
-- RotationAttempt behavior validated through integration tests
-- RequestKey-based rotation reset behavior added
-- Category catalog system introduced
-- Category metadata moved to JSON catalog
-- CategoryCatalogService added
-- Wardrobe API responses enriched with category metadata
-- Wardrobe drawer grouping now uses taxonomy groups
-- Legacy occasion fallback factories removed
-- Occasion catalog became the single source of truth
-- CategorySemantics centralized:
-  - Layer semantics
-  - Top/Bottom semantics
-  - Footwear semantics
-  - Core/Support pair semantics

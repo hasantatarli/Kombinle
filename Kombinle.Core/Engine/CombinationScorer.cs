@@ -34,18 +34,7 @@ namespace Kombinle.Core.Engine
             bool isDressMode = candidate.Anchor != null && CategorySemantics.IsOnePiece(candidate.Anchor.Category);
             bool isTopBottomMode = !isDressMode;
 
-            // 1) Formality sinyali (Generator zaten filtreliyor ama skor sinyali olarak tutuyoruz)
-            //if (items.All(i => i.Formality >= occasion.RequiredFormality))
-            //    result.Add(_cfg.FormalityMatch, "Formality: Occasion gereksinimi karşılandı");
-            //else
-            //    result.Add(_cfg.FormalityMismatch, "Formality: Occasion gereksinimi karşılanmadı");
-
             var targetFormality = occasion.RequiredFormality;
-
-            //var formalityDistance = items
-            //    .Select(i => Math.Abs((int)i.Formality - (int)targetFormality))
-            //    .Sum();
-
             var targetRank = GetFormalityRank(targetFormality);
 
             var formalityDistance = items
@@ -249,14 +238,10 @@ namespace Kombinle.Core.Engine
             if (occasion.RequiredFormality == Formality.Casual || occasion.RequiredFormality == Formality.Smart)
             {
                 bool hasCasualSignal =
-                    candidate.SlotToItem.Values.Any(x =>
-                        x.Category == Category.Sneakers
-                        || x.Category == Category.Jeans
-                        || x.Category == Category.Tshirt
-                        || (x.Category == Category.Shoes && x.Formality == Formality.Casual)
-                        || (x.Category == Category.Pants && x.Formality == Formality.Casual)
-                        || (x.Category == Category.Shirt && x.Formality == Formality.Casual)
-                    );
+                        candidate.SlotToItem.Values.Any(x =>
+                            CategorySemantics.Provider.HasTrait(x.Category, "Casual") ||
+                            x.Formality == Formality.Casual
+                        );
 
                 if (hasCasualSignal)
                 {

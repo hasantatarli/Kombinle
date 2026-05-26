@@ -14,6 +14,7 @@ namespace Kombinle.Core.Domain
         // Bu slotu hangi category(ler) doldurabilir?
         public List<Category> AllowedCategories { get; set; } = new();
         public List<string> AllowedTraits { get; set; } = new();
+        public List<Slot> AllowedSlots { get; set; } = new();
 
     }
 

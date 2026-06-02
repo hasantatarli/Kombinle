@@ -735,6 +735,41 @@ public class DecisionResponseSmokeTests : IClassFixture<WebApplicationFactory<Pr
                 x.Slot == "Shoes"
                 && x.Category == "Sneakers");
     }
+
+    [Fact]
+    public async Task CasualWeekend_ColdOutdoor_ShouldNotStackMultipleProtectionLayers()
+    {
+        var json = """
+    {
+      "occasionId": "casual_weekend",
+      "wardrobeProfileId": "male_extended_v1",
+      "context": {
+        "weather": "Cold",
+        "season": "Winter",
+        "setting": "Outdoor",
+        "timeOfDay": "Day"
+      }
+    }
+    """;
+
+        var response = await PostJson(json);
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+        var payload =
+            await response.Content.ReadFromJsonAsync<DecisionResponseDto>();
+
+        payload.Should().NotBeNull();
+
+        var categories = payload!.Decision.Outfit.Items
+            .Select(x => x.Category)
+            .ToList();
+
+        var protectionLayerCount = categories.Count(x =>
+            x == "Coat" ||
+            x == "LightOuterwear");
+
+        protectionLayerCount.Should().BeLessThanOrEqualTo(1);
+    }
 }
 
 public sealed class DecisionResponseDto

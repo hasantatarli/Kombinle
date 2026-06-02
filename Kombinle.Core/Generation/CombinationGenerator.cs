@@ -46,9 +46,9 @@ namespace Kombinle.Core.Generation
 
                 //return modeResults.Take(maxResults).ToList();
                 return modeResults
+                    .Where(x => !HasMultipleProtectionLayers(x))
                     .GroupBy(x => x.Signature)
                     .Select(g => g.First())
-                    //.Take(maxResults)
                     .ToList();
             }
 
@@ -92,7 +92,9 @@ namespace Kombinle.Core.Generation
                 primary.Signature = BuildSignature(primary);
 
                 if (seen.Add(primary.Signature))
+                {
                     results.Add(primary);
+                }
 
                 //if (results.Count >= maxResults) return results;
 
@@ -149,7 +151,10 @@ namespace Kombinle.Core.Generation
                 // if (results.Count >= maxResults) return results;
             }
             //return results; // ✅ kritik: her durumda return
-            return results.Take(maxResults).ToList();
+            return results
+                    .Where(x => !HasMultipleProtectionLayers(x))
+                    .Take(maxResults)
+                    .ToList();
         }
 
 
@@ -168,18 +173,6 @@ namespace Kombinle.Core.Generation
             var anchorReq = occasion.SlotSet.Get(Slot.Anchor);
             var anchorLevel = anchorReq?.Level ?? RequirementLevel.Hard;
             var effectiveContext = context ?? occasion.DefaultContext ?? new ContextInput();
-
-            // 1) Candidate anchors
-            //var anchorCandidates = _anchorSelector.SelectAnchors(wardrobe, occasion)
-            //        .Select(a => (Garment: (Garment?)a.Garment, Reason: a.Reason))
-            //        .Where(a => a.Garment == null || a.Garment.Category != Category.Dress)
-            //        .ToList();
-
-            //// 2) If anchor is Soft, add a "no anchor" option
-            //if (anchorLevel == RequirementLevel.Soft)
-            //{
-            //    anchorCandidates.Insert(0, (Garment: (Garment?)null, Reason: "Anchor soft: no anchor fallback."));
-            //}
 
             var anchorCandidates = new List<(Garment? Garment, string Reason)>
             {
@@ -219,7 +212,9 @@ namespace Kombinle.Core.Generation
                 primary.Signature = BuildSignature(primary);
 
                 if (seen.Add(primary.Signature))
+                {
                     results.Add(primary);
+                }
 
                 if (results.Count >= maxResults) return results;
 
@@ -254,13 +249,13 @@ namespace Kombinle.Core.Generation
 
                         variant.Strategy = $"Variant:{slot}";
                         variant.Reasons = new List<string>(primary.Reasons)
-                {
-                    $"{slot} slotu değişti: {used.Category}/{used.ColorFamily} -> {alt.Category}/{alt.ColorFamily}"
-                };
+                        {
+                            $"{slot} slotu değişti: {used.Category}/{used.ColorFamily} -> {alt.Category}/{alt.ColorFamily}"
+                        };
 
                         variant.Signature = BuildSignature(variant);
 
-                        if (seen.Add(variant.Signature))
+                        if ( seen.Add(variant.Signature))
                         {
                             results.Add(variant);
                             variantsAddedForThisAnchor++;
@@ -321,7 +316,9 @@ namespace Kombinle.Core.Generation
                     candidate.Signature = BuildSignature(candidate);
 
                     if (seen.Add(candidate.Signature))
+                    {
                         results.Add(candidate);
+                    }
 
                     if (results.Count >= maxResults)
                         return results;
@@ -451,6 +448,21 @@ namespace Kombinle.Core.Generation
             return a.Category == b.Category &&
                    a.ColorFamily == b.ColorFamily &&
                    a.Formality == b.Formality;
+        }
+
+
+        private static bool HasMultipleProtectionLayers(CombinationCandidate candidate)
+        {
+            var items = candidate.SlotToItem.Values.ToList();
+
+            if (candidate.Anchor != null)
+                items.Add(candidate.Anchor);
+
+            var protectionCount = items
+                .Distinct()
+                .Count(x => CategorySemantics.IsProtectionLayer(x.Category));
+
+            return protectionCount > 1;
         }
     }
 

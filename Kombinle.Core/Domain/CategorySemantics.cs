@@ -94,6 +94,8 @@ public static class CategorySemantics
 
     public static bool IsProtectionLayer(Category category)
     {
+
+
         return Provider.HasTrait(category, SemanticTraits.Protection);
     }
 

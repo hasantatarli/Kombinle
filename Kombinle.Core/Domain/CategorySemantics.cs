@@ -23,11 +23,11 @@ public static class CategorySemantics
     {
         [Category.Blouse] = new("Top", [SemanticTraits.Top], [Slot.Top]),
         [Category.Shirt] = new("Top", [SemanticTraits.Top], [Slot.Top]),
-        [Category.Tshirt] = new("Top", [SemanticTraits.Top, SemanticTraits.Casual], [Slot.Top]),
+        [Category.Tshirt] = new("Top", [SemanticTraits.Top, SemanticTraits.Casual, SemanticTraits.Light], [Slot.Top]),
         [Category.Sweater] = new("Top", [SemanticTraits.Top, SemanticTraits.Warm], [Slot.Top]),
         [Category.Hoodie] = new("Top", [SemanticTraits.Top, SemanticTraits.Layer, SemanticTraits.Comfort, SemanticTraits.Light, SemanticTraits.Casual], [Slot.Top, Slot.Anchor]),
 
-        [Category.Cardigan] = new("Layer", [SemanticTraits.Layer, SemanticTraits.Comfort, SemanticTraits.Light], [Slot.Anchor, Slot.Outerwear]),
+        [Category.Cardigan] = new("Layer", [SemanticTraits.Layer, SemanticTraits.Comfort, SemanticTraits.Light], [Slot.Anchor]),
 
         [Category.Pants] = new("Bottom", [SemanticTraits.Bottom], [Slot.Bottom]),
         [Category.Skirt] = new("Bottom", [SemanticTraits.Bottom], [Slot.Bottom]),
@@ -38,8 +38,8 @@ public static class CategorySemantics
 
         [Category.Dress] = new("Dress", [SemanticTraits.OnePiece], [Slot.Anchor]),
 
-        [Category.Jacket] = new("Layer", [SemanticTraits.Layer, SemanticTraits.Structure], [Slot.Anchor, Slot.Outerwear]),
-        [Category.LightOuterwear] = new("Layer", [SemanticTraits.Layer, SemanticTraits.Protection, SemanticTraits.Light], [Slot.Outerwear, Slot.Anchor]),
+        [Category.Jacket] = new("Layer", [SemanticTraits.Layer, SemanticTraits.Structure], [Slot.Anchor]),
+        [Category.LightOuterwear] = new("Layer", [SemanticTraits.Layer, SemanticTraits.Protection, SemanticTraits.Light], [Slot.Outerwear]),
         [Category.Coat] = new("Layer", [SemanticTraits.Layer, SemanticTraits.Protection, SemanticTraits.Heavy], [Slot.Outerwear]),
 
         [Category.Bag] = new("Accessory", ["Accessory"], [Slot.Accessory])

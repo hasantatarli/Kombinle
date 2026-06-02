@@ -21,7 +21,7 @@
     "displayNameEn": "T-shirt",
     "group": "Top",
     "slots": [ "Top" ],
-    "traits": [ "Top", "Casual" ]
+    "traits": [ "Top", "Casual", "Light" ]
   },
   {
     "id": "Pants",
@@ -68,7 +68,7 @@
     "displayNameTr": "Ceket",
     "displayNameEn": "Jacket",
     "group": "Layer",
-    "slots": [ "Anchor", "Outerwear" ],
+    "slots": [ "Anchor" ],
     "traits": [ "Layer", "Structure" ]
   },
   {
@@ -76,7 +76,7 @@
     "displayNameTr": "Mevsimlik Mont",
     "displayNameEn": "Light Outerwear",
     "group": "Layer",
-    "slots": [ "Outerwear","Anchor" ],
+    "slots": [ "Outerwear"],
     "traits": [ "Layer", "Light", "Protection" ]
   },
   {
@@ -92,7 +92,7 @@
     "displayNameTr": "Hırka",
     "displayNameEn": "Cardigan",
     "group": "Layer",
-    "slots": [ "Anchor", "Outerwear" ],
+    "slots": [ "Anchor" ],
     "traits": [ "Layer", "Comfort", "Light" ]
   },
   {

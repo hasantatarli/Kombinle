@@ -10,10 +10,11 @@ Semantic Intelligence Phase
 - Semantic suitability scoring
 
 ## Next
-1. Thermal Coherence v1
+1. Thermal Coherence v1 (Done)
    - Winter/Cold/Outdoor + light top penalty
    - Warm layer bonuses
    - Outfit thermal consistency
+
 
 2. Layer Conflict Expansion
    - Hoodie + Formal Shirt penalty

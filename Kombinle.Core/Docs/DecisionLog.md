@@ -1266,3 +1266,69 @@ Examples:
 Status:
 Implemented.
 Regression test added.
+
+
+---
+Date: 2026-06-02
+#### Decision: When final scores are equal, context suitability must outrank tie-break signals.
+
+Ranking priority:
+
+HardFail
+→ Score
+→ ContextDelta
+→ TieBreak
+→ WarningCount
+→ Signature
+
+#### Reason:
+
+Thermal / environmental suitability
+is a stronger signal than aesthetic tie-breaks.
+
+Example:
+
+Winter + Outdoor
+
+Tshirt outfit
+Score: -5
+ContextDelta: -22
+
+Shirt outfit
+Score: -5
+ContextDelta: -12
+
+Shirt should win despite lower tie-break.
+
+--- 
+
+Decision:
+Context suitability outranks tie-break signals.
+
+Final ranking order:
+
+1. HardFailCount
+2. Score
+3. ContextDelta
+4. TieBreakScore
+5. WarningCount
+6. Signature
+
+Reason:
+Environmental suitability is more important than aesthetic tie-breaks when total scores are equal.
+
+--- 
+Decision:
+Protection layers and structure layers use separate semantic roles.
+
+Jacket:
+- Anchor only
+- Structure role
+
+LightOuterwear:
+- Outerwear only
+- Protection role
+
+Coat:
+- Outerwear only
+- Heavy protection role

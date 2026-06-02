@@ -1,5 +1,6 @@
 ﻿using Kombinle.Core.Domain;
 using Kombinle.Core.Domain.Context;
+using Kombinle.Core.Domain.Semantics;
 using Kombinle.Core.Domain.Traits;
 using Kombinle.Core.Generation;
 using Kombinle.Core.Rules;
@@ -89,26 +90,77 @@ namespace Kombinle.Core.Scoring.Context
                 }
             }
 
-            if (context.Season == Season.Winter && context.Setting == Setting.Outdoor)
+
+            var isColdOutdoor = context.Setting == Setting.Outdoor && (context.Season == Season.Winter || context.Weather == Weather.Cold);
+
+            if (isColdOutdoor)
             {
+                var hasLightTopWithoutWarmSupport = HasLightTopWithoutWarmSupport(candidate);
+                //var hasHeavyProtectionLayer = HasHeavyProtectionLayer(candidate);
+
                 if (intensity <= 1)
                 {
-                    res.DeltaScore -= 12;
-                    //Console.WriteLine("[LAYER] Winter outdoor low intensity penalty applied");
+                    var penalty = hasLightTopWithoutWarmSupport ? -16 : -8;
+
+                    res.DeltaScore += penalty;
+                    //res.UserNotes.Add(new ContextUserNote("DEBUG_WINTER_BASE_" + penalty, $"DEBUG winter base penalty {penalty}"));
                     res.UserNotes.Add(new ContextUserNote("OUTDOOR_NO_OUTERWEAR", "Dış ortamda daha koruyucu bir katman faydalı olabilir."));
                 }
                 else if (intensity == 2)
                 {
-                    res.DeltaScore -= 4;
-                    //Console.WriteLine("[LAYER] Winter outdoor medium-low intensity penalty applied");
+                    var penalty = hasLightTopWithoutWarmSupport ? -8 : -4;
+
+                    res.DeltaScore += penalty;
+                    //res.UserNotes.Add(new ContextUserNote("DEBUG_WINTER_BASE_" + penalty, $"DEBUG winter base penalty {penalty}"));
                     res.UserNotes.Add(new ContextUserNote("OUTDOOR_NO_OUTERWEAR", "Dış ortamda daha koruyucu bir katman faydalı olabilir."));
+                }
+
+                if (hasLightTopWithoutWarmSupport)
+                {
+                    res.DeltaScore -= 10;
+                    //res.UserNotes.Add(new ContextUserNote("DEBUG_LIGHT_TOP_-10", "DEBUG light top penalty -10"));
+                    res.UserNotes.Add(new ContextUserNote("WINTER_LIGHT_TOP", "Soğuk dış ortamda daha sıcak bir üst parça daha uygun olur."));
                 }
 
                 if (hasProtectionLayer)
                 {
-                    res.DeltaScore += 3;
-                    //Console.WriteLine("[LAYER] Winter outdoor protection bonus applied");
+                    var protectionBonus =
+                        context.Season == Season.Winter
+                            ? 3
+                            : 1;
+
+                    res.DeltaScore += protectionBonus;
                     res.UserNotes.Add(new ContextUserNote("WINTER_OUTDOOR_PROTECTIVE_LAYER", "Soğuk/dış ortam için dış katman kombini daha koruyucu hale getirir."));
+                }
+
+                var hasWarmLayer =
+                    candidate.SlotToItem.Values.Any(x =>
+                        CategorySemantics.HasTrait(x.Category, SemanticTraits.Warm) ||
+                        CategorySemantics.HasTrait(x.Category, SemanticTraits.Comfort))
+                    ||
+                    candidate.Anchor != null &&
+                    (
+                        CategorySemantics.HasTrait(candidate.Anchor.Category, SemanticTraits.Warm) ||
+                        CategorySemantics.HasTrait(candidate.Anchor.Category, SemanticTraits.Comfort)
+                    );
+
+                if (hasProtectionLayer && hasWarmLayer)
+                {
+                    res.DeltaScore += 2;
+                    //res.UserNotes.Add(new ContextUserNote(
+                    //    "THERMAL_COHERENT_LAYERING",
+                    //    "Sıcak tutan katman ve dış koruma birlikte daha dengeli bir soğuk hava kombini oluşturur."));
+                }
+
+                if (context.Season == Season.Summer &&
+                                        candidate.SlotToItem.Values.Any(x =>
+                                            CategorySemantics.IsProtectionLayer(x.Category) &&
+                                            CategorySemantics.HasTrait(x.Category, SemanticTraits.Heavy)))
+                {
+                    res.DeltaScore -= 4;
+                    res.UserNotes.Add(new ContextUserNote(
+                        "SUMMER_HEAVY_OUTERWEAR",
+                        "Yaz mevsiminde ağır dış katman yerine daha hafif bir katman daha uygun olabilir."));
                 }
             }
 
@@ -278,38 +330,6 @@ namespace Kombinle.Core.Scoring.Context
                 ? o.Outerwear?.Protection
                 : null;
 
-        //private static bool IsLightLayer(Category category)
-        //{
-        //    return category == Category.Cardigan ||
-        //           category == Category.Hoodie;
-        //}
-
-        //private static bool IsStructuredLayer(Category category)
-        //{
-        //    return category == Category.Jacket;
-        //}
-
-        //private static bool IsHeavyLayer(Category category)
-        //{
-        //    return category == Category.Coat;
-        //}
-
-        //private static LayerRole GetLayerRole(Category category)
-        //{
-        //    if (category == Category.Hoodie ||
-        //        category == Category.Cardigan)
-        //        return LayerRole.Comfort;
-
-        //    if (category ==  Category.Jacket)
-        //        return LayerRole.Structure;
-
-        //    if (category == Category.LightOuterwear ||
-        //        category == Category.Coat)
-        //        return LayerRole.Protection;
-
-
-        //    return LayerRole.None;
-        //}
 
         private static int GetLayerIntensity(Category category)
         {
@@ -337,5 +357,35 @@ namespace Kombinle.Core.Scoring.Context
             return candidate.SlotToItem.Values.Any(x =>
                 CategorySemantics.GetLayerRole(x.Category) == role);
         }
+
+        private static bool HasLightTopWithoutWarmSupport(CombinationCandidate candidate)
+        {
+            var hasLightTop =
+                candidate.SlotToItem.TryGetValue(Slot.Top, out var top) &&
+                CategorySemantics.HasTrait(top.Category, SemanticTraits.Light);
+
+            if (!hasLightTop)
+                return false;
+
+            var hasWarmSupport =
+                candidate.SlotToItem.Values.Any(x => CategorySemantics.HasTrait(x.Category, SemanticTraits.Warm)) ||
+                candidate.SlotToItem.Values.Any(x => CategorySemantics.IsProtectionLayer(x.Category)) ||
+                candidate.Anchor != null && (
+                    CategorySemantics.HasTrait(candidate.Anchor.Category, SemanticTraits.Warm) ||
+                    CategorySemantics.IsProtectionLayer(candidate.Anchor.Category));
+
+            return !hasWarmSupport;
+        }
+
+        //private static bool HasHeavyProtectionLayer(CombinationCandidate candidate)
+        //{
+        //    return candidate.SlotToItem.Values.Any(x =>
+        //               CategorySemantics.IsProtectionLayer(x.Category) &&
+        //               CategorySemantics.HasTrait(x.Category, SemanticTraits.Heavy))
+        //           ||
+        //           candidate.Anchor != null &&
+        //           CategorySemantics.IsProtectionLayer(candidate.Anchor.Category) &&
+        //           CategorySemantics.HasTrait(candidate.Anchor.Category, SemanticTraits.Heavy);
+        //}
     }
 }

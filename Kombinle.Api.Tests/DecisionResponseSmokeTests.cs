@@ -1,6 +1,8 @@
 ﻿using FluentAssertions;
 using Kombinle.Api.Contracts;
 using Kombinle.Core.Domain;
+using Kombinle.Core.Domain.Context;
+using Kombinle.Core.Domain.Occasions;
 using Kombinle.Core.Generation;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.VisualStudio.TestPlatform.Utilities;
@@ -769,6 +771,44 @@ public class DecisionResponseSmokeTests : IClassFixture<WebApplicationFactory<Pr
             x == "LightOuterwear");
 
         protectionLayerCount.Should().BeLessThanOrEqualTo(1);
+    }
+
+    [Fact]
+    public async Task CasualWeekend_SummerColdOutdoor_ShouldNotUseCoatOrStackJacketWithLightOuterwear()
+    {
+        var json = """
+        {
+          "occasionId": "casual_weekend",
+          "wardrobeProfileId": "male_extended_v1",
+          "context": {
+            "weather": "Cold",
+            "season": "Summer",
+            "setting": "Outdoor",
+            "timeOfDay": "Day"
+          }
+        }
+        """;
+
+        var response = await PostJson(json);
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+        var payload =
+            await response.Content.ReadFromJsonAsync<DecisionResponseDto>();
+
+        payload.Should().NotBeNull();
+
+        var categories = payload!.Decision.Outfit.Items
+            .Select(x => x.Category)
+            .ToList();
+
+        categories.Should().NotContain("Coat");
+
+        var hasJacket = categories.Contains("Jacket");
+        var hasLightOuterwear = categories.Contains("LightOuterwear");
+
+        (hasJacket && hasLightOuterwear)
+            .Should()
+            .BeFalse("summer cold outdoor should use either a structure layer or a light protection layer, not both");
     }
 }
 

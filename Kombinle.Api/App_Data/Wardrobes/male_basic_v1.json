@@ -55,24 +55,7 @@
                       "category":  "Sneakers",
                       "colorFamily":  "White",
                       "formality":  "Casual"
-                  },
-                  {
-                      "id":  "item_10",
-                      "category":  "Cardigan",
-                      "colorFamily":  "Grey",
-                      "formality":  "Casual"
-                  },
-                  {
-                      "id":  "item_11",
-                      "category":  "LightOuterwear",
-                      "colorFamily":  "Navy",
-                      "formality":  "Formal"
-                  },
-                  {
-                      "id":  "item_12",
-                      "category":  "Coat",
-                      "colorFamily":  "Black",
-                      "formality":  "Formal"
                   }
+
               ]
 }

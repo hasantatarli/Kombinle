@@ -1,5 +1,6 @@
 ﻿using Kombinle.Core.Domain;
 using Kombinle.Core.Domain.Context;
+using Kombinle.Core.Domain.Semantics;
 using Kombinle.Core.Engine;
 using Kombinle.Core.Rules;
 using System;
@@ -369,7 +370,27 @@ namespace Kombinle.Core.Generation
 
                 if (!pool.ContainsKey(opt.Slot) || pool[opt.Slot].Count == 0) continue;
 
-                slotMap[opt.Slot] = pool[opt.Slot][0];
+                var selected = pool[opt.Slot][0];
+
+                if (opt.Slot == Slot.Outerwear && context?.Season == Season.Summer)
+                {
+                    selected = pool[opt.Slot]
+                        .FirstOrDefault(g => !CategorySemantics.HasTrait(g.Category, SemanticTraits.Heavy));
+
+                    if (selected == null)
+                        continue;
+                }
+
+                if (opt.Slot == Slot.Outerwear &&
+                         context?.Season == Season.Summer &&
+                         anchor != null &&
+                         CategorySemantics.IsStructuredLayer(anchor.Category) &&
+                         CategorySemantics.IsProtectionLayer(selected.Category))
+                {
+                    continue;
+                }
+
+                slotMap[opt.Slot] = selected;
             }
 
             var comb = new Combination { Items = slotMap.Values.Distinct().ToList() };

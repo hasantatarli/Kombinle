@@ -13,16 +13,18 @@ namespace Kombinle.Core.Scoring
             // MVP ranking kuralı:
             // 1) HardFail az olan (0 olanlar üstte)
             // 2) Score yüksek olan
-            // 3) TieBreak yüksek olan
-            // 4) Warning az olan (ikincil kalite sinyali)
-            // 5) Signature stabil determinism
+            // 3) ContextDelta Yüksel olan
+            // 4) TieBreak yüksek olan
+            // 5) Warning az olan (ikincil kalite sinyali)
+            // 6) Signature stabil determinism
             return scored
-                .OrderBy(s => s.HardFailCount)
-                .ThenByDescending(s => s.Score)
-                .ThenByDescending(s => s.TieBreakScore)
-                .ThenBy(s => s.WarningCount)
-                .ThenBy(s => s.Candidate.Signature)
-                .ToList();
+             .OrderBy(s => s.HardFailCount)
+             .ThenByDescending(s => s.Score)
+             .ThenByDescending(s => s.ContextDelta)
+             .ThenByDescending(s => s.TieBreakScore)
+             .ThenBy(s => s.WarningCount)
+             .ThenBy(s => s.Candidate.Signature)
+             .ToList();
         }
 
         public (ScoredCombination? Best, List<ScoredCombination> Alternatives) PickTop(

@@ -1332,3 +1332,65 @@ LightOuterwear:
 Coat:
 - Outerwear only
 - Heavy protection role
+
+--- 
+## Decision: Layer Compatibility Matrix v1
+
+Date: 2026-06-02
+
+### Context
+
+Semantic Taxonomy Foundation ve Thermal Coherence v1 tamamlandıktan sonra bazı kombinlerin teknik olarak üretilebildiği ancak katman mantığı açısından doğal görünmediği gözlemlendi.
+
+Örnek:
+
+- Jacket + LightOuterwear
+- LightOuterwear + Jacket
+
+Bu durum semantic rollerin tanımlı olmasına rağmen roller arası uyumlılık kurallarının henüz tanımlanmamış olmasından kaynaklanmaktadır.
+
+### Semantic Roles
+
+Current roles:
+
+- Structure
+- Comfort
+- Protection
+
+Supporting traits:
+
+- Warm
+- Light
+- Heavy
+
+### Compatibility Matrix v1
+
+| Role A | Role B | Summer | Winter |
+|---------|---------|---------|---------|
+| Structure | Protection | No | Yes |
+| Comfort | Protection | Yes | Yes |
+| Structure | Comfort | Yes | Yes |
+
+### Examples
+
+Allowed:
+
+- Hoodie + LightOuterwear
+- Cardigan + LightOuterwear
+- Hoodie + Coat
+- Jacket + Coat (Winter)
+
+Not Allowed:
+
+- Jacket + LightOuterwear (Summer)
+- LightOuterwear + Jacket (Summer)
+
+### Implementation Strategy
+
+Compatibility rules should be enforced through generation guardrails rather than ranking adjustments whenever possible.
+
+Generation should avoid producing semantically invalid layer combinations.
+
+### Status
+
+Planned for Layer Compatibility Matrix v1 milestone.

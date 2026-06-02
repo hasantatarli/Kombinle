@@ -96,18 +96,18 @@ public sealed class DecisionService : IDecisionService
         var ranker = new CombinationRanker();
         var ranked = ranker.Rank(scored);
 
-        Console.WriteLine("=== RANKED CANDIDATES ===");
+        //Console.WriteLine("=== RANKED CANDIDATES ===");
 
-        foreach (var x in ranked)
-        {
-            Console.WriteLine($"SIGNATURE: {x.Candidate.Signature}");
-            Console.WriteLine($"Score={x.Score} TieBreak={x.TieBreakScore} ContextDelta={x.ContextDelta}");
+        //foreach (var x in ranked)
+        //{
+        //    Console.WriteLine($"SIGNATURE: {x.Candidate.Signature}");
+        //    Console.WriteLine($"Score={x.Score} TieBreak={x.TieBreakScore} ContextDelta={x.ContextDelta}");
 
-            foreach (var b in x.Breakdown)
-                Console.WriteLine($"{b.Value} | {b.Reason}");
+        //    foreach (var b in x.Breakdown)
+        //        Console.WriteLine($"{b.Value} | {b.Reason}");
 
-            Console.WriteLine();
-        }
+        //    Console.WriteLine();
+        //}
 
         //Console.WriteLine("=== RAIN SUEDE RANKED ===");
 

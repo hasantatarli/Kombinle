@@ -390,6 +390,22 @@ namespace Kombinle.Core.Generation
                     continue;
                 }
 
+                if (opt.Slot == Slot.Outerwear &&
+                                    anchor != null &&
+                                    context != null)
+                {
+                    var anchorRole = SemanticRoleResolver.GetRole(anchor.Category);
+                    var outerwearRole = SemanticRoleResolver.GetRole(selected.Category);
+
+                    if (!SemanticCompatibilityMatrix.IsCompatible(
+                            anchorRole,
+                            outerwearRole,
+                            context.Season))
+                    {
+                        continue;
+                    }
+                }
+
                 slotMap[opt.Slot] = selected;
             }
 

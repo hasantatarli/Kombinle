@@ -1,21 +1,32 @@
 ﻿## Goal
-Stabilize taxonomy-driven semantic outfit generation and reduce remaining hardcoded category logic.
+Improve outfit intelligence using semantic reasoning while keeping
+the engine deterministic, explainable and config-driven.
 
 ## In Progress
-- Anchor / Outerwear semantic cleanup
-- Reducing remaining hardcoded category checks
-- Semantic provider alignment (traits / slots / groups)
+Semantic Intelligence Phase
+
+- Layer conflict resolution
+- Thermal coherence design
+- Semantic suitability scoring
 
 ## Next
-- Evaluate remaining explicit Anchor semantics
-- Review remaining `Category.Dress` special-cases
-- Add additional regression tests for semantic feedback behavior
-- Continue taxonomy-driven migration for hybrid outfit structures
+1. Thermal Coherence v1
+   - Winter/Cold/Outdoor + light top penalty
+   - Warm layer bonuses
+   - Outfit thermal consistency
+
+2. Layer Conflict Expansion
+   - Hoodie + Formal Shirt penalty
+   - Comfort vs Structure conflicts
+   - Semantic layer compatibility
+
+3. Future-Date Weather Support
+   - Forecast-based context generation
 
 ## NOT DOING NOW
-- Full AI-based recommendation layer
-- ML personalization
-- Automatic fashion trend adaptation
-- Full semantic replacement for all explicit dress-mode logic
-- Large-scale scoring refactor
+- AI ranking
+- User learning
+- Multi-color garments
+- Fabric/material semantics
+- Expanded color matrix
 

@@ -1242,3 +1242,27 @@ Using `allowedSlots: ["Anchor"]` for formal/smart occasions could allow casual a
 
 - Casual flexible anchor → slot-driven
 - Formal/smart anchor → category-explicit
+
+---
+Date: 2026-05-25
+
+### Decision: Protection Layer Guardrail
+
+#### Problem:
+Protection-type garments could appear together
+(e.g. LightOuterwear + Coat).
+
+#### Decision:
+Protection layer duplication is prevented at generation output level.
+
+#### Reason:
+This is a structural outfit invalidity rather than a scoring preference.
+
+Examples:
+- LightOuterwear + Coat
+- Raincoat + Coat
+- Coat + Coat
+
+Status:
+Implemented.
+Regression test added.

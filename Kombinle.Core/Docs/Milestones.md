@@ -69,3 +69,23 @@ The engine now separates:
   - missing soft anchor
   - weak-formality soft anchor
 - Introduced `SOFT_ANCHOR_FORMALITY_WEAK`
+
+
+---
+Date: 2026-06-02
+
+## Semantic Taxonomy Foundation Complete
+
+Completed:
+- allowedSlots matching
+- semantic slot eligibility
+- semantic provider architecture
+- category catalog validation
+- occasion semantic validation
+- SemanticTraits registry
+- SemanticSlotNames registry
+- protection layer guardrails
+
+Outcome:
+Engine evolved from category-driven matching
+towards semantic composition.

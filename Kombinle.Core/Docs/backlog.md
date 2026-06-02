@@ -130,3 +130,25 @@ Save to wardrobe
 Rule
 
 AI assists wardrobe input, not outfit decisions.
+
+---
+
+### Outfit Intelligence
+
+- Thermal coherence engine
+- Layer conflict engine expansion
+- Hoodie/Formal Shirt compatibility rules
+- Future-date weather forecast support
+
+### Garment Semantics
+
+- Material semantics
+- Fabric semantics
+- Multi-color garments
+- Women's garment complexity
+
+### Color Evolution
+
+- Full color compatibility matrix
+- Expanded color palette
+- Dominant/support color model

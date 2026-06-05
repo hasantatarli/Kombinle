@@ -873,7 +873,37 @@ public class DecisionResponseSmokeTests : IClassFixture<WebApplicationFactory<Pr
             "business meeting should allow smart structured jackets as soft anchors even when target formality is formal");
     }
 
+    [Fact]
+    public async Task BusinessMeeting_IndoorColdWinter_ShouldNotIncludeOuterwear()
+    {
+        var json = """
+        {
+          "occasionId": "business_meeting_formal",
+          "wardrobeProfileId": "male_extended_v1",
+          "context": {
+            "weather": "Cold",
+            "season": "Winter",
+            "setting": "Indoor",
+            "timeOfDay": "Day"
+          }
+        }
+        """;
 
+        var response = await PostJson(json);
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+        var payload =
+            await response.Content.ReadFromJsonAsync<DecisionResponseDto>();
+
+        payload.Should().NotBeNull();
+
+        var categories = payload!.Decision.Outfit.Items
+            .Select(x => x.Category)
+            .ToList();
+
+        categories.Should().NotContain("Coat");
+        categories.Should().NotContain("LightOuterwear");
+    }
 }
 
 public sealed class DecisionResponseDto

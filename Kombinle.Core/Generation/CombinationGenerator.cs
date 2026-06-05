@@ -451,6 +451,10 @@ namespace Kombinle.Core.Generation
             if (context == null)
                 return false;
 
+            // Outwear is not suggested in Indoor occasions. 
+            if (context.Setting == Setting.Indoor)
+                return false;
+
             return context.Weather == Weather.Rain
                 || context.Weather == Weather.Snow
                 || context.Weather == Weather.Cold

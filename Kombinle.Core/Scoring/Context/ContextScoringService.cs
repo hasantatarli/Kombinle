@@ -124,10 +124,20 @@ namespace Kombinle.Core.Scoring.Context
 
                 if (hasProtectionLayer)
                 {
+                    var hasHeavyProtectionLayer =
+                        candidate.SlotToItem.Values.Any(x =>
+                            CategorySemantics.IsProtectionLayer(x.Category) &&
+                            CategorySemantics.HasTrait(x.Category, SemanticTraits.Heavy));
+
+                    var hasLightProtectionLayer =
+                        candidate.SlotToItem.Values.Any(x =>
+                            CategorySemantics.IsProtectionLayer(x.Category) &&
+                            CategorySemantics.HasTrait(x.Category, SemanticTraits.Light));
+
                     var protectionBonus =
                         context.Season == Season.Winter
-                            ? 3
-                            : 1;
+                            ? hasHeavyProtectionLayer ? 5 : 2
+                            : hasLightProtectionLayer ? 1 : 0;
 
                     res.DeltaScore += protectionBonus;
                     res.UserNotes.Add(new ContextUserNote("WINTER_OUTDOOR_PROTECTIVE_LAYER", "Soğuk/dış ortam için dış katman kombini daha koruyucu hale getirir."));
@@ -147,9 +157,15 @@ namespace Kombinle.Core.Scoring.Context
                 if (hasProtectionLayer && hasWarmLayer)
                 {
                     res.DeltaScore += 2;
-                    //res.UserNotes.Add(new ContextUserNote(
-                    //    "THERMAL_COHERENT_LAYERING",
-                    //    "Sıcak tutan katman ve dış koruma birlikte daha dengeli bir soğuk hava kombini oluşturur."));
+                }
+
+                if (HasProtectionWithoutThermalSupport(candidate))
+                {
+                    res.DeltaScore -= 3;
+
+                    res.UserNotes.Add(new ContextUserNote(
+                        "THERMAL_SUPPORT_WEAK",
+                        "Koruyucu dış katman mevcut ancak kombinde sıcak tutan destek katmanı bulunmuyor."));
                 }
 
                 if (context.Season == Season.Summer &&
@@ -377,15 +393,29 @@ namespace Kombinle.Core.Scoring.Context
             return !hasWarmSupport;
         }
 
-        //private static bool HasHeavyProtectionLayer(CombinationCandidate candidate)
-        //{
-        //    return candidate.SlotToItem.Values.Any(x =>
-        //               CategorySemantics.IsProtectionLayer(x.Category) &&
-        //               CategorySemantics.HasTrait(x.Category, SemanticTraits.Heavy))
-        //           ||
-        //           candidate.Anchor != null &&
-        //           CategorySemantics.IsProtectionLayer(candidate.Anchor.Category) &&
-        //           CategorySemantics.HasTrait(candidate.Anchor.Category, SemanticTraits.Heavy);
-        //}
+        private static bool HasProtectionWithoutThermalSupport(CombinationCandidate candidate)
+        {
+            var hasProtection =
+                candidate.SlotToItem.Values.Any(x =>
+                    CategorySemantics.IsProtectionLayer(x.Category));
+
+            if (!hasProtection)
+                return false;
+
+            var hasSupport =
+                candidate.SlotToItem.Values.Any(x =>
+                    CategorySemantics.HasTrait(x.Category, SemanticTraits.Warm) ||
+                    CategorySemantics.HasTrait(x.Category, SemanticTraits.Comfort) ||
+                    CategorySemantics.HasTrait(x.Category, SemanticTraits.Structure))
+                ||
+                candidate.Anchor != null &&
+                (
+                    CategorySemantics.HasTrait(candidate.Anchor.Category, SemanticTraits.Warm) ||
+                    CategorySemantics.HasTrait(candidate.Anchor.Category, SemanticTraits.Comfort) ||
+                    CategorySemantics.HasTrait(candidate.Anchor.Category, SemanticTraits.Structure)
+                );
+
+            return !hasSupport;
+        }
     }
 }

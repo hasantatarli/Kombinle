@@ -1394,3 +1394,15 @@ Generation should avoid producing semantically invalid layer combinations.
 ### Status
 
 Planned for Layer Compatibility Matrix v1 milestone.
+
+
+---
+
+## Observation:
+
+Smart Casual Dinner scenarios may prefer elegant tops
+(Blouse/Shirt) over thermally stronger options (Sweater),
+even when weather conditions would support the warmer garment.
+
+This indicates a future need for style-oriented semantic traits
+separate from thermal suitability scoring.

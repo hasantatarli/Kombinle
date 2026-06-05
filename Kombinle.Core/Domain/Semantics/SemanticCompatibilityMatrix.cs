@@ -14,23 +14,35 @@ namespace Kombinle.Core.Domain.Semantics
             string? roleB,
             Season? season)
         {
+            return GetConflictSeverity(roleA, roleB, season) != SemanticConflictSeverity.Hard;
+        }
+
+        public static SemanticConflictSeverity GetConflictSeverity(
+            string? roleA,
+            string? roleB,
+            Season? season)
+        {
             if (roleA == null || roleB == null)
-                return true;
+                return SemanticConflictSeverity.None;
 
-            if (season == Season.Summer)
-            {
-                var isStructureProtection =
-                    (roleA == SemanticLayerRoles.Structure &&
-                     roleB == SemanticLayerRoles.Protection)
-                    ||
-                    (roleA == SemanticLayerRoles.Protection &&
-                     roleB == SemanticLayerRoles.Structure);
+            var isStructureProtection =
+                (roleA == SemanticLayerRoles.Structure &&
+                 roleB == SemanticLayerRoles.Protection)
+                ||
+                (roleA == SemanticLayerRoles.Protection &&
+                 roleB == SemanticLayerRoles.Structure);
 
-                if (isStructureProtection)
-                    return false;
-            }
+            var isComfortProtection =
+                (roleA == SemanticLayerRoles.Comfort &&
+                 roleB == SemanticLayerRoles.Protection)
+                ||
+                (roleA == SemanticLayerRoles.Protection &&
+                 roleB == SemanticLayerRoles.Comfort);
 
-            return true;
+            if (season == Season.Summer && isStructureProtection)
+                return SemanticConflictSeverity.Hard;
+
+            return SemanticConflictSeverity.None;
         }
     }
 }

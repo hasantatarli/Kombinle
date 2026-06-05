@@ -91,7 +91,12 @@ namespace Kombinle.Core.Engine
                 if (occasion.RequiredFormality >= Formality.Smart &&
                     role == LayerRole.Structure)
                 {
-                    result.Add(2, "Anchor semantic: Smart/Formal occasion için structured layer uygun");
+                    var bonus =
+                            occasion.RequiredFormality == Formality.Formal
+                                ? 6
+                                : 2;
+
+                    result.Add(bonus, "Anchor semantic: Smart/Formal occasion için structured layer uygun");
                 }
 
                 if (occasion.RequiredFormality == Formality.Casual &&

@@ -40,13 +40,12 @@ namespace Kombinle.Core.Generation
                     }
 
                     return
-                        SlotRequirementMatcher.Matches(g, anchorReq) &&
-                        g.Formality >= occasion.RequiredFormality;
+                         SlotRequirementMatcher.Matches(g, anchorReq);
                 })
                 .Select(g => new AnchorCandidate
                 {
                     Garment = g,
-                    Priority = (int)g.Formality,
+                    Priority = -Math.Abs((int)g.Formality - (int)occasion.RequiredFormality),
                     Reason = $"Anchor adayı: {g.Category} ({g.ColorFamily}, {g.Formality})"
                 })
                 .OrderByDescending(c => c.Priority)

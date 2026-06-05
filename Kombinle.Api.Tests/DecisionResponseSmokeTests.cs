@@ -561,7 +561,7 @@ public class DecisionResponseSmokeTests : IClassFixture<WebApplicationFactory<Pr
     }
 
     [Fact]
-    public async Task SoftAnchorPresentButTooLowFormality_ShouldReturnFormalityWeakFeedback()
+    public async Task StructuredSmartAnchor_ShouldNotReturnFormalityWeakFeedback()
     {
         var json = """
         {
@@ -582,8 +582,8 @@ public class DecisionResponseSmokeTests : IClassFixture<WebApplicationFactory<Pr
         var payload = await response.Content.ReadFromJsonAsync<DecisionResponseDto>();
 
         payload.Should().NotBeNull();
-        payload!.WardrobeFeedback.Should().NotBeNull();
-        payload.WardrobeFeedback!.Code.Should().Be("SOFT_ANCHOR_FORMALITY_WEAK");
+        payload!.WardrobeFeedback.Should().BeNull("smart structured jackets are acceptable soft anchors for formal business meetings");
+
     }
 
     [Fact]
@@ -810,6 +810,70 @@ public class DecisionResponseSmokeTests : IClassFixture<WebApplicationFactory<Pr
             .Should()
             .BeFalse("summer cold outdoor should use either a structure layer or a light protection layer, not both");
     }
+
+    [Fact]
+    public async Task SmartCasualDinner_WinterCold_ShouldPreferCoatInBestPool()
+    {
+        var json = """
+        {
+          "occasionId": "smart_casual_dinner",
+          "wardrobeProfileId": "male_extended_v1",
+          "context": {
+            "weather": "Cold",
+            "season": "Winter",
+            "setting": "Outdoor",
+            "timeOfDay": "Day"
+          }
+        }
+        """;
+
+        var response = await PostJson(json);
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+        var payload =
+            await response.Content.ReadFromJsonAsync<DecisionResponseDto>();
+
+        payload.Should().NotBeNull();
+        payload!.Debug.Should().NotBeNull();
+
+        payload.Debug!.BestPoolCandidates.Should().Contain(x =>
+            x.Signature.Contains("Outerwear:Coat"),
+            "winter cold scenarios should prefer heavy protection layers when available");
+    }
+
+    [Fact]
+    public async Task BusinessMeeting_MaleExtended_ShouldUseStructuredAnchor()
+    {
+        var json = """
+        {
+          "occasionId": "business_meeting_formal",
+          "wardrobeProfileId": "male_extended_v1",
+          "context": {
+            "weather": "Hot",
+            "season": "Summer",
+            "setting": "Indoor",
+            "timeOfDay": "Day"
+          }
+        }
+        """;
+
+        var response = await PostJson(json);
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+        var payload =
+            await response.Content.ReadFromJsonAsync<DecisionResponseDto>();
+
+        payload.Should().NotBeNull();
+
+        var categories = payload!.Decision.Outfit.Items
+            .Select(x => x.Category)
+            .ToList();
+
+        categories.Should().Contain("Jacket",
+            "business meeting should allow smart structured jackets as soft anchors even when target formality is formal");
+    }
+
+
 }
 
 public sealed class DecisionResponseDto

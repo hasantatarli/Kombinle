@@ -256,7 +256,7 @@ namespace Kombinle.Core.Generation
 
                         variant.Signature = BuildSignature(variant);
 
-                        if ( seen.Add(variant.Signature))
+                        if (seen.Add(variant.Signature))
                         {
                             results.Add(variant);
                             variantsAddedForThisAnchor++;
@@ -371,6 +371,32 @@ namespace Kombinle.Core.Generation
                 if (!pool.ContainsKey(opt.Slot) || pool[opt.Slot].Count == 0) continue;
 
                 var selected = pool[opt.Slot][0];
+
+                if (opt.Slot == Slot.Outerwear && context != null)
+                {
+                    var candidates = pool[opt.Slot];
+
+                    if (context.Season == Season.Summer)
+                    {
+                        selected = candidates
+                            .FirstOrDefault(g => !CategorySemantics.HasTrait(g.Category, SemanticTraits.Heavy));
+
+                        if (selected == null)
+                            continue;
+                    }
+                    else if (
+                        context.Setting == Setting.Outdoor &&
+                        (context.Season == Season.Winter ||
+                         context.Weather == Weather.Cold ||
+                         context.Weather == Weather.Snow))
+                    {
+                        selected = candidates
+                            .FirstOrDefault(g =>
+                                CategorySemantics.IsProtectionLayer(g.Category) &&
+                                CategorySemantics.HasTrait(g.Category, SemanticTraits.Heavy))
+                            ?? candidates[0];
+                    }
+                }
 
                 if (opt.Slot == Slot.Outerwear && context?.Season == Season.Summer)
                 {

@@ -508,3 +508,24 @@ This enables:
 - future category additions without engine rewrites
 - hybrid semantic behavior
 - explainable outfit generation
+
+
+### Road Map
+PHASE 1
+✓ Complete
+
+PHASE 2A
+Style Semantics
+
+PHASE 2B
+Occasion Expansion
+Wardrobe Expansion
+
+PHASE 3
+Advanced Color System
+
+PHASE 4
+Recommendation Intelligence
+
+PHASE 5
+Ecosystem

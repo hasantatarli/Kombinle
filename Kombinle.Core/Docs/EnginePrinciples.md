@@ -111,3 +111,18 @@ Layer reasoning should consider garment purpose:
 - Comfort
 - Structure
 - Protection
+
+---
+
+Style suitability and thermal suitability are separate concerns.
+
+Date: 2026-06-05
+
+A garment may be:
+- thermally appropriate
+- semantically appropriate
+
+without being the most stylistically suitable choice.
+
+Future style scoring should operate independently from
+thermal coherence scoring.

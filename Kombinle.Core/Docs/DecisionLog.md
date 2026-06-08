@@ -1406,3 +1406,32 @@ even when weather conditions would support the warmer garment.
 
 This indicates a future need for style-oriented semantic traits
 separate from thermal suitability scoring.
+
+
+---
+Decision: Complete PHASE 1 Semantic Intelligence
+
+Date: 2026-06-05
+
+Reason:
+Core engine outputs are now contextually acceptable across:
+
+- Casual Weekend
+- Business Meeting
+- Smart Casual Dinner
+
+for both male and female wardrobes.
+
+Implemented:
+- Semantic layer roles
+- Layer compatibility matrix
+- Thermal coherence scoring
+- Protection intensity
+- Semantic conflict penalties
+- Structured anchor support
+- Indoor / Outdoor outerwear separation
+
+Result:
+Engine discussions have shifted from correctness issues
+to style-quality improvements, indicating that the core
+decision engine is stable enough to begin PHASE 2.

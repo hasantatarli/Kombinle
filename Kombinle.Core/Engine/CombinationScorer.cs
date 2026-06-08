@@ -75,6 +75,29 @@ namespace Kombinle.Core.Engine
                 }
             }
 
+            var preferredStyleTrait = OccasionStylePreferences.Get(occasion.Id);
+
+            if (!string.IsNullOrWhiteSpace(preferredStyleTrait))
+            {
+                foreach (var item in candidate.Combination.Items)
+                {
+                    if (CategorySemantics.HasStyleTrait(item.Category, preferredStyleTrait))
+                    {
+                        result.Add(
+                            1,
+                            $"Style suitability: {item.Category} matches {preferredStyleTrait}");
+                    }
+                }
+
+                if (candidate.Anchor != null &&
+                    CategorySemantics.HasStyleTrait(candidate.Anchor.Category, preferredStyleTrait))
+                {
+                    result.Add(
+                        1,
+                        $"Style suitability: {candidate.Anchor.Category} matches {preferredStyleTrait}");
+                }
+            }
+
             // Casual occasion'da formal anchor fazla baskın görünür.
             // Casual jacket/Jacket kabul edilebilir; Formal anchor ise hafif değil, belirgin ceza almalı.
             if (occasion.RequiredFormality == Formality.Casual

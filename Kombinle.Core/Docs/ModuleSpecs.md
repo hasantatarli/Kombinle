@@ -323,3 +323,26 @@ Demo layer allows non-technical users to test Kombinle without Postman.
 - Image upload
 - Weather API
 - Payment / subscription
+
+
+--- 
+## Planned Module: Style Semantics
+
+Date: 2026-06-05
+Purpose:
+Represent style suitability separately from:
+
+- Formality
+- Thermal suitability
+- Layer semantics
+
+Initial Traits:
+- BusinessAppropriate
+- SmartCasualAppropriate
+- CasualAppropriate
+
+Future Extensions:
+- Elegant
+- Relaxed
+- Minimal
+- Statement

@@ -94,6 +94,7 @@ namespace Kombinle.Core.Domain.Occasions
 
             return new Occasion
             {
+                Id = id,
                 Name = dto.Name!,
                 RequiredFormality = requiredFormality,
                 SlotSet = slotSet,

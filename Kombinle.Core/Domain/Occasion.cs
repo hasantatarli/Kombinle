@@ -10,6 +10,7 @@ namespace Kombinle.Core.Domain
 
     public class Occasion
     {
+        public string Id { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
         public Formality RequiredFormality { get; set; } = Formality.Casual;
         public List<ColorFamily> PreferredAnchorColors { get; set; } = new();

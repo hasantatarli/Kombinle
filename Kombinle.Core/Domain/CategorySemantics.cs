@@ -21,13 +21,13 @@ public static class CategorySemantics
     // Long-term source of truth: category_catalog.json.
     private static readonly Dictionary<Category, CategorySemanticInfo> Map = new()
     {
-        [Category.Blouse] = new("Top", [SemanticTraits.Top], [Slot.Top]),
-        [Category.Shirt] = new("Top", [SemanticTraits.Top], [Slot.Top]),
-        [Category.Tshirt] = new("Top", [SemanticTraits.Top, SemanticTraits.Casual, SemanticTraits.Light], [Slot.Top]),
-        [Category.Sweater] = new("Top", [SemanticTraits.Top, SemanticTraits.Warm], [Slot.Top]),
-        [Category.Hoodie] = new("Top", [SemanticTraits.Top, SemanticTraits.Layer, SemanticTraits.Comfort, SemanticTraits.Light, SemanticTraits.Casual], [Slot.Top, Slot.Anchor]),
+        [Category.Blouse] = new("Top", [SemanticTraits.Top], [Slot.Top], [StyleTraits.BusinessAppropriate, StyleTraits.SmartCasualAppropriate]),
+        [Category.Shirt] = new( "Top", [SemanticTraits.Top], [Slot.Top], [StyleTraits.BusinessAppropriate, StyleTraits.SmartCasualAppropriate]),
+        [Category.Tshirt] = new( "Top", [SemanticTraits.Top, SemanticTraits.Casual, SemanticTraits.Light], [Slot.Top], [StyleTraits.CasualAppropriate]),
+        [Category.Sweater] = new("Top", [SemanticTraits.Top, SemanticTraits.Warm], [Slot.Top], [StyleTraits.SmartCasualAppropriate]),
+        [Category.Hoodie] = new("Top", [SemanticTraits.Top, SemanticTraits.Layer, SemanticTraits.Comfort, SemanticTraits.Light, SemanticTraits.Casual], [Slot.Top, Slot.Anchor], [StyleTraits.CasualAppropriate]),
 
-        [Category.Cardigan] = new("Layer", [SemanticTraits.Layer, SemanticTraits.Comfort, SemanticTraits.Light], [Slot.Anchor]),
+        [Category.Cardigan] = new("Layer", [SemanticTraits.Layer, SemanticTraits.Comfort, SemanticTraits.Light], [Slot.Anchor], [StyleTraits.SmartCasualAppropriate, StyleTraits.CasualAppropriate]),
 
         [Category.Pants] = new("Bottom", [SemanticTraits.Bottom], [Slot.Bottom]),
         [Category.Skirt] = new("Bottom", [SemanticTraits.Bottom], [Slot.Bottom]),
@@ -36,9 +36,9 @@ public static class CategorySemantics
         [Category.Shoes] = new("Shoes", [SemanticTraits.Shoes], [Slot.Shoes]),
         [Category.Sneakers] = new("Shoes", [SemanticTraits.Shoes, SemanticTraits.Casual], [Slot.Shoes]),
 
-        [Category.Dress] = new("Dress", [SemanticTraits.OnePiece], [Slot.Anchor]),
+        [Category.Dress] = new("Dress", [SemanticTraits.OnePiece], [Slot.Anchor] , [StyleTraits.SmartCasualAppropriate]),
 
-        [Category.Jacket] = new("Layer", [SemanticTraits.Layer, SemanticTraits.Structure], [Slot.Anchor]),
+        [Category.Jacket] = new("Layer", [SemanticTraits.Layer, SemanticTraits.Structure], [Slot.Anchor], [StyleTraits.BusinessAppropriate, StyleTraits.SmartCasualAppropriate]),
         [Category.LightOuterwear] = new("Layer", [SemanticTraits.Layer, SemanticTraits.Protection, SemanticTraits.Light], [Slot.Outerwear]),
         [Category.Coat] = new("Layer", [SemanticTraits.Layer, SemanticTraits.Protection, SemanticTraits.Heavy], [Slot.Outerwear]),
 
@@ -48,7 +48,8 @@ public static class CategorySemantics
     private sealed record CategorySemanticInfo(
         string Group,
         string[] Traits,
-        Slot[] Slots
+        Slot[] Slots,
+        string[]? StyleTraits = null
     );
 
     public static bool HasTrait(Category category, string trait)
@@ -171,6 +172,13 @@ public static class CategorySemantics
     {
         return Map.TryGetValue(category, out var info)
             && info.Slots.Contains(slot);
+    }
+
+    public static bool HasStyleTrait(Category category, string styleTrait)
+    {
+        return Map.TryGetValue(category, out var info)
+            && info.StyleTraits != null
+            && info.StyleTraits.Contains(styleTrait);
     }
 
 

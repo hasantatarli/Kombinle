@@ -904,6 +904,38 @@ public class DecisionResponseSmokeTests : IClassFixture<WebApplicationFactory<Pr
         categories.Should().NotContain("Coat");
         categories.Should().NotContain("LightOuterwear");
     }
+
+    [Fact]
+    public async Task BusinessMeeting_FemaleBalanced_ShouldPreferBusinessAppropriateStructuredOutfit()
+    {
+        var json = """
+        {
+          "occasionId": "business_meeting_formal",
+          "wardrobeProfileId": "female_balanced_v1",
+          "context": {
+            "weather": "Clear",
+            "season": "Summer",
+            "setting": "Indoor",
+            "timeOfDay": "Day"
+          }
+        }
+        """;
+
+        var response = await PostJson(json);
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+        var payload =
+            await response.Content.ReadFromJsonAsync<DecisionResponseDto>();
+
+        payload.Should().NotBeNull();
+
+        var categories = payload!.Decision.Outfit.Items
+            .Select(x => x.Category)
+            .ToList();
+
+        categories.Should().Contain("Jacket");
+        categories.Should().Contain("Blouse");
+    }
 }
 
 public sealed class DecisionResponseDto

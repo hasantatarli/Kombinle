@@ -126,3 +126,16 @@ without being the most stylistically suitable choice.
 
 Future style scoring should operate independently from
 thermal coherence scoring.
+
+
+---
+Date: 2026-06-08
+
+Style suitability is an independent signal.
+
+Style scoring should complement:
+- Formality
+- Color compatibility
+- Thermal suitability
+
+and should not dominate overall ranking.

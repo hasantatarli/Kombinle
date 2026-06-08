@@ -24,6 +24,19 @@ Initial trait candidates:
 - CasualAppropriate
 
 
+In Progress
+PHASE 2.1 - Style Suitability
+
+Completed:
+- StyleTraits
+- Occasion style preferences
+- Style suitability scoring v1
+- Style suitability regression tests
+
+Next:
+- Observe scoring behavior
+- Expand style semantics if needed
+
 ## NOT DOING NOW
 - User preference learning
 - Feedback-driven ranking

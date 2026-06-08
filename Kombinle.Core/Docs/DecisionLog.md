@@ -1435,3 +1435,26 @@ Result:
 Engine discussions have shifted from correctness issues
 to style-quality improvements, indicating that the core
 decision engine is stable enough to begin PHASE 2.
+
+
+--- 
+Date: 2026-06-08
+
+Decision: Introduce Style Suitability Scoring v1
+
+Reason:
+Thermal suitability and formality were insufficient to distinguish
+stylistically better combinations.
+
+Implementation:
+- Added StyleTraits to category semantics
+- Added OccasionStylePreferences
+- Added lightweight style scoring (+1 per matching garment)
+
+Result:
+Business Meeting now naturally favors:
+- Jacket
+- Shirt
+- Blouse
+
+without overpowering existing scoring systems.

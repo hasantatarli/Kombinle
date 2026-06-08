@@ -510,13 +510,29 @@ This enables:
 - explainable outfit generation
 
 
+---
+Date: 2026-06-08
+
+Future:
+Category.Sweater currently represents all knitwear.
+
+Potential future split:
+- Sweater (Kazak)
+- Knitwear / Triko
+- SweaterVest (Süveter)
+
+Only if style semantics require additional granularity.
+
 ### Road Map
-PHASE 1
-✓ Complete
+PHASE 1 - Semantic Intelligence
+Status: Complete
 
-PHASE 2A
-Style Semantics
+PHASE 2 - Rich Garment Semantics
+Status: Active
 
+Completed:
+- Style suitability v1
+- 
 PHASE 2B
 Occasion Expansion
 Wardrobe Expansion

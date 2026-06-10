@@ -98,7 +98,7 @@ namespace Kombinle.Core.Scoring.Alternatives
                     if (a is null && b is null) return true;
                     if (a is null || b is null) return false;
 
-                    return a.Category == b.Category
+                    return string.Equals(a.EffectiveCategoryId, b.EffectiveCategoryId, StringComparison.OrdinalIgnoreCase)
                            && a.ColorFamily == b.ColorFamily
                            && a.Formality == b.Formality;
                 }
@@ -164,7 +164,7 @@ namespace Kombinle.Core.Scoring.Alternatives
                 }
 
                 if (occasion.RequiredFormality >= Formality.Formal &&
-                        best.Candidate.Anchor != null && CategorySemantics.IsOnePiece(best.Candidate.Anchor.Category)
+                        best.Candidate.Anchor != null && CategorySemantics.IsOnePiece(best.Candidate.Anchor.EffectiveCategoryId)
                         && HasTopBottomStructure(s))
                 {
                     AddReasonCodeOnce("ALT_STRUCTURE_TOP_BOTTOM");
@@ -188,17 +188,23 @@ namespace Kombinle.Core.Scoring.Alternatives
                     && s.Candidate.SlotToItem.TryGetValue(Slot.Top, out var altTop)
                     && !IsSameGarment(bestTop, altTop))
                 {
-                    if (altTop.Category == Category.Shirt && altTop.ColorFamily == ColorFamily.White)
+                    if (string.Equals(altTop.EffectiveCategoryId, "Shirt", StringComparison.OrdinalIgnoreCase)
+                             && altTop.ColorFamily == ColorFamily.White)
+                    {
                         AddReasonCodeOnce("ALT_SHIRT_SWAP_WHITE");
-                    else if (altTop.Category == Category.Shirt && altTop.ColorFamily == ColorFamily.Blue)
+                    }
+                    else if (string.Equals(altTop.EffectiveCategoryId, "Shirt", StringComparison.OrdinalIgnoreCase)
+                             && altTop.ColorFamily == ColorFamily.Blue)
+                    {
                         AddReasonCodeOnce("ALT_SHIRT_SWAP_BLUE");
+                    }
                 }
 
                 if (best.Candidate.SlotToItem.TryGetValue(Slot.Bottom, out var bestBottom)
                     && s.Candidate.SlotToItem.TryGetValue(Slot.Bottom, out var altBottom)
                     && !IsSameGarment(bestBottom, altBottom))
                 {
-                    if (bestBottom.Category != altBottom.Category)
+                    if (!string.Equals(bestBottom.EffectiveCategoryId, altBottom.EffectiveCategoryId, StringComparison.OrdinalIgnoreCase))
                     {
                         AddReasonCodeOnce("ALT_BOTTOM_STRUCTURE_SHIFT");
                     }
@@ -235,7 +241,7 @@ namespace Kombinle.Core.Scoring.Alternatives
                 if (a is null && b is null) return true;
                 if (a is null || b is null) return false;
 
-                return a.Category == b.Category
+                return string.Equals(a.EffectiveCategoryId, b.EffectiveCategoryId, StringComparison.OrdinalIgnoreCase)
                        && a.ColorFamily == b.ColorFamily
                        && a.Formality == b.Formality;
             }

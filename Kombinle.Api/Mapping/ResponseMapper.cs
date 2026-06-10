@@ -43,7 +43,7 @@ public static class ResponseMapper
 
         static string BuildGarmentKey(Garment garment)
         {
-            return $"{garment.Category}:{garment.ColorFamily}:{garment.Formality}";
+            return $"{garment.EffectiveCategoryId}:{garment.ColorFamily}:{garment.Formality}";
         }
 
         void AddItem(string slotName, Garment garment)
@@ -55,7 +55,7 @@ public static class ResponseMapper
 
             items.Add(new OutfitItemDto(
                 Slot: slotName,
-                Category: garment.Category.ToString(),
+                Category: garment.EffectiveCategoryId, 
                 ColorFamily: garment.ColorFamily.ToString()
             ));
         }
@@ -77,7 +77,7 @@ public static class ResponseMapper
     {
         return slotName.Equals(SemanticSlotNames.Outerwear, StringComparison.OrdinalIgnoreCase)
                || (slotName.Equals(SemanticSlotNames.Anchor, StringComparison.OrdinalIgnoreCase)
-                   && CategorySemantics.IsStructuredLayer(garment.Category));
+                   && CategorySemantics.IsStructuredLayer(garment.EffectiveCategoryId));
     }
 
     private static (List<OutfitItemDto> CoreItems, List<OutfitItemDto> Layers) MapOutfitSections(ScoredCombination best)
@@ -88,7 +88,7 @@ public static class ResponseMapper
 
         static string BuildGarmentKey(Garment garment)
         {
-            return $"{garment.Category}:{garment.ColorFamily}:{garment.Formality}";
+            return $"{garment.EffectiveCategoryId}:{garment.ColorFamily}:{garment.Formality}";
         }
 
         void AddItem(string slotName, Garment garment)
@@ -100,7 +100,7 @@ public static class ResponseMapper
 
             var dto = new OutfitItemDto(
                 Slot: slotName,
-                Category: garment.Category.ToString(),
+                Category: garment.EffectiveCategoryId,
                 ColorFamily: garment.ColorFamily.ToString()
             );
 
@@ -180,32 +180,6 @@ public static class ResponseMapper
 
         return codes.FirstOrDefault() ?? feedback[0].ContextWarningCode;
     }
-
-
-    //private static List<AlternativeCardDto> MapAlternatives(DecisionSummary summary)
-    //{
-    //    var result = new List<AlternativeCardDto>();
-    //    var alternatives = summary.Alternatives ?? new List<ScoredCombination>();
-
-    //    var startIndex = ShouldRecommendAlternative(summary) ? 1 : 0;
-
-    //    for (var i = startIndex; i < alternatives.Count; i++)
-    //    {
-    //        var alt = alternatives[i];
-
-    //        var shortText =
-    //            summary.AlternativeShort != null && i < summary.AlternativeShort.Count
-    //                ? summary.AlternativeShort[i]
-    //                : alt.Candidate.Signature;
-
-    //        result.Add(new AlternativeCardDto(
-    //            ShortTr: shortText,
-    //            Reasons: MapAlternativeReasons(alt)
-    //        ));
-    //    }
-
-    //    return result;
-    //}
 
     private static List<AlternativeReasonDto> MapAlternativeReasons(ScoredCombination alt)
     {
@@ -346,25 +320,7 @@ public static class ResponseMapper
         return summary.BestContextHealth == ContextHealthLevel.Poor;
     }
 
-    //private static AlternativeCardDto? MapRecommendedAlternative(DecisionSummary summary)
-    //{
-    //    if (!ShouldRecommendAlternative(summary))
-    //        return null;
-
-    //    var first = summary.Alternatives!.FirstOrDefault();
-    //    if (first == null)
-    //        return null;
-
-    //    var shortText =
-    //        summary.AlternativeShort != null && summary.AlternativeShort.Count > 0
-    //            ? summary.AlternativeShort[0]
-    //            : first.Candidate.Signature;
-
-    //    return new AlternativeCardDto(
-    //        ShortTr: shortText,
-    //        Reasons: MapAlternativeReasons(first)
-    //    );
-    //}
+    
     private static DebugDto MapDebug(DecisionSummary summary)
     {
         return new DebugDto(
@@ -433,7 +389,7 @@ public static class ResponseMapper
             .OrderBy(x => x.Priority)
             .Select(x => new WardrobeGapDto(
                 Code: x.Code,
-                Category: x.Category.ToString(),
+                Category: x.CategoryId.ToString(),
                 SuggestionType: x.SuggestionType.ToString(),
                 Priority: x.Priority
             ))
@@ -521,7 +477,7 @@ public static class ResponseMapper
 
         if (candidate.Anchor != null)
         {
-            parts.Add($"{candidate.Anchor.ColorFamily} {candidate.Anchor.Category}");
+            parts.Add($"{candidate.Anchor.ColorFamily} {candidate.Anchor.EffectiveCategoryId}");
         }
 
         foreach (var kv in candidate.SlotToItem.OrderBy(x => GetSlotOrder(x.Key)))
@@ -532,7 +488,7 @@ public static class ResponseMapper
             var g = kv.Value;
             if (g == null) continue;
 
-            parts.Add($"{g.ColorFamily} {g.Category}");
+            parts.Add($"{g.ColorFamily} {g.EffectiveCategoryId}");
         }
 
         return string.Join(" + ", parts);

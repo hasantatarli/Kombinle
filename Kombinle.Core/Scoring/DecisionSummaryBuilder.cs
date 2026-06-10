@@ -118,8 +118,8 @@ namespace Kombinle.Core.Scoring
             var anchorReq = occasion.SlotSet.Get(Slot.Anchor);
             var bestHasLayerOrOuterwear =
                 best.Candidate.SlotToItem.Values.Any(i =>
-                    CategorySemantics.IsLayer(i.Category) ||
-                    CategorySemantics.IsOuterwear(i.Category))
+                    CategorySemantics.IsLayer(i.EffectiveCategoryId) ||
+                    CategorySemantics.IsOuterwear(i.EffectiveCategoryId))
                 ||
                 best.Candidate.Anchor is not null;
 
@@ -128,16 +128,16 @@ namespace Kombinle.Core.Scoring
                 || bestHasLayerOrOuterwear;
 
             var softAnchorCategories =
-                anchorReq?.AllowedCategories ?? new List<Category>();
+                anchorReq?.AllowedCategories ?? new List<string>();
 
             var sourceWardrobe = wardrobe ?? new List<Garment>();
 
             var hasAnySoftAnchorInWardrobe =
-                sourceWardrobe.Any(x => softAnchorCategories.Contains(x.Category));
+                sourceWardrobe.Any(x => softAnchorCategories.Contains(x.EffectiveCategoryId));
 
             var hasRequiredFormalitySoftAnchorInWardrobe =
                 sourceWardrobe.Any(x =>
-                    softAnchorCategories.Contains(x.Category) &&
+                    softAnchorCategories.Contains(x.EffectiveCategoryId) &&
                     x.Formality >= occasion.RequiredFormality);
 
             if (anchorReq?.Level == RequirementLevel.Soft &&
@@ -330,7 +330,7 @@ namespace Kombinle.Core.Scoring
             {
                 if (garment == null) return;
 
-                var text = $"{garment.ColorFamily} {garment.Category}";
+                var text = $"{garment.ColorFamily} {garment.EffectiveCategoryId}";
                 if (!parts.Contains(text, StringComparer.OrdinalIgnoreCase))
                     parts.Add(text);
             }
@@ -418,7 +418,7 @@ namespace Kombinle.Core.Scoring
             if (ReferenceEquals(a, b)) return true;
             if (a == null || b == null) return false;
 
-            return a.Category == b.Category &&
+            return string.Equals(a.EffectiveCategoryId, b.EffectiveCategoryId, StringComparison.OrdinalIgnoreCase) &&
                    a.ColorFamily == b.ColorFamily &&
                    a.Formality == b.Formality;
         }
@@ -479,7 +479,7 @@ namespace Kombinle.Core.Scoring
             {
                 fallback.Items.Add(new OutfitItemDto(
                     slot: kv.Key.ToString(),
-                    category: kv.Value.Category.ToString(),
+                    category: kv.Value.CategoryId,
                     colorFamily: kv.Value.ColorFamily.ToString()
                 ));
             }

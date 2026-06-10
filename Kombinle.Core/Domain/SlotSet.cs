@@ -12,7 +12,7 @@ namespace Kombinle.Core.Domain
         public RequirementLevel Level { get; set; } = RequirementLevel.Hard;
 
         // Bu slotu hangi category(ler) doldurabilir?
-        public List<Category> AllowedCategories { get; set; } = new();
+        public List<string> AllowedCategories { get; set; } = new();
         public List<string> AllowedTraits { get; set; } = new();
         public List<Slot> AllowedSlots { get; set; } = new();
 

@@ -22,18 +22,20 @@ namespace Kombinle.Core.Generation
             Garment garment,
             SlotRequirement requirement)
         {
+            var categoryId = garment.EffectiveCategoryId;
+
             var categoryMatch =
                 requirement.AllowedCategories.Count > 0 &&
-                requirement.AllowedCategories.Contains(garment.Category);
+                requirement.AllowedCategories.Any(x => string.Equals(x.ToString(), categoryId, StringComparison.OrdinalIgnoreCase));
 
             var traitMatch =
                 requirement.AllowedTraits.Count > 0 &&
                 requirement.AllowedTraits.Any(trait =>
                     CategorySemantics.Provider.HasTrait(
-                        garment.Category,
+                        categoryId,
                         trait));
 
-            var slotMatch = requirement.AllowedSlots.Count > 0 && requirement.AllowedSlots.Any(slot => CategorySemantics.Provider.HasSlot(garment.Category, slot));
+            var slotMatch = requirement.AllowedSlots.Count > 0 && requirement.AllowedSlots.Any(slot => CategorySemantics.Provider.HasSlot(categoryId, slot));
 
             return categoryMatch || traitMatch || slotMatch;
         }

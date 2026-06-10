@@ -40,7 +40,7 @@ namespace Kombinle.Core.Generation
         }
         private static bool IsSameGarment(Garment a, Garment b)
         {
-            return a.Category == b.Category
+            return string.Equals(a.EffectiveCategoryId, b.EffectiveCategoryId, StringComparison.OrdinalIgnoreCase)
                    && a.ColorFamily == b.ColorFamily
                    && a.Formality == b.Formality;
         }

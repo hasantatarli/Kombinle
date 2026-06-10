@@ -43,7 +43,7 @@ namespace Kombinle.Core.Scoring.Context
         {
             var intensity = GetTotalLayerIntensity(candidate);
             var hasProtectionLayer = HasLayerRole(candidate, LayerRole.Protection);
-            var hasStructuredAnchor = candidate.Anchor != null && CategorySemantics.IsStructuredLayer(candidate.Anchor.Category);
+            var hasStructuredAnchor = candidate.Anchor != null && CategorySemantics.IsStructuredLayer(candidate.Anchor.EffectiveCategoryId);
 
             //Console.WriteLine($"[LAYER] Season={context.Season} Setting={context.Setting} Intensity={intensity}");
 
@@ -138,13 +138,13 @@ namespace Kombinle.Core.Scoring.Context
                 {
                     var hasHeavyProtectionLayer =
                         candidate.SlotToItem.Values.Any(x =>
-                            CategorySemantics.IsProtectionLayer(x.Category) &&
-                            CategorySemantics.HasTrait(x.Category, SemanticTraits.Heavy));
+                            CategorySemantics.IsProtectionLayer(x.EffectiveCategoryId) &&
+                            CategorySemantics.HasTrait(x.EffectiveCategoryId, SemanticTraits.Heavy));
 
                     var hasLightProtectionLayer =
                         candidate.SlotToItem.Values.Any(x =>
-                            CategorySemantics.IsProtectionLayer(x.Category) &&
-                            CategorySemantics.HasTrait(x.Category, SemanticTraits.Light));
+                            CategorySemantics.IsProtectionLayer(x.EffectiveCategoryId) &&
+                            CategorySemantics.HasTrait(x.EffectiveCategoryId, SemanticTraits.Light));
 
                     var protectionBonus =
                         context.Season == Season.Winter
@@ -157,13 +157,13 @@ namespace Kombinle.Core.Scoring.Context
 
                 var hasWarmLayer =
                     candidate.SlotToItem.Values.Any(x =>
-                        CategorySemantics.HasTrait(x.Category, SemanticTraits.Warm) ||
-                        CategorySemantics.HasTrait(x.Category, SemanticTraits.Comfort))
+                        CategorySemantics.HasTrait(x.EffectiveCategoryId, SemanticTraits.Warm) ||
+                        CategorySemantics.HasTrait(x.EffectiveCategoryId, SemanticTraits.Comfort))
                     ||
                     candidate.Anchor != null &&
                     (
-                        CategorySemantics.HasTrait(candidate.Anchor.Category, SemanticTraits.Warm) ||
-                        CategorySemantics.HasTrait(candidate.Anchor.Category, SemanticTraits.Comfort)
+                        CategorySemantics.HasTrait(candidate.Anchor.EffectiveCategoryId, SemanticTraits.Warm) ||
+                        CategorySemantics.HasTrait(candidate.Anchor.EffectiveCategoryId, SemanticTraits.Comfort)
                     );
 
                 if (hasProtectionLayer && hasWarmLayer)
@@ -182,8 +182,8 @@ namespace Kombinle.Core.Scoring.Context
 
                 if (context.Season == Season.Summer &&
                                         candidate.SlotToItem.Values.Any(x =>
-                                            CategorySemantics.IsProtectionLayer(x.Category) &&
-                                            CategorySemantics.HasTrait(x.Category, SemanticTraits.Heavy)))
+                                            CategorySemantics.IsProtectionLayer(x.EffectiveCategoryId) &&
+                                            CategorySemantics.HasTrait(x.EffectiveCategoryId, SemanticTraits.Heavy)))
                 {
                     res.DeltaScore -= 4;
                     res.UserNotes.Add(new ContextUserNote(
@@ -340,15 +340,15 @@ namespace Kombinle.Core.Scoring.Context
         private static bool HasOuterwear(CombinationCandidate candidate)
         {
             var hasInSlots = candidate.SlotToItem.Values.Any(x =>
-                CategorySemantics.IsLightLayer(x.Category) ||
-                CategorySemantics.IsStructuredLayer(x.Category) ||
-                CategorySemantics.IsHeavyLayer(x.Category));
+                CategorySemantics.IsLightLayer(x.EffectiveCategoryId) ||
+                CategorySemantics.IsStructuredLayer(x.EffectiveCategoryId) ||
+                CategorySemantics.IsHeavyLayer(x.EffectiveCategoryId));
 
             var hasAnchorLayer =
                 candidate.Anchor != null &&
-                (CategorySemantics.IsLightLayer(candidate.Anchor.Category) ||
-                 CategorySemantics.IsStructuredLayer(candidate.Anchor.Category) ||
-                 CategorySemantics.IsHeavyLayer(candidate.Anchor.Category));
+                (CategorySemantics.IsLightLayer(candidate.Anchor.EffectiveCategoryId) ||
+                 CategorySemantics.IsStructuredLayer(candidate.Anchor.EffectiveCategoryId) ||
+                 CategorySemantics.IsHeavyLayer(candidate.Anchor.EffectiveCategoryId));
 
             return hasInSlots || hasAnchorLayer;
         }
@@ -359,7 +359,7 @@ namespace Kombinle.Core.Scoring.Context
                 : null;
 
 
-        private static int GetLayerIntensity(Category category)
+        private static int GetLayerIntensity(string category)
         {
             return CategorySemantics.GetLayerRole(category) switch
             {
@@ -373,34 +373,34 @@ namespace Kombinle.Core.Scoring.Context
         private static int GetTotalLayerIntensity(CombinationCandidate candidate)
         {
             var total = candidate.SlotToItem.Values
-                .Sum(x => GetLayerIntensity(x.Category));
+                .Sum(x => GetLayerIntensity(x.EffectiveCategoryId));
 
             if (candidate.Anchor != null)
-                total += GetLayerIntensity(candidate.Anchor.Category);
+                total += GetLayerIntensity(candidate.Anchor.EffectiveCategoryId);
 
             return total;
         }
         private static bool HasLayerRole(CombinationCandidate candidate, LayerRole role)
         {
             return candidate.SlotToItem.Values.Any(x =>
-                CategorySemantics.GetLayerRole(x.Category) == role);
+                CategorySemantics.GetLayerRole(x.EffectiveCategoryId) == role);
         }
 
         private static bool HasLightTopWithoutWarmSupport(CombinationCandidate candidate)
         {
             var hasLightTop =
                 candidate.SlotToItem.TryGetValue(Slot.Top, out var top) &&
-                CategorySemantics.HasTrait(top.Category, SemanticTraits.Light);
+                CategorySemantics.HasTrait(top.EffectiveCategoryId, SemanticTraits.Light);
 
             if (!hasLightTop)
                 return false;
 
             var hasWarmSupport =
-                candidate.SlotToItem.Values.Any(x => CategorySemantics.HasTrait(x.Category, SemanticTraits.Warm)) ||
-                candidate.SlotToItem.Values.Any(x => CategorySemantics.IsProtectionLayer(x.Category)) ||
+                candidate.SlotToItem.Values.Any(x => CategorySemantics.HasTrait(x.EffectiveCategoryId, SemanticTraits.Warm)) ||
+                candidate.SlotToItem.Values.Any(x => CategorySemantics.IsProtectionLayer(x.EffectiveCategoryId)) ||
                 candidate.Anchor != null && (
-                    CategorySemantics.HasTrait(candidate.Anchor.Category, SemanticTraits.Warm) ||
-                    CategorySemantics.IsProtectionLayer(candidate.Anchor.Category));
+                    CategorySemantics.HasTrait(candidate.Anchor.EffectiveCategoryId, SemanticTraits.Warm) ||
+                    CategorySemantics.IsProtectionLayer(candidate.Anchor.EffectiveCategoryId));
 
             return !hasWarmSupport;
         }
@@ -409,22 +409,22 @@ namespace Kombinle.Core.Scoring.Context
         {
             var hasProtection =
                 candidate.SlotToItem.Values.Any(x =>
-                    CategorySemantics.IsProtectionLayer(x.Category));
+                    CategorySemantics.IsProtectionLayer(x.EffectiveCategoryId));
 
             if (!hasProtection)
                 return false;
 
             var hasSupport =
                 candidate.SlotToItem.Values.Any(x =>
-                    CategorySemantics.HasTrait(x.Category, SemanticTraits.Warm) ||
-                    CategorySemantics.HasTrait(x.Category, SemanticTraits.Comfort) ||
-                    CategorySemantics.HasTrait(x.Category, SemanticTraits.Structure))
+                    CategorySemantics.HasTrait(x.EffectiveCategoryId, SemanticTraits.Warm) ||
+                    CategorySemantics.HasTrait(x.EffectiveCategoryId, SemanticTraits.Comfort) ||
+                    CategorySemantics.HasTrait(x.EffectiveCategoryId, SemanticTraits.Structure))
                 ||
                 candidate.Anchor != null &&
                 (
-                    CategorySemantics.HasTrait(candidate.Anchor.Category, SemanticTraits.Warm) ||
-                    CategorySemantics.HasTrait(candidate.Anchor.Category, SemanticTraits.Comfort) ||
-                    CategorySemantics.HasTrait(candidate.Anchor.Category, SemanticTraits.Structure)
+                    CategorySemantics.HasTrait(candidate.Anchor.EffectiveCategoryId, SemanticTraits.Warm) ||
+                    CategorySemantics.HasTrait(candidate.Anchor.EffectiveCategoryId, SemanticTraits.Comfort) ||
+                    CategorySemantics.HasTrait(candidate.Anchor.EffectiveCategoryId, SemanticTraits.Structure)
                 );
 
             return !hasSupport;
@@ -433,7 +433,7 @@ namespace Kombinle.Core.Scoring.Context
         private static bool HasWarmTop(CombinationCandidate candidate)
         {
             return candidate.SlotToItem.TryGetValue(Slot.Top, out var top) &&
-                   CategorySemantics.HasTrait(top.Category, SemanticTraits.Warm);
+                   CategorySemantics.HasTrait(top.EffectiveCategoryId, SemanticTraits.Warm);
         }
     }
 }

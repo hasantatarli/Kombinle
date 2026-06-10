@@ -4,21 +4,19 @@ namespace Kombinle.Api.Services
 {
     public sealed class JsonCategorySemanticsProvider : ICategorySemanticsProvider
     {
-        private readonly Dictionary<Category, CategorySemanticEntry> _map;
+        private readonly Dictionary<string, CategorySemanticEntry> _map;
 
         public JsonCategorySemanticsProvider(CategoryCatalogService catalogService)
         {
             var items = catalogService.GetAll();
 
-            _map = new Dictionary<Category, CategorySemanticEntry>();
+            _map = new Dictionary<string, CategorySemanticEntry>(
+                StringComparer.OrdinalIgnoreCase);
 
             foreach (var item in items)
             {
                 if (string.IsNullOrWhiteSpace(item.Id))
                     throw new InvalidOperationException("Category catalog item has empty id.");
-
-                if (!Enum.TryParse<Category>(item.Id, ignoreCase: true, out var category))
-                    throw new InvalidOperationException($"Unknown category id in catalog: {item.Id}");
 
                 if (string.IsNullOrWhiteSpace(item.Group))
                     throw new InvalidOperationException($"Category '{item.Id}' has empty group.");
@@ -36,39 +34,39 @@ namespace Kombinle.Api.Services
                             $"Category '{item.Id}' has invalid slot: {slot}");
                 }
 
-                _map[category] = new CategorySemanticEntry(
+                _map[item.Id] = new CategorySemanticEntry(
                     item.Group,
                     item.Traits,
                     item.Slots);
             }
         }
 
-        public bool HasTrait(Category category, string trait)
+        public bool HasTrait(string categoryId, string trait)
         {
-            return _map.TryGetValue(category, out var info)
+            return _map.TryGetValue(categoryId, out var info)
                    && info.Traits.Contains(
                        trait,
                        StringComparer.OrdinalIgnoreCase);
         }
 
-        public string? GetGroup(Category category)
+        public string? GetGroup(string categoryId)
         {
-            return _map.TryGetValue(category, out var info)
+            return _map.TryGetValue(categoryId, out var info)
                 ? info.Group
                 : null;
         }
 
-        private sealed record CategorySemanticEntry(string Group, List<string> Traits, List<string> Slots);
-
-        public bool HasSlot(Category category, Slot slot)
+        public bool HasSlot(string categoryId, Slot slot)
         {
-            return _map.TryGetValue(category, out var info)
-                && info.Slots.Any(x =>
-                    string.Equals(x, slot.ToString(), StringComparison.OrdinalIgnoreCase));
+            return _map.TryGetValue(categoryId, out var info)
+                   && info.Slots.Any(x =>
+                       string.Equals(x, slot.ToString(), StringComparison.OrdinalIgnoreCase));
         }
 
-
-
+        private sealed record CategorySemanticEntry(
+            string Group,
+            List<string> Traits,
+            List<string> Slots);
     }
 
 }

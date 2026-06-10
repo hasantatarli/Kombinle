@@ -20,17 +20,6 @@
     "traits": [ "Top" ]
   },
   {
-    "id": "Polo",
-    "displayNameTr": "Polo Yaka Tişört",
-    "displayNameEn": "Polo Shirt",
-    "group": "Top",
-    "family": "Top",
-    "subType": "Polo",
-    "slots": [ "Top" ],
-    "traits": [ "Top" ],
-    "styleTraits": [ "SmartCasualAppropriate", "CasualAppropriate" ]
-  },
-  {
     "id": "Tshirt",
     "displayNameTr": "Tişört",
     "displayNameEn": "T-shirt",
@@ -39,6 +28,16 @@
     "subType": "Tshirt",
     "slots": [ "Top" ],
     "traits": [ "Top", "Casual", "Light" ]
+  },
+  {
+    "id": "Polo",
+    "displayNameTr": "Polo Yaka Tişört",
+    "displayNameEn": "Polo Shirt",
+    "group": "Top",
+    "family": "Top",
+    "subType": "Polo",
+    "slots": [ "Top" ],
+    "traits": [ "Top", "SmartCasualAppropriate" ]
   },
   {
     "id": "Pants",

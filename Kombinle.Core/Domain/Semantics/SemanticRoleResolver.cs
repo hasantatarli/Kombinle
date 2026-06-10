@@ -8,20 +8,18 @@ namespace Kombinle.Core.Domain.Semantics
 {
     public static class SemanticRoleResolver
     {
-        public static string? GetRole(Category category)
+        public static string? GetRole(string categoryId)
         {
-            return category switch
-            {
-                Category.Hoodie => SemanticLayerRoles.Comfort,
-                Category.Cardigan => SemanticLayerRoles.Comfort,
+            if (CategorySemantics.IsComfortLayer(categoryId))
+                return SemanticLayerRoles.Comfort;
 
-                Category.Jacket => SemanticLayerRoles.Structure,
+            if (CategorySemantics.IsStructuredLayer(categoryId))
+                return SemanticLayerRoles.Structure;
 
-                Category.LightOuterwear => SemanticLayerRoles.Protection,
-                Category.Coat => SemanticLayerRoles.Protection,
+            if (CategorySemantics.IsProtectionLayer(categoryId))
+                return SemanticLayerRoles.Protection;
 
-                _ => null
-            };
+            return null;
         }
     }
 }

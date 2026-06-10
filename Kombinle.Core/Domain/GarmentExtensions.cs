@@ -12,7 +12,7 @@ namespace Kombinle.Core.Domain
         {
             // aynı kategori, farklı renk
             return wardrobe
-                .Where(x => x.Category == g.Category && x.ColorFamily != g.ColorFamily)
+                .Where(x => x.CategoryId == g.CategoryId && x.ColorFamily != g.ColorFamily)
                 .ToList();
         }
     }

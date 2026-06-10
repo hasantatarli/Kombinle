@@ -84,6 +84,12 @@ namespace Kombinle.Core.Generation
                 var anchor = anchorCandidate.Garment; // nullable
                 var pool = _supporterSelector.BuildPool(wardrobe, occasion, anchor);
 
+                if (pool.TryGetValue(Slot.Top, out var tops))
+                {
+                    Console.Error.WriteLine(
+                        "TOP POOL: " + string.Join(",", tops.Select(x => x.CategoryId)));
+                }
+
                 // 1) Primary
                 var primary = BuildPrimary(anchor, occasion, pool, anchorLevel, context);
                 if (primary == null) continue;
@@ -131,7 +137,7 @@ namespace Kombinle.Core.Generation
                         variant.Strategy = $"Variant:{slot}";
                         variant.Reasons = new List<string>(primary.Reasons)
                         {
-                            $"{slot} slotu değişti: {used.Category}/{used.ColorFamily} -> {alt.Category}/{alt.ColorFamily}"
+                            $"{slot} slotu değişti: {used.EffectiveCategoryId}/{used.ColorFamily} -> {alt.EffectiveCategoryId}/{alt.ColorFamily}"
                         };
 
                         variant.Signature = BuildSignature(variant);
@@ -182,7 +188,7 @@ namespace Kombinle.Core.Generation
 
             var optionalAnchors = _anchorSelector.SelectAnchors(wardrobe, occasion, effectiveContext)
                 .Select(a => (Garment: (Garment?)a.Garment, Reason: a.Reason))
-                .Where(a => a.Garment != null && !CategorySemantics.IsOnePiece(a.Garment.Category))
+                .Where(a => a.Garment != null && !CategorySemantics.IsOnePiece(a.Garment.EffectiveCategoryId))
                 .ToList();
 
             anchorCandidates.AddRange(optionalAnchors);
@@ -200,7 +206,7 @@ namespace Kombinle.Core.Generation
                 foreach (var slot in pool.Keys.ToList())
                 {
                     pool[slot] = pool[slot]
-                                        .Where(g => !CategorySemantics.IsOnePiece(g.Category))
+                                        .Where(g => !CategorySemantics.IsOnePiece(g.EffectiveCategoryId))
                                         .ToList();
                 }
 
@@ -251,7 +257,7 @@ namespace Kombinle.Core.Generation
                         variant.Strategy = $"Variant:{slot}";
                         variant.Reasons = new List<string>(primary.Reasons)
                         {
-                            $"{slot} slotu değişti: {used.Category}/{used.ColorFamily} -> {alt.Category}/{alt.ColorFamily}"
+                            $"{slot} slotu değişti: {used.EffectiveCategoryId}/{used.ColorFamily} -> {alt.EffectiveCategoryId}/{alt.ColorFamily}"
                         };
 
                         variant.Signature = BuildSignature(variant);
@@ -285,11 +291,11 @@ namespace Kombinle.Core.Generation
             var seen = new HashSet<string>();
 
             var dresses = wardrobe
-                             .Where(g => CategorySemantics.IsOnePiece(g.Category))
+                             .Where(g => CategorySemantics.IsOnePiece(g.EffectiveCategoryId))
                              .ToList();
 
             var shoes = wardrobe
-                .Where(g => CategorySemantics.CanFillShoesSlot(g.Category))
+                .Where(g => CategorySemantics.CanFillShoesSlot(g.EffectiveCategoryId))
                 .ToList();
 
             foreach (var dress in dresses)
@@ -344,7 +350,7 @@ namespace Kombinle.Core.Generation
             if (context?.Season == Season.Summer && context.Weather != Weather.Cold && pool.ContainsKey(Slot.Top))
             {
                 pool[Slot.Top] = pool[Slot.Top]
-                    .Where(g => !CategorySemantics.HasTrait(g.Category, SemanticTraits.Warm))
+                    .Where(g => !CategorySemantics.HasTrait(g.EffectiveCategoryId, SemanticTraits.Warm))
                     .ToList();
             }
 
@@ -385,50 +391,40 @@ namespace Kombinle.Core.Generation
 
                     if (context.Season == Season.Summer)
                     {
-                        selected = candidates
-                            .FirstOrDefault(g => !CategorySemantics.HasTrait(g.Category, SemanticTraits.Heavy));
-
-                        if (selected == null)
-                            continue;
+                        candidates = candidates
+                            .Where(g => !CategorySemantics.HasTrait(g.EffectiveCategoryId, SemanticTraits.Heavy))
+                            .ToList();
                     }
-                    else if (
-                        context.Setting == Setting.Outdoor &&
-                        (context.Season == Season.Winter ||
-                         context.Weather == Weather.Cold ||
-                         context.Weather == Weather.Snow))
-                    {
-                        selected = candidates
-                            .FirstOrDefault(g =>
-                                CategorySemantics.IsProtectionLayer(g.Category) &&
-                                CategorySemantics.HasTrait(g.Category, SemanticTraits.Heavy))
-                            ?? candidates[0];
-                    }
-                }
 
-                if (opt.Slot == Slot.Outerwear && context?.Season == Season.Summer)
-                {
-                    selected = pool[opt.Slot]
-                        .FirstOrDefault(g => !CategorySemantics.HasTrait(g.Category, SemanticTraits.Heavy));
+                    var selectedOuterwear = SelectOuterwearForContext(candidates, context);
 
-                    if (selected == null)
+                    if (selectedOuterwear == null)
                         continue;
+
+                    Console.Error.WriteLine(
+    $"OUTERWEAR SELECTED: season={context.Season}, weather={context.Weather}, selected={selectedOuterwear.EffectiveCategoryId}, candidates={string.Join(",", pool[opt.Slot].Select(x => x.EffectiveCategoryId))}");
+
+                    if (selectedOuterwear == null)
+                        continue;
+
+                    selected = selectedOuterwear;
                 }
 
-                if (opt.Slot == Slot.Outerwear &&
-                         context?.Season == Season.Summer &&
-                         anchor != null &&
-                         CategorySemantics.IsStructuredLayer(anchor.Category) &&
-                         CategorySemantics.IsProtectionLayer(selected.Category))
-                {
-                    continue;
-                }
+                //if (opt.Slot == Slot.Outerwear &&
+                //         context?.Season == Season.Summer &&
+                //         anchor != null &&
+                //         CategorySemantics.IsStructuredLayer(anchor.EffectiveCategoryId) &&
+                //         CategorySemantics.IsProtectionLayer(selected.EffectiveCategoryId))
+                //{
+                //    continue;
+                //}
 
                 if (opt.Slot == Slot.Outerwear &&
                                     anchor != null &&
                                     context != null)
                 {
-                    var anchorRole = SemanticRoleResolver.GetRole(anchor.Category);
-                    var outerwearRole = SemanticRoleResolver.GetRole(selected.Category);
+                    var anchorRole = SemanticRoleResolver.GetRole(anchor.EffectiveCategoryId);
+                    var outerwearRole = SemanticRoleResolver.GetRole(selected.EffectiveCategoryId);
 
                     if (!SemanticCompatibilityMatrix.IsCompatible(
                             anchorRole,
@@ -492,26 +488,19 @@ namespace Kombinle.Core.Generation
 
         private static string BuildSignature(CombinationCandidate c)
         {
-            // var parts = c.SlotToItem
-            //    .Where(kv => kv.Value != null) // <-- savunma
-            //    .OrderBy(kv => kv.Key)
-            //    .Select(kv =>
-            //$"{kv.Key}:{kv.Value!.Category}-{kv.Value.ColorFamily}-{kv.Value.Formality}");
-
-            // return string.Join("|", parts);
 
             var parts = new List<string>();
 
             if (c.Anchor != null)
             {
-                parts.Add($"Anchor:{c.Anchor.Category}-{c.Anchor.ColorFamily}-{c.Anchor.Formality}");
+                parts.Add($"Anchor:{c.Anchor.EffectiveCategoryId}-{c.Anchor.ColorFamily}-{c.Anchor.Formality}");
             }
 
             parts.AddRange(
                 c.SlotToItem
                     .Where(kv => kv.Value != null)
                     .OrderBy(kv => kv.Key)
-                    .Select(kv => $"{kv.Key}:{kv.Value!.Category}-{kv.Value.ColorFamily}-{kv.Value.Formality}")
+                    .Select(kv => $"{kv.Key}:{kv.Value!.EffectiveCategoryId}-{kv.Value.ColorFamily}-{kv.Value.Formality}")
             );
 
             return string.Join("|", parts);
@@ -519,7 +508,7 @@ namespace Kombinle.Core.Generation
 
         private static bool SameItem(Garment a, Garment b)
         {
-            return a.Category == b.Category &&
+            return string.Equals(a.EffectiveCategoryId, b.EffectiveCategoryId, StringComparison.OrdinalIgnoreCase) &&
                    a.ColorFamily == b.ColorFamily &&
                    a.Formality == b.Formality;
         }
@@ -534,9 +523,61 @@ namespace Kombinle.Core.Generation
 
             var protectionCount = items
                 .Distinct()
-                .Count(x => CategorySemantics.IsProtectionLayer(x.Category));
+                .Count(x => CategorySemantics.IsProtectionLayer(x.EffectiveCategoryId));
 
             return protectionCount > 1;
+        }
+
+        private static Garment? SelectOuterwearForContext(
+                IEnumerable<Garment> candidates,
+                ContextInput context)
+        {
+            var list = candidates.ToList();
+
+            if (list.Count == 0)
+                return null;
+
+            if (context.Season == Season.Summer)
+            {
+                return candidates.FirstOrDefault(g =>
+                    !CategorySemantics.HasTrait(g.EffectiveCategoryId, SemanticTraits.Heavy));
+            }
+
+            if (context.Setting == Setting.Outdoor &&
+                (context.Season == Season.Winter ||
+                 context.Weather == Weather.Cold ||
+                 context.Weather == Weather.Snow))
+            {
+                return list.FirstOrDefault(g =>
+                      CategorySemantics.IsProtectionLayer(g.EffectiveCategoryId) &&
+                      CategorySemantics.HasTrait(g.EffectiveCategoryId, SemanticTraits.Heavy))
+                  ?? list[0];
+            }
+
+            //foreach (var g in candidates)
+            //{
+            //    Console.WriteLine(
+            //        $"OUTERWEAR CANDIDATE: {g.EffectiveCategoryId}, Heavy={CategorySemantics.HasTrait(g.EffectiveCategoryId, SemanticTraits.Heavy)}, Light={CategorySemantics.HasTrait(g.EffectiveCategoryId, SemanticTraits.Light)}");
+            //}
+
+            return list[0];
+        }
+
+        private static bool IsOuterwearAllowedForContext(
+            Garment garment,
+            ContextInput context)
+        {
+            if (!CategorySemantics.IsProtectionLayer(garment.CategoryId))
+                return true;
+
+            if (context.Season == Season.Summer)
+            {
+                return !CategorySemantics.HasTrait(
+                    garment.CategoryId,
+                    SemanticTraits.Heavy);
+            }
+
+            return true;
         }
     }
 

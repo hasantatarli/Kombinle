@@ -36,7 +36,7 @@ namespace Kombinle.Core.Infrastructure
 
             return profile.Items.Select(x => new Garment
             {
-                Category = Enum.Parse<Category>(x.Category, true),
+                CategoryId = x.Category.Trim(),
                 ColorFamily = Enum.Parse<ColorFamily>(x.ColorFamily, true),
                 Formality = Enum.Parse<Formality>(x.Formality, true)
             }).ToList();

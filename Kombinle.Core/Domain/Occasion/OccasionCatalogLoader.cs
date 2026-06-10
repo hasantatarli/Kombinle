@@ -119,7 +119,8 @@ namespace Kombinle.Core.Domain.Occasions
                 var level = ParseEnumOrThrow<RequirementLevel>(r.Level, $"Occasion '{id}' slotSet.requirements.level");
 
                 var allowed = (r.AllowedCategories ?? new List<string>())
-                    .Select(x => ParseEnumOrThrow<Category>(x, $"Occasion '{id}' slotSet.requirements.allowedCategories"))
+                    .Where(x => !string.IsNullOrWhiteSpace(x))
+                    .Select(x => x.Trim())
                     .ToList();
 
                 var allowedTraits = r.AllowedTraits ?? new List<string>();

@@ -653,7 +653,7 @@ public class DecisionResponseSmokeTests : IClassFixture<WebApplicationFactory<Pr
     {
         var garment = new Garment
         {
-            Category = Category.Hoodie,
+            CategoryId = "Hoodie",
             ColorFamily = ColorFamily.Black,
             Formality = Formality.Casual
         };
@@ -675,10 +675,11 @@ public class DecisionResponseSmokeTests : IClassFixture<WebApplicationFactory<Pr
     {
         var garment = new Garment
         {
-            Category = Category.Coat,
+            CategoryId = "Coat",
             ColorFamily = ColorFamily.Black,
             Formality = Formality.Formal
         };
+
 
         var req = new SlotRequirement
         {

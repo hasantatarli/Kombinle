@@ -11,17 +11,17 @@ namespace Kombinle.Core.Domain
     // Active API flow should use category_catalog.json as the source of truth.
     public sealed class DefaultCategorySemanticsProvider : ICategorySemanticsProvider
     {
-        public bool HasTrait(Category category, string trait)
+        public bool HasTrait(string category, string trait)
         {
             return CategorySemantics.HasTrait(category, trait);
         }
 
-        public string? GetGroup(Category category)
+        public string? GetGroup(string category)
         {
             return CategorySemantics.GetGroup(category);
         }
 
-        public bool HasSlot(Category category, Slot slot)
+        public bool HasSlot(string category, Slot slot)
         {
             return CategorySemantics.HasSlot(category, slot);
         }

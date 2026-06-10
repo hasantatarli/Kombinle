@@ -33,8 +33,8 @@ namespace Kombinle.Core.Generation
                 {
                     if (context.Setting == Setting.Indoor &&
                         context.Weather == Weather.Clear &&
-                        CategorySemantics.IsProtectionLayer(g.Category) &&
-                        !CategorySemantics.IsStructuredLayer(g.Category))
+                        CategorySemantics.IsProtectionLayer(g.EffectiveCategoryId) &&
+                        !CategorySemantics.IsStructuredLayer(g.EffectiveCategoryId))
                     {
                         return false;
                     }
@@ -46,7 +46,7 @@ namespace Kombinle.Core.Generation
                 {
                     Garment = g,
                     Priority = -Math.Abs((int)g.Formality - (int)occasion.RequiredFormality),
-                    Reason = $"Anchor adayı: {g.Category} ({g.ColorFamily}, {g.Formality})"
+                    Reason = $"Anchor adayı: {g.EffectiveCategoryId} ({g.ColorFamily}, {g.Formality})"
                 })
                 .OrderByDescending(c => c.Priority)
                 .ToList();

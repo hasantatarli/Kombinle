@@ -25,14 +25,14 @@ namespace Kombinle.Core.Domain
     {
         public string Code { get; }
         public WardrobeGapTypeV2 Type { get; }
-        public Category Category { get; }
+        public string CategoryId { get; }
         public WardrobeSuggestionType SuggestionType { get; }
         public int Priority { get; }
 
         public WardrobeGap(
             string code,
             WardrobeGapTypeV2 type,
-            Category category,
+            string categoryId,
             WardrobeSuggestionType suggestionType,
             int priority)
         {
@@ -41,7 +41,7 @@ namespace Kombinle.Core.Domain
 
             Code = code.Trim();
             Type = type;
-            Category = category;
+            CategoryId = categoryId;
             SuggestionType = suggestionType;
             Priority = priority;
         }

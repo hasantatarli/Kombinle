@@ -8,10 +8,10 @@ namespace Kombinle.Core.Domain
 {
     public interface ICategorySemanticsProvider
     {
-        bool HasTrait(Category category, string trait);
+        bool HasTrait(string category, string trait);
 
-        string? GetGroup(Category category);
+        string? GetGroup(string category);
 
-        bool HasSlot(Category category, Slot slot);
+        bool HasSlot(string category, Slot slot);
     }
 }

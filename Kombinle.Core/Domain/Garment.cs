@@ -8,12 +8,14 @@ namespace Kombinle.Core.Domain
 {
     public class Garment
     {
-        public Category Category { get; set; }
+        public string CategoryId { get; set; } = "";
+        //public Category Category { get; set; }
         public ColorFamily ColorFamily { get; set; }
         public Formality Formality { get; set; }
 
         public ShoeTraits? Shoe { get; set; }               // sadece Shoes kategorisinde dolu olur
         public OuterwearTraits? Outerwear { get; set; }     // sadece Outerwear kategorisinde dolu olur
-    }
 
+        public string EffectiveCategoryId => CategoryId;
+    }
 }

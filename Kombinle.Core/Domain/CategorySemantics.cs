@@ -19,30 +19,30 @@ public static class CategorySemantics
     // Active API flow should use JsonCategorySemanticsProvider.
     // This map exists only for tests or non-API/Core-only execution paths.
     // Long-term source of truth: category_catalog.json.
-    private static readonly Dictionary<Category, CategorySemanticInfo> Map = new()
+    private static readonly Dictionary<string, CategorySemanticInfo> Map = new(StringComparer.OrdinalIgnoreCase)
     {
-        [Category.Blouse] = new("Top", [SemanticTraits.Top], [Slot.Top], [StyleTraits.BusinessAppropriate, StyleTraits.SmartCasualAppropriate]),
-        [Category.Shirt] = new( "Top", [SemanticTraits.Top], [Slot.Top], [StyleTraits.BusinessAppropriate, StyleTraits.SmartCasualAppropriate]),
-        [Category.Tshirt] = new( "Top", [SemanticTraits.Top, SemanticTraits.Casual, SemanticTraits.Light], [Slot.Top], [StyleTraits.CasualAppropriate]),
-        [Category.Sweater] = new("Top", [SemanticTraits.Top, SemanticTraits.Warm], [Slot.Top], [StyleTraits.SmartCasualAppropriate]),
-        [Category.Hoodie] = new("Top", [SemanticTraits.Top, SemanticTraits.Layer, SemanticTraits.Comfort, SemanticTraits.Light, SemanticTraits.Casual], [Slot.Top, Slot.Anchor], [StyleTraits.CasualAppropriate]),
+        //[Category.Blouse] = new("Top", [SemanticTraits.Top], [Slot.Top], [StyleTraits.BusinessAppropriate, StyleTraits.SmartCasualAppropriate]),
+        //[Category.Shirt] = new("Top", [SemanticTraits.Top], [Slot.Top], [StyleTraits.BusinessAppropriate, StyleTraits.SmartCasualAppropriate]),
+        //[Category.Tshirt] = new("Top", [SemanticTraits.Top, SemanticTraits.Casual, SemanticTraits.Light], [Slot.Top], [StyleTraits.CasualAppropriate]),
+        //[Category.Sweater] = new("Top", [SemanticTraits.Top, SemanticTraits.Warm], [Slot.Top], [StyleTraits.SmartCasualAppropriate]),
+        //[Category.Hoodie] = new("Top", [SemanticTraits.Top, SemanticTraits.Layer, SemanticTraits.Comfort, SemanticTraits.Light, SemanticTraits.Casual], [Slot.Top, Slot.Anchor], [StyleTraits.CasualAppropriate]),
 
-        [Category.Cardigan] = new("Layer", [SemanticTraits.Layer, SemanticTraits.Comfort, SemanticTraits.Light], [Slot.Anchor], [StyleTraits.SmartCasualAppropriate, StyleTraits.CasualAppropriate]),
+        //[Category.Cardigan] = new("Layer", [SemanticTraits.Layer, SemanticTraits.Comfort, SemanticTraits.Light], [Slot.Anchor], [StyleTraits.SmartCasualAppropriate, StyleTraits.CasualAppropriate]),
 
-        [Category.Pants] = new("Bottom", [SemanticTraits.Bottom], [Slot.Bottom]),
-        [Category.Skirt] = new("Bottom", [SemanticTraits.Bottom], [Slot.Bottom]),
-        [Category.Jeans] = new("Bottom", [SemanticTraits.Bottom, SemanticTraits.Casual], [Slot.Bottom]),
+        //[Category.Pants] = new("Bottom", [SemanticTraits.Bottom], [Slot.Bottom]),
+        //[Category.Skirt] = new("Bottom", [SemanticTraits.Bottom], [Slot.Bottom]),
+        //[Category.Jeans] = new("Bottom", [SemanticTraits.Bottom, SemanticTraits.Casual], [Slot.Bottom]),
 
-        [Category.Shoes] = new("Shoes", [SemanticTraits.Shoes], [Slot.Shoes]),
-        [Category.Sneakers] = new("Shoes", [SemanticTraits.Shoes, SemanticTraits.Casual], [Slot.Shoes]),
+        //[Category.Shoes] = new("Shoes", [SemanticTraits.Shoes], [Slot.Shoes]),
+        //[Category.Sneakers] = new("Shoes", [SemanticTraits.Shoes, SemanticTraits.Casual], [Slot.Shoes]),
 
-        [Category.Dress] = new("Dress", [SemanticTraits.OnePiece], [Slot.Anchor] , [StyleTraits.SmartCasualAppropriate]),
+        //[Category.Dress] = new("Dress", [SemanticTraits.OnePiece], [Slot.Anchor], [StyleTraits.SmartCasualAppropriate]),
 
-        [Category.Jacket] = new("Layer", [SemanticTraits.Layer, SemanticTraits.Structure], [Slot.Anchor], [StyleTraits.BusinessAppropriate, StyleTraits.SmartCasualAppropriate]),
-        [Category.LightOuterwear] = new("Layer", [SemanticTraits.Layer, SemanticTraits.Protection, SemanticTraits.Light], [Slot.Outerwear]),
-        [Category.Coat] = new("Layer", [SemanticTraits.Layer, SemanticTraits.Protection, SemanticTraits.Heavy], [Slot.Outerwear]),
+        //[Category.Jacket] = new("Layer", [SemanticTraits.Layer, SemanticTraits.Structure], [Slot.Anchor], [StyleTraits.BusinessAppropriate, StyleTraits.SmartCasualAppropriate]),
+        //[Category.LightOuterwear] = new("Layer", [SemanticTraits.Layer, SemanticTraits.Protection, SemanticTraits.Light], [Slot.Outerwear]),
+        //[Category.Coat] = new("Layer", [SemanticTraits.Layer, SemanticTraits.Protection, SemanticTraits.Heavy], [Slot.Outerwear]),
 
-        [Category.Bag] = new("Accessory", ["Accessory"], [Slot.Accessory])
+        //[Category.Bag] = new("Accessory", ["Accessory"], [Slot.Accessory])
     };
 
     private sealed record CategorySemanticInfo(
@@ -52,25 +52,23 @@ public static class CategorySemantics
         string[]? StyleTraits = null
     );
 
-    public static bool HasTrait(Category category, string trait)
+    public static bool HasTrait(string category, string trait)
     {
-        return Map.TryGetValue(category, out var info)
-               && info.Traits.Contains(trait, StringComparer.OrdinalIgnoreCase);
+        return Provider.HasTrait(category, trait);
     }
 
-    public static string? GetGroup(Category category)
-    {
-        return Map.TryGetValue(category, out var info)
-            ? info.Group
-            : null;
-    }
-
-    public static string? GetCategoryGroup(Category category)
+    public static string? GetGroup(string category)
     {
         return Provider.GetGroup(category);
     }
 
-    public static LayerRole GetLayerRole(Category category)
+
+    public static string? GetCategoryGroup(string category)
+    {
+        return Provider.GetGroup(category);
+    }
+
+    public static LayerRole GetLayerRole(string category)
     {
         if (IsComfortLayer(category))
             return LayerRole.Comfort;
@@ -83,68 +81,68 @@ public static class CategorySemantics
 
         return LayerRole.None;
     }
-    public static bool IsComfortLayer(Category category)
+    public static bool IsComfortLayer(string category)
     {
         return Provider.HasTrait(category, SemanticTraits.Comfort);
     }
 
-    public static bool IsStructuredLayer(Category category)
+    public static bool IsStructuredLayer(string category)
     {
         return Provider.HasTrait(category, SemanticTraits.Structure);
     }
 
-    public static bool IsProtectionLayer(Category category)
+    public static bool IsProtectionLayer(string category)
     {
 
 
         return Provider.HasTrait(category, SemanticTraits.Protection);
     }
 
-    public static bool IsLightLayer(Category category)
+    public static bool IsLightLayer(string category)
     {
         return Provider.HasTrait(category, SemanticTraits.Light);
     }
 
-    public static bool IsHeavyLayer(Category category)
+    public static bool IsHeavyLayer(string category)
     {
         return Provider.HasTrait(category, SemanticTraits.Heavy);
     }
 
 
 
-    public static bool IsLayer(Category category)
+    public static bool IsLayer(string category)
     {
         return GetLayerRole(category) != LayerRole.None;
     }
 
-    public static bool CanFillTopSlot(Category category)
+    public static bool CanFillTopSlot(string category)
     {
         return Provider.HasSlot(category, Slot.Top);
     }
 
-    public static bool CanFillBottomSlot(Category category)
+    public static bool CanFillBottomSlot(string category)
     {
         return Provider.HasSlot(category, Slot.Bottom);
     }
 
-    public static bool CanFillShoesSlot(Category category)
+    public static bool CanFillShoesSlot(string category)
     {
         return Provider.HasSlot(category, Slot.Shoes);
     }
 
-    public static bool IsCorePair(Category a, Category b, bool isDressMode)
+    public static bool IsCorePair(string a, string b, bool isDressMode)
     {
         if (isDressMode)
         {
-            return (a == Category.Dress && CanFillShoesSlot(b)) ||
-                   (b == Category.Dress && CanFillShoesSlot(a));
+            return (IsOnePiece(a) && CanFillShoesSlot(b)) ||
+                   (IsOnePiece(b) && CanFillShoesSlot(a));
         }
 
         return (CanFillTopSlot(a) && CanFillBottomSlot(b)) ||
                (CanFillTopSlot(b) && CanFillBottomSlot(a));
     }
 
-    public static bool IsSupportPair(Category a, Category b, bool isDressMode)
+    public static bool IsSupportPair(string a, string b, bool isDressMode)
     {
         if (isDressMode)
             return false;
@@ -153,32 +151,29 @@ public static class CategorySemantics
                (CanFillBottomSlot(b) && CanFillShoesSlot(a));
     }
 
-    public static bool IsOnePiece(Category category)
+    public static bool IsOnePiece(string category)
     {
         return Provider.HasTrait(category, SemanticTraits.OnePiece);
     }
 
-    public static bool IsOuterwear(Category category)
+    public static bool IsOuterwear(string category)
     {
         return Provider.HasSlot(category, Slot.Outerwear);
     }
 
-    public static bool IsAnchorEligible(Category category)
+    public static bool IsAnchorEligible(string category)
     {
         return Provider.HasSlot(category, Slot.Anchor);
     }
 
-    public static bool HasSlot(Category category, Slot slot)
+    public static bool HasSlot(string category, Slot slot)
     {
-        return Map.TryGetValue(category, out var info)
-            && info.Slots.Contains(slot);
+        return Provider.HasSlot(category, slot);
     }
 
-    public static bool HasStyleTrait(Category category, string styleTrait)
+    public static bool HasStyleTrait(string category, string styleTrait)
     {
-        return Map.TryGetValue(category, out var info)
-            && info.StyleTraits != null
-            && info.StyleTraits.Contains(styleTrait);
+        return Provider.HasTrait(category, styleTrait);
     }
 
 

@@ -19,14 +19,14 @@ namespace Kombinle.Core.Rules
             foreach (var item in combination.Items)
             {
                 bool exists = wardrobe.Any(w =>
-                    w.Category == item.Category &&
+                    string.Equals(w.EffectiveCategoryId, item.EffectiveCategoryId, StringComparison.OrdinalIgnoreCase) &&
                     w.ColorFamily == item.ColorFamily &&
                     w.Formality == item.Formality);
 
                 if (!exists)
                 {
                     failReasons.Add(
-                        $"Dolapta olmayan parça: {item.Category} ({item.ColorFamily})");
+                        $"Dolapta olmayan parça: {item.EffectiveCategoryId} ({item.ColorFamily})");
                 }
             }
 

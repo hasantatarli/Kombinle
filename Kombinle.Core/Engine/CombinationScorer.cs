@@ -32,7 +32,7 @@ namespace Kombinle.Core.Engine
             var items = candidate.Combination.Items;
             var anchor = candidate.Anchor;
 
-            bool isDressMode = candidate.Anchor != null && CategorySemantics.IsOnePiece(candidate.Anchor.Category);
+            bool isDressMode = candidate.Anchor != null && CategorySemantics.IsOnePiece(candidate.Anchor.EffectiveCategoryId);
             bool isTopBottomMode = !isDressMode;
 
             var targetFormality = occasion.RequiredFormality;
@@ -81,20 +81,20 @@ namespace Kombinle.Core.Engine
             {
                 foreach (var item in candidate.Combination.Items)
                 {
-                    if (CategorySemantics.HasStyleTrait(item.Category, preferredStyleTrait))
+                    if (CategorySemantics.HasStyleTrait(item.EffectiveCategoryId, preferredStyleTrait))
                     {
                         result.Add(
                             1,
-                            $"Style suitability: {item.Category} matches {preferredStyleTrait}");
+                            $"Style suitability: {item.EffectiveCategoryId} matches {preferredStyleTrait}");
                     }
                 }
 
                 if (candidate.Anchor != null &&
-                    CategorySemantics.HasStyleTrait(candidate.Anchor.Category, preferredStyleTrait))
+                    CategorySemantics.HasStyleTrait(candidate.Anchor.EffectiveCategoryId, preferredStyleTrait))
                 {
                     result.Add(
                         1,
-                        $"Style suitability: {candidate.Anchor.Category} matches {preferredStyleTrait}");
+                        $"Style suitability: {candidate.Anchor.EffectiveCategoryId} matches {preferredStyleTrait}");
                 }
             }
 
@@ -109,7 +109,7 @@ namespace Kombinle.Core.Engine
 
             if (candidate.Anchor != null)
             {
-                var role = CategorySemantics.GetLayerRole(candidate.Anchor.Category);
+                var role = CategorySemantics.GetLayerRole(candidate.Anchor.EffectiveCategoryId);
 
                 if (occasion.RequiredFormality >= Formality.Smart &&
                     role == LayerRole.Structure)
@@ -186,9 +186,9 @@ namespace Kombinle.Core.Engine
                     };
 
                     if (scoreDelta > 0)
-                        result.Add(scoreDelta, $"Renk uyumu: {a.Category} - {b.Category}");
+                        result.Add(scoreDelta, $"Renk uyumu: {a.EffectiveCategoryId} - {b.EffectiveCategoryId}");
                     else if (scoreDelta < 0)
-                        result.Add(scoreDelta, $"Zayıf renk uyumu: {a.Category} - {b.Category}");
+                        result.Add(scoreDelta, $"Zayıf renk uyumu: {a.EffectiveCategoryId} - {b.EffectiveCategoryId}");
                 }
             }
 
@@ -294,7 +294,7 @@ namespace Kombinle.Core.Engine
             {
                 bool hasCasualSignal =
                         candidate.SlotToItem.Values.Any(x =>
-                            CategorySemantics.Provider.HasTrait(x.Category, SemanticTraits.Casual) ||
+                            CategorySemantics.Provider.HasTrait(x.EffectiveCategoryId, SemanticTraits.Casual) ||
                             x.Formality == Formality.Casual
                         );
 
@@ -309,12 +309,12 @@ namespace Kombinle.Core.Engine
 
         private static bool IsCorePair(Garment a, Garment b, bool isDressMode)
         {
-            return CategorySemantics.IsCorePair(a.Category, b.Category, isDressMode);
+            return CategorySemantics.IsCorePair(a.EffectiveCategoryId, b.EffectiveCategoryId, isDressMode);
         }
 
         private static bool IsSupportPair(Garment a, Garment b, bool isDressMode)
         {
-            return CategorySemantics.IsSupportPair(a.Category, b.Category, isDressMode);
+            return CategorySemantics.IsSupportPair(a.EffectiveCategoryId, b.EffectiveCategoryId, isDressMode);
         }
 
 
@@ -326,9 +326,12 @@ namespace Kombinle.Core.Engine
 
             if (a == null || b == null) return false;
 
-            return a.Category == b.Category &&
-                   a.ColorFamily == b.ColorFamily &&
-                   a.Formality == b.Formality;
+            return string.Equals(
+                       a.EffectiveCategoryId,
+                       b.EffectiveCategoryId,
+                       StringComparison.OrdinalIgnoreCase)
+                   && a.ColorFamily == b.ColorFamily
+                   && a.Formality == b.Formality;
         }
 
 

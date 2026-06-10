@@ -1,126 +1,132 @@
 ﻿{
     "id":  "male_extended_v1",
     "displayName":  "Erkek Extended",
-    "items":  [
-                  {
-                      "id":  "item_1",
-                      "category":  "Tshirt",
-                      "colorFamily":  "White",
-                      "formality":  "Casual"
-                  },
-                  {
-                      "id":  "item_2",
-                      "category":  "Tshirt",
-                      "colorFamily":  "Black",
-                      "formality":  "Casual"
-                  },
-                  {
-                      "id":  "item_3",
-                      "category":  "Shirt",
-                      "colorFamily":  "Blue",
-                      "formality":  "Smart"
-                  },
-                  {
-                      "id":  "item_4",
-                      "category":  "Shirt",
-                      "colorFamily":  "White",
-                      "formality":  "Formal"
-                  },
-                  {
-                      "id":  "item_5",
-                      "category":  "Hoodie",
-                      "colorFamily":  "Black",
-                      "formality":  "Casual"
-                  },
-                  {
-                      "id":  "item_6",
-                      "category":  "Pants",
-                      "colorFamily":  "Beige",
-                      "formality":  "Smart"
-                  },
-                  {
-                      "id":  "item_7",
-                      "category":  "Pants",
-                      "colorFamily":  "Navy",
-                      "formality":  "Smart"
-                  },
-                  {
-                      "id":  "item_8",
-                      "category":  "Jeans",
-                      "colorFamily":  "Blue",
-                      "formality":  "Casual"
-                  },
-                  {
-                      "id":  "item_9",
-                      "category":  "Pants",
-                      "colorFamily":  "Grey",
-                      "formality":  "Formal"
-                  },
-                  {
-                      "id":  "item_10",
-                      "category":  "Shoes",
-                      "colorFamily":  "Brown",
-                      "formality":  "Smart"
-                  },
-                  {
-                      "id":  "item_11",
-                      "category":  "Sneakers",
-                      "colorFamily":  "White",
-                      "formality":  "Casual"
-                  },
-                  {
-                      "id":  "item_12",
-                      "category":  "Shoes",
-                      "colorFamily":  "Black",
-                      "formality":  "Formal"
-                  },
-                  {
-                      "id":  "item_13",
-                      "category":  "Jacket",
-                      "colorFamily":  "Grey",
-                      "formality":  "Smart"
-                  },
-                  {
-                      "id":  "item_14",
-                      "category":  "LightOuterwear",
-                      "colorFamily":  "Navy",
-                      "formality":  "Smart"
-                  },
-                  {
-                      "id":  "item_15",
-                      "category":  "Hoodie",
-                      "colorFamily":  "Black",
-                      "formality":  "Casual"
-                  },
-                  {
-                      "id":  "item_16",
-                      "category":  "Coat",
-                      "colorFamily":  "Black",
-                      "formality":  "Formal"
-                  },
-                  {
-                      "id":  "item_17",
-                      "category":  "Coat",
-                      "colorFamily":  "Navy",
-                      "formality":  "Casual"
-                  },
-                  {
-                      "id":  "item_18",
-                      "category":  "Shirt",
-                      "colorFamily":  "Cream",
-                      "formality":  "Smart"
-                  },
-                  {
-                      "id":  "item_19",
-                      "category":  "Pants",
-                      "colorFamily":  "Olive",
-                      "formality":  "Smart"
-                  },
-                  {
-                      "id":  "item_20",
-                      "category":  "Coat",
-                      "colorFamily":  "Camel",
-                      "formality":  "Smart"
-                  }
-              ]
+  "items": [
+    {
+      "id": "item_1",
+      "category": "Tshirt",
+      "colorFamily": "White",
+      "formality": "Casual"
+    },
+    {
+      "id": "item_2",
+      "category": "Tshirt",
+      "colorFamily": "Black",
+      "formality": "Casual"
+    },
+    {
+      "id": "item_3",
+      "category": "Shirt",
+      "colorFamily": "Blue",
+      "formality": "Smart"
+    },
+    {
+      "id": "item_4",
+      "category": "Shirt",
+      "colorFamily": "White",
+      "formality": "Formal"
+    },
+    {
+      "id": "item_5",
+      "category": "Hoodie",
+      "colorFamily": "Black",
+      "formality": "Casual"
+    },
+    {
+      "id": "item_6",
+      "category": "Pants",
+      "colorFamily": "Beige",
+      "formality": "Smart"
+    },
+    {
+      "id": "item_7",
+      "category": "Pants",
+      "colorFamily": "Navy",
+      "formality": "Smart"
+    },
+    {
+      "id": "item_8",
+      "category": "Jeans",
+      "colorFamily": "Blue",
+      "formality": "Casual"
+    },
+    {
+      "id": "item_9",
+      "category": "Pants",
+      "colorFamily": "Grey",
+      "formality": "Formal"
+    },
+    {
+      "id": "item_10",
+      "category": "Shoes",
+      "colorFamily": "Brown",
+      "formality": "Smart"
+    },
+    {
+      "id": "item_11",
+      "category": "Sneakers",
+      "colorFamily": "White",
+      "formality": "Casual"
+    },
+    {
+      "id": "item_12",
+      "category": "Shoes",
+      "colorFamily": "Black",
+      "formality": "Formal"
+    },
+    {
+      "id": "item_13",
+      "category": "Jacket",
+      "colorFamily": "Grey",
+      "formality": "Smart"
+    },
+    {
+      "id": "item_14",
+      "category": "LightOuterwear",
+      "colorFamily": "Navy",
+      "formality": "Smart"
+    },
+    {
+      "id": "item_15",
+      "category": "Hoodie",
+      "colorFamily": "Black",
+      "formality": "Casual"
+    },
+    {
+      "id": "item_16",
+      "category": "Coat",
+      "colorFamily": "Black",
+      "formality": "Formal"
+    },
+    {
+      "id": "item_17",
+      "category": "Coat",
+      "colorFamily": "Navy",
+      "formality": "Casual"
+    },
+    {
+      "id": "item_18",
+      "category": "Shirt",
+      "colorFamily": "Cream",
+      "formality": "Smart"
+    },
+    {
+      "id": "item_19",
+      "category": "Pants",
+      "colorFamily": "Olive",
+      "formality": "Smart"
+    },
+    {
+      "id": "item_20",
+      "category": "Coat",
+      "colorFamily": "Camel",
+      "formality": "Smart"
+    },
+    {
+      "id": "item_21",
+      "category": "Polo",
+      "colorFamily": "Navy",
+      "formality": "Smart"
+    }
+  ]
 }

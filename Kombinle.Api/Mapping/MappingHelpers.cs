@@ -23,12 +23,13 @@ public static class MappingHelpers
     {
         var g = new Garment
         {
-            Category = ParseEnum<Category>(dto.Category, nameof(dto.Category)),
+            CategoryId = dto.Category.Trim(),
+            //Category = ParseEnum<Category>(dto.Category, nameof(dto.Category)),
             ColorFamily = ParseEnum<ColorFamily>(dto.ColorFamily, nameof(dto.ColorFamily)),
             Formality = ParseEnum<Formality>(dto.Formality, nameof(dto.Formality))
         };
 
-        if (g.Category == Category.Shoes)
+        if (string.Equals(g.EffectiveCategoryId, "Shoes", StringComparison.OrdinalIgnoreCase) )
         {
             g.Shoe ??= new ShoeTraits();
             if (!string.IsNullOrWhiteSpace(dto.Shoe?.Material))

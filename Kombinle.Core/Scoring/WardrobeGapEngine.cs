@@ -24,23 +24,23 @@ namespace Kombinle.Core.Scoring
                 return result;
 
             bool hasCasualTop = items.Any(x =>
-                CategorySemantics.CanFillTopSlot(x.Category) &&
+                CategorySemantics.CanFillTopSlot(x.EffectiveCategoryId) &&
                 (
-                    CategorySemantics.Provider.HasTrait(x.Category, SemanticTraits.Casual) ||
+                    CategorySemantics.Provider.HasTrait(x.EffectiveCategoryId, SemanticTraits.Casual) ||
                     x.Formality == Formality.Casual
                 ));
 
             bool hasCasualBottom = items.Any(x =>
-                CategorySemantics.CanFillBottomSlot(x.Category) &&
+                CategorySemantics.CanFillBottomSlot(x.EffectiveCategoryId) &&
                 (
-                    CategorySemantics.Provider.HasTrait(x.Category, SemanticTraits.Casual) ||
+                    CategorySemantics.Provider.HasTrait(x.EffectiveCategoryId, SemanticTraits.Casual) ||
                     x.Formality == Formality.Casual
                 ));
 
             bool hasCasualShoes = items.Any(x =>
-                CategorySemantics.CanFillShoesSlot(x.Category) &&
+                CategorySemantics.CanFillShoesSlot(x.EffectiveCategoryId) &&
                 (
-                    CategorySemantics.Provider.HasTrait(x.Category, SemanticTraits.Casual) ||
+                    CategorySemantics.Provider.HasTrait(x.EffectiveCategoryId, SemanticTraits.Casual) ||
                     x.Formality == Formality.Casual
                 ));
 
@@ -49,7 +49,7 @@ namespace Kombinle.Core.Scoring
                 result.Add(new WardrobeGap(
                     code: "MISSING_CASUAL_TOP",
                     type: WardrobeGapTypeV2.MissingCasualTop,
-                    category: Category.Shirt,
+                    categoryId: "Shirt",
                     suggestionType: WardrobeSuggestionType.CasualUpgrade,
                     priority: 10));
             }
@@ -59,7 +59,7 @@ namespace Kombinle.Core.Scoring
                 result.Add(new WardrobeGap(
                     code: "MISSING_CASUAL_BOTTOM",
                     type: WardrobeGapTypeV2.MissingCasualBottom,
-                    category: Category.Pants,
+                    categoryId: "Pants",
                     suggestionType: WardrobeSuggestionType.CasualUpgrade,
                     priority: 10));
             }
@@ -69,7 +69,7 @@ namespace Kombinle.Core.Scoring
                 result.Add(new WardrobeGap(
                     code: "MISSING_CASUAL_SHOES",
                     type: WardrobeGapTypeV2.MissingCasualShoes,
-                    category: Category.Shoes,
+                    categoryId: "Shoes",
                     suggestionType: WardrobeSuggestionType.CasualUpgrade,
                     priority: 10));
             }

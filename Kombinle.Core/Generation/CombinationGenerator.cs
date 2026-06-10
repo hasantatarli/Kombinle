@@ -341,6 +341,12 @@ namespace Kombinle.Core.Generation
             //if (anchor != null)
             //    slotMap[Slot.Anchor] = anchor;
 
+            if (context?.Season == Season.Summer && context.Weather != Weather.Cold && pool.ContainsKey(Slot.Top))
+            {
+                pool[Slot.Top] = pool[Slot.Top]
+                    .Where(g => !CategorySemantics.HasTrait(g.Category, SemanticTraits.Warm))
+                    .ToList();
+            }
 
             // Hard slots must be filled (including Anchor if Hard)
             foreach (var req in occasion.SlotSet.HardSlots)
@@ -359,7 +365,8 @@ namespace Kombinle.Core.Generation
                 slotMap[req.Slot] = pool[req.Slot][0];
             }
 
-            // Optional slots
+
+
             // Optional slots
             foreach (var opt in occasion.SlotSet.OptionalSlots)
             {

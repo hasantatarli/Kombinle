@@ -43,6 +43,7 @@ namespace Kombinle.Core.Scoring.Context
         {
             var intensity = GetTotalLayerIntensity(candidate);
             var hasProtectionLayer = HasLayerRole(candidate, LayerRole.Protection);
+            var hasStructuredAnchor = candidate.Anchor != null && CategorySemantics.IsStructuredLayer(candidate.Anchor.Category);
 
             //Console.WriteLine($"[LAYER] Season={context.Season} Setting={context.Setting} Intensity={intensity}");
 
@@ -62,9 +63,12 @@ namespace Kombinle.Core.Scoring.Context
                 }
                 else if (intensity == 2)
                 {
-                    res.DeltaScore -= 3;
-                    //Console.WriteLine("[LAYER] Summer indoor structured layer penalty applied");
-                    res.UserNotes.Add(new ContextUserNote("UNNECESSARY_LAYER_INDOOR", "İç mekân ve yaz koşullarında daha hafif kombin daha rahat olur."));
+                    if (!hasStructuredAnchor)
+                    {
+                        res.DeltaScore -= 3;
+                        //Console.WriteLine("[LAYER] Summer indoor structured layer penalty applied");
+                        res.UserNotes.Add(new ContextUserNote("UNNECESSARY_LAYER_INDOOR", "İç mekân ve yaz koşullarında daha hafif kombin daha rahat olur."));
+                    }
                 }
                 else if (intensity == 1)
                 {
@@ -72,6 +76,14 @@ namespace Kombinle.Core.Scoring.Context
                     //Console.WriteLine("[LAYER] Summer indoor light layer penalty applied");
                     res.UserNotes.Add(new ContextUserNote("UNNECESSARY_LAYER_INDOOR", "İç mekân ve yaz koşullarında daha hafif kombin daha rahat olur."));
                 }
+            }
+
+            if (context.Season == Season.Summer && context.Setting == Setting.Outdoor && context.Weather != Weather.Cold && HasWarmTop(candidate))
+            {
+                res.DeltaScore -= 4;
+                res.UserNotes.Add(new ContextUserNote(
+                    "SUMMER_OUTDOOR_WARM_TOP",
+                    "Yaz ve açık hava koşullarında daha hafif bir üst parça daha rahat olur."));
             }
 
             if (context.Setting == Setting.Indoor &&
@@ -416,6 +428,12 @@ namespace Kombinle.Core.Scoring.Context
                 );
 
             return !hasSupport;
+        }
+
+        private static bool HasWarmTop(CombinationCandidate candidate)
+        {
+            return candidate.SlotToItem.TryGetValue(Slot.Top, out var top) &&
+                   CategorySemantics.HasTrait(top.Category, SemanticTraits.Warm);
         }
     }
 }

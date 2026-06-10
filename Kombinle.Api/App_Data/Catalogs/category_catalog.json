@@ -4,6 +4,8 @@
     "displayNameTr": "Bluz",
     "displayNameEn": "Blouse",
     "group": "Top",
+    "family": "Top",
+    "subType": "Blouse",
     "slots": [ "Top" ],
     "traits": [ "Top" ]
   },
@@ -12,22 +14,39 @@
     "displayNameTr": "Gömlek",
     "displayNameEn": "Shirt",
     "group": "Top",
+    "family": "Top",
+    "subType": "Shirt",
     "slots": [ "Top" ],
     "traits": [ "Top" ]
+  },
+  {
+    "id": "Polo",
+    "displayNameTr": "Polo Yaka Tişört",
+    "displayNameEn": "Polo Shirt",
+    "group": "Top",
+    "family": "Top",
+    "subType": "Polo",
+    "slots": [ "Top" ],
+    "traits": [ "Top" ],
+    "styleTraits": [ "SmartCasualAppropriate", "CasualAppropriate" ]
   },
   {
     "id": "Tshirt",
     "displayNameTr": "Tişört",
     "displayNameEn": "T-shirt",
     "group": "Top",
+    "family": "Top",
+    "subType": "Tshirt",
     "slots": [ "Top" ],
     "traits": [ "Top", "Casual", "Light" ]
   },
   {
     "id": "Pants",
-    "displayNameTr": "Pantolon",
-    "displayNameEn": "Pants",
+    "displayNameTr": "Kumaş Pantolon",
+    "displayNameEn": "Dress Pants",
     "group": "Bottom",
+    "family": "Pants",
+    "subType": "DressPants",
     "slots": [ "Bottom" ],
     "traits": [ "Bottom" ]
   },
@@ -36,6 +55,8 @@
     "displayNameTr": "Jean",
     "displayNameEn": "Jeans",
     "group": "Bottom",
+    "family": "Pants",
+    "subType": "Jeans",
     "slots": [ "Bottom" ],
     "traits": [ "Bottom", "Casual" ]
   },
@@ -44,6 +65,8 @@
     "displayNameTr": "Elbise",
     "displayNameEn": "Dress",
     "group": "Dress",
+    "family": "OnePiece",
+    "subType": "Dress",
     "slots": [ "Anchor" ],
     "traits": [ "OnePiece" ]
   },
@@ -52,6 +75,8 @@
     "displayNameTr": "Ayakkabı",
     "displayNameEn": "Shoes",
     "group": "Shoes",
+    "family": "Shoes",
+    "subType": "FormalShoes",
     "slots": [ "Shoes" ],
     "traits": [ "Shoes" ]
   },
@@ -60,6 +85,8 @@
     "displayNameTr": "Spor Ayakkabı",
     "displayNameEn": "Sneakers",
     "group": "Shoes",
+    "family": "Shoes",
+    "subType": "Sneakers",
     "slots": [ "Shoes" ],
     "traits": [ "Shoes", "Casual" ]
   },
@@ -68,6 +95,8 @@
     "displayNameTr": "Ceket",
     "displayNameEn": "Jacket",
     "group": "Layer",
+    "family": "Jacket",
+    "subType": "Jacket",
     "slots": [ "Anchor" ],
     "traits": [ "Layer", "Structure" ]
   },
@@ -76,7 +105,9 @@
     "displayNameTr": "Mevsimlik Mont",
     "displayNameEn": "Light Outerwear",
     "group": "Layer",
-    "slots": [ "Outerwear"],
+    "family": "Outerwear",
+    "subType": "LightOuterwear",
+    "slots": [ "Outerwear" ],
     "traits": [ "Layer", "Light", "Protection" ]
   },
   {
@@ -84,6 +115,8 @@
     "displayNameTr": "Kaban",
     "displayNameEn": "Coat",
     "group": "Layer",
+    "family": "Outerwear",
+    "subType": "Coat",
     "slots": [ "Outerwear" ],
     "traits": [ "Layer", "Protection", "Heavy" ]
   },
@@ -92,6 +125,8 @@
     "displayNameTr": "Hırka",
     "displayNameEn": "Cardigan",
     "group": "Layer",
+    "family": "Layer",
+    "subType": "Cardigan",
     "slots": [ "Anchor" ],
     "traits": [ "Layer", "Comfort", "Light" ]
   },
@@ -100,6 +135,8 @@
     "displayNameTr": "Çanta",
     "displayNameEn": "Bag",
     "group": "Accessory",
+    "family": "Accessory",
+    "subType": "Bag",
     "slots": [ "Accessory" ],
     "traits": [ "Accessory" ]
   },
@@ -108,6 +145,8 @@
     "displayNameTr": "Kapüşonlu Üst",
     "displayNameEn": "Hoodie",
     "group": "Top",
+    "family": "Layer",
+    "subType": "Hoodie",
     "slots": [ "Top", "Anchor" ],
     "traits": [ "Top", "Layer", "Comfort", "Casual", "Light" ]
   },
@@ -116,6 +155,8 @@
     "displayNameTr": "Kazak",
     "displayNameEn": "Sweater",
     "group": "Top",
+    "family": "Knitwear",
+    "subType": "Sweater",
     "slots": [ "Top" ],
     "traits": [ "Top", "Warm" ]
   },
@@ -124,6 +165,8 @@
     "displayNameTr": "Etek",
     "displayNameEn": "Skirt",
     "group": "Bottom",
+    "family": "Skirt",
+    "subType": "Skirt",
     "slots": [ "Bottom" ],
     "traits": [ "Bottom" ]
   }

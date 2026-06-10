@@ -936,6 +936,69 @@ public class DecisionResponseSmokeTests : IClassFixture<WebApplicationFactory<Pr
         categories.Should().Contain("Jacket");
         categories.Should().Contain("Blouse");
     }
+
+    [Fact]
+    public async Task SmartCasualDinner_SummerIndoor_ShouldAllowStructuredAnchorWithoutOuterwearPenalty()
+    {
+        var json = """
+        {
+          "occasionId": "smart_casual_dinner",
+          "wardrobeProfileId": "female_balanced_v1",
+          "context": {
+            "weather": "Clear",
+            "season": "Summer",
+            "setting": "Indoor",
+            "timeOfDay": "Day"
+          }
+        }
+        """;
+
+        var response = await PostJson(json);
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+        var payload =
+            await response.Content.ReadFromJsonAsync<DecisionResponseDto>();
+
+        payload.Should().NotBeNull();
+        payload!.Debug.Should().NotBeNull();
+
+        payload.Debug!.BestPoolCandidates.Should().Contain(x =>
+            x.Signature.Contains("Anchor:Jacket") &&
+            x.ContextDelta == 0,
+            "structured anchors should not be treated as unnecessary summer indoor outerwear");
+    }
+
+    [Fact]
+    public async Task SmartCasualDinner_SummerClear_ShouldNotSuggestWarmTop()
+    {
+        var json = """
+        {
+          "occasionId": "smart_casual_dinner",
+          "wardrobeProfileId": "female_balanced_v1",
+          "context": {
+            "weather": "Clear",
+            "season": "Summer",
+            "setting": "Indoor",
+            "timeOfDay": "Day"
+          }
+        }
+        """;
+
+        var response = await PostJson(json);
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+        var payload =
+            await response.Content.ReadFromJsonAsync<DecisionResponseDto>();
+
+        payload.Should().NotBeNull();
+
+        var outfitText = payload!.Decision.Outfit.Items
+            .Select(x => x.Category)
+            .ToList();
+
+        outfitText.Should().NotContain("Sweater",
+            "warm tops should not be suggested in summer unless the weather is cold");
+    }
 }
 
 public sealed class DecisionResponseDto

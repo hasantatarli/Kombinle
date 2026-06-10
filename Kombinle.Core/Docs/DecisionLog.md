@@ -1458,3 +1458,35 @@ Business Meeting now naturally favors:
 - Blouse
 
 without overpowering existing scoring systems.
+
+--- 
+Decision: Exclude warm tops from summer non-cold candidate pools
+
+Reason:
+Warm garments such as sweaters should not appear as recommendations
+during summer conditions unless the weather is explicitly cold.
+
+Implementation:
+Candidate generation now removes warm top garments when:
+
+Season = Summer
+Weather != Cold
+
+Result:
+Sweaters no longer appear in best or alternative recommendations
+for typical summer conditions.
+
+---
+Date: 2026-06-09
+Decision: Category taxonomy now separates group, family and subtype.
+
+Reason:
+Category ids should not be the only source of product meaning.
+This prevents future category additions such as Chino, Loafer or Blazer
+from requiring hard-coded behavior.
+
+Current model:
+- group: UI / taxonomy grouping
+- family: broad garment family
+- subType: product-level subtype
+- traits: engine behavior

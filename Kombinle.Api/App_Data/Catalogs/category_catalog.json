@@ -168,5 +168,25 @@
     "subType": "Skirt",
     "slots": [ "Bottom" ],
     "traits": [ "Bottom" ]
+  },
+  {
+    "id": "Chino",
+    "displayNameTr": "Chino Pantolon",
+    "displayNameEn": "Chino Pants",
+    "group": "Bottom",
+    "family": "Pants",
+    "subType": "Chino",
+    "slots": [ "Bottom" ],
+    "traits": [ "Bottom", "SmartCasualAppropriate", "CasualAppropriate" ]
+  },
+  {
+    "id": "Loafer",
+    "displayNameTr": "Loafer Ayakkabı",
+    "displayNameEn": "Loafers",
+    "group": "Shoes",
+    "family": "Shoes",
+    "subType": "Loafer",
+    "slots": [ "Shoes" ],
+    "traits": [ "Shoes", "SmartCasualAppropriate", "BusinessAppropriate" ]
   }
 ]

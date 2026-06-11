@@ -127,6 +127,26 @@
       "category": "Polo",
       "colorFamily": "Navy",
       "formality": "Smart"
+    },
+    {
+      "category": "Chino",
+      "colorFamily": "Beige",
+      "formality": "Smart"
+    },
+    {
+      "category": "Chino",
+      "colorFamily": "Navy",
+      "formality": "Smart"
+    },
+    {
+      "category": "Loafer",
+      "colorFamily": "Brown",
+      "formality": "Smart"
+    },
+    {
+      "category": "Loafer",
+      "colorFamily": "Black",
+      "formality": "Smart"
     }
   ]
 }

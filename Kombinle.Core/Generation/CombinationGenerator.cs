@@ -17,7 +17,7 @@ namespace Kombinle.Core.Generation
         private readonly SupporterSelector _supporterSelector = new();
 
         // H2.3b Guardrails (MVP):
-        private const int MaxVariantsPerAnchor = 2; // 1 anchor -> max 2 variant
+        private const int MaxVariantsPerAnchor = 3; // 1 anchor -> max 2 variant
         private const int MaxAltsPerSlot = 1;       // slot bazında max 1 alternatif dene
 
         public List<CombinationCandidate> Generate(
@@ -88,6 +88,13 @@ namespace Kombinle.Core.Generation
                 {
                     Console.Error.WriteLine(
                         "TOP POOL: " + string.Join(",", tops.Select(x => x.CategoryId)));
+                }
+
+                if (pool.TryGetValue(Slot.Shoes, out var shoes))
+                {
+                    Console.Error.WriteLine(
+                        "SHOES POOL: " +
+                        string.Join(",", shoes.Select(x => x.CategoryId)));
                 }
 
                 // 1) Primary
@@ -246,7 +253,19 @@ namespace Kombinle.Core.Generation
 
                     int triedForSlot = 0;
 
-                    foreach (var alt in pool[slot])
+                    var alternatives = pool[slot]
+                        .Where(alt => !ReferenceEquals(alt, used))
+                        .Where(alt => !SameItem(alt, used))
+                        .OrderBy(alt =>
+                            string.Equals(
+                                alt.EffectiveCategoryId,
+                                used.EffectiveCategoryId,
+                                StringComparison.OrdinalIgnoreCase)
+                                ? 1
+                                : 0)
+                        .ToList();
+
+                    foreach (var alt in alternatives)
                     {
                         if (triedForSlot >= MaxAltsPerSlot) break;
 

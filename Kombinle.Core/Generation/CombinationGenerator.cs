@@ -119,12 +119,21 @@ namespace Kombinle.Core.Generation
 
                     int triedForSlot = 0;
 
-                    foreach (var alt in pool[slot])
+                    var alternatives = pool[slot]
+                        .Where(alt => !ReferenceEquals(alt, used))
+                        .Where(alt => !SameItem(alt, used))
+                        .OrderBy(alt =>
+                            string.Equals(
+                                alt.EffectiveCategoryId,
+                                used.EffectiveCategoryId,
+                                StringComparison.OrdinalIgnoreCase)
+                                ? 1
+                                : 0)
+                        .ToList();
+
+                    foreach (var alt in alternatives)
                     {
                         if (triedForSlot >= MaxAltsPerSlot) break;
-
-                        if (ReferenceEquals(alt, used)) continue;
-                        if (SameItem(alt, used)) continue;
 
                         var variant = CloneCandidate(primary);
                         variant.SlotToItem[slot] = alt;
@@ -136,9 +145,9 @@ namespace Kombinle.Core.Generation
 
                         variant.Strategy = $"Variant:{slot}";
                         variant.Reasons = new List<string>(primary.Reasons)
-                        {
-                            $"{slot} slotu değişti: {used.EffectiveCategoryId}/{used.ColorFamily} -> {alt.EffectiveCategoryId}/{alt.ColorFamily}"
-                        };
+    {
+        $"{slot} slotu değişti: {used.EffectiveCategoryId}/{used.ColorFamily} -> {alt.EffectiveCategoryId}/{alt.ColorFamily}"
+    };
 
                         variant.Signature = BuildSignature(variant);
 
@@ -146,11 +155,9 @@ namespace Kombinle.Core.Generation
                         {
                             results.Add(variant);
                             variantsAddedForThisAnchor++;
+                            triedForSlot++;
                         }
 
-                        triedForSlot++;
-
-                        //if (results.Count >= maxResults) return results;
                         if (variantsAddedForThisAnchor >= MaxVariantsPerAnchor) break;
                     }
                 }

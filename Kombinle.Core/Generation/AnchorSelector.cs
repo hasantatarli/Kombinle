@@ -39,6 +39,19 @@ namespace Kombinle.Core.Generation
                         return false;
                     }
 
+                    if (context.Season == Season.Summer &&
+                        context.Weather != Weather.Cold &&
+                        string.Equals(g.EffectiveCategoryId, "Hoodie", StringComparison.OrdinalIgnoreCase))
+                    {
+                        return false;
+                    }
+
+                    if (occasion.RequiredFormality == Formality.Casual &&
+                        CategorySemantics.IsStructuredLayer(g.EffectiveCategoryId))
+                    {
+                        return false;
+                    }
+
                     return
                          SlotRequirementMatcher.Matches(g, anchorReq);
                 })

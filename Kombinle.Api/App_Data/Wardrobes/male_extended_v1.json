@@ -34,13 +34,13 @@
     },
     {
       "id": "item_6",
-      "category": "Pants",
+      "category": "DressPants",
       "colorFamily": "Beige",
       "formality": "Smart"
     },
     {
       "id": "item_7",
-      "category": "Pants",
+      "category": "DressPants",
       "colorFamily": "Navy",
       "formality": "Smart"
     },
@@ -52,7 +52,7 @@
     },
     {
       "id": "item_9",
-      "category": "Pants",
+      "category": "DressPants",
       "colorFamily": "Grey",
       "formality": "Formal"
     },
@@ -112,7 +112,7 @@
     },
     {
       "id": "item_19",
-      "category": "Pants",
+      "category": "DressPants",
       "colorFamily": "Olive",
       "formality": "Smart"
     },
@@ -147,6 +147,26 @@
       "category": "Loafer",
       "colorFamily": "Black",
       "formality": "Smart"
+    },
+    {
+      "category": "LinenPants",
+      "colorFamily": "Beige",
+      "formality": "Smart"
+    },
+    {
+      "category": "LinenPants",
+      "colorFamily": "White",
+      "formality": "Smart"
+    },
+    {
+      "category": "CargoPants",
+      "colorFamily": "Olive",
+      "formality": "Casual"
+    },
+    {
+      "category": "CargoPants",
+      "colorFamily": "Black",
+      "formality": "Casual"
     }
   ]
 }

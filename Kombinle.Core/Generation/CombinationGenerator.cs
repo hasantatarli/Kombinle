@@ -17,8 +17,8 @@ namespace Kombinle.Core.Generation
         private readonly SupporterSelector _supporterSelector = new();
 
         // H2.3b Guardrails (MVP):
-        private const int MaxVariantsPerAnchor = 3; // 1 anchor -> max 2 variant
-        private const int MaxAltsPerSlot = 1;       // slot bazında max 1 alternatif dene
+        private const int MaxVariantsPerAnchor = 4; // 1 anchor -> max 2 variant
+        private const int MaxAltsPerSlot = 2;       // slot bazında max 1 alternatif dene
 
         public List<CombinationCandidate> Generate(
             List<Garment> wardrobe,
@@ -84,18 +84,26 @@ namespace Kombinle.Core.Generation
                 var anchor = anchorCandidate.Garment; // nullable
                 var pool = _supporterSelector.BuildPool(wardrobe, occasion, anchor);
 
-                if (pool.TryGetValue(Slot.Top, out var tops))
-                {
-                    Console.Error.WriteLine(
-                        "TOP POOL: " + string.Join(",", tops.Select(x => x.CategoryId)));
-                }
+                //if (pool.TryGetValue(Slot.Top, out var tops))
+                //{
+                //    Console.Error.WriteLine(
+                //        "TOP POOL: " + string.Join(",", tops.Select(x => x.CategoryId)));
+                //}
 
-                if (pool.TryGetValue(Slot.Shoes, out var shoes))
-                {
-                    Console.Error.WriteLine(
-                        "SHOES POOL: " +
-                        string.Join(",", shoes.Select(x => x.CategoryId)));
-                }
+                //if (pool.TryGetValue(Slot.Shoes, out var shoes))
+                //{
+                //    Console.Error.WriteLine(
+                //        "SHOES POOL: " +
+                //        string.Join(",", shoes.Select(x => x.CategoryId)));
+                //}
+
+                //if (pool.TryGetValue(Slot.Bottom, out var bottoms))
+                //{
+                //    Console.Error.WriteLine(
+                //        "BOTTOM POOL: " +
+                //        string.Join(",", bottoms.Select(x =>
+                //            $"{x.CategoryId}-{x.ColorFamily}-{x.Formality}")));
+                //}
 
                 // 1) Primary
                 var primary = BuildPrimary(anchor, occasion, pool, anchorLevel, context);
@@ -129,6 +137,8 @@ namespace Kombinle.Core.Generation
                     var alternatives = pool[slot]
                         .Where(alt => !ReferenceEquals(alt, used))
                         .Where(alt => !SameItem(alt, used))
+                        .GroupBy(alt => alt.EffectiveCategoryId, StringComparer.OrdinalIgnoreCase)
+                        .Select(g => g.First())
                         .OrderBy(alt =>
                             string.Equals(
                                 alt.EffectiveCategoryId,
@@ -376,7 +386,8 @@ namespace Kombinle.Core.Generation
             if (context?.Season == Season.Summer && context.Weather != Weather.Cold && pool.ContainsKey(Slot.Top))
             {
                 pool[Slot.Top] = pool[Slot.Top]
-                    .Where(g => !CategorySemantics.HasTrait(g.EffectiveCategoryId, SemanticTraits.Warm))
+                    .Where(g => !CategorySemantics.HasTrait(g.EffectiveCategoryId, SemanticTraits.Warm) &&
+                    !string.Equals(g.EffectiveCategoryId, "Hoodie", StringComparison.OrdinalIgnoreCase))
                     .ToList();
             }
 
@@ -589,22 +600,6 @@ namespace Kombinle.Core.Generation
             return list[0];
         }
 
-        private static bool IsOuterwearAllowedForContext(
-            Garment garment,
-            ContextInput context)
-        {
-            if (!CategorySemantics.IsProtectionLayer(garment.CategoryId))
-                return true;
-
-            if (context.Season == Season.Summer)
-            {
-                return !CategorySemantics.HasTrait(
-                    garment.CategoryId,
-                    SemanticTraits.Heavy);
-            }
-
-            return true;
-        }
     }
 
 }

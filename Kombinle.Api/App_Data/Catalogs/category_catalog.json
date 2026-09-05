@@ -188,5 +188,35 @@
     "subType": "Loafer",
     "slots": [ "Shoes" ],
     "traits": [ "Shoes", "SmartCasualAppropriate", "BusinessAppropriate" ]
+  },
+  {
+    "id": "LinenPants",
+    "displayNameTr": "Keten Pantolon",
+    "displayNameEn": "Linen Pants",
+    "group": "Bottom",
+    "family": "Pants",
+    "subType": "LinenPants",
+    "slots": [ "Bottom" ],
+    "traits": [ "Bottom", "CasualAppropriate", "SmartCasualAppropriate", "Light" ]
+  },
+  {
+    "id": "CargoPants",
+    "displayNameTr": "Kargo Pantolon",
+    "displayNameEn": "Cargo Pants",
+    "group": "Bottom",
+    "family": "Pants",
+    "subType": "CargoPants",
+    "slots": [ "Bottom" ],
+    "traits": [ "Bottom", "CasualAppropriate", "Casual" ]
+  },
+  {
+    "id": "DressPants",
+    "displayNameTr": "Kumaş Pantolon",
+    "displayNameEn": "Dress Pants",
+    "group": "Bottom",
+    "family": "Pants",
+    "subType": "DressPants",
+    "slots": [ "Bottom" ],
+    "traits": [ "Bottom", "BusinessAppropriate", "Formal" ]
   }
 ]
